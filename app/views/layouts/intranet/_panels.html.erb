@@ -1,0 +1,160 @@
+<div class="row">
+  <div class="col-md-7">
+    <%= render 'layouts/intranet/informativos' %>     
+  </div>
+  
+  <div class="col-md-5">
+    <%= render 'layouts/intranet/agendas' %>     
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-12">
+    
+  </div>
+  <div class="col-md-4">
+    <div class="panel chat panel-danger">
+      <div class="panel-heading">
+        <svg class="glyph stroked sound on"><use xlink:href="#stroked-sound-on"/></svg> Incidentes Acontecendo (<%= @inci_acontecendo.count %>)
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              
+            </tr>
+          </thead>
+          <% cont_inci = 1 %>
+          <tbody>
+            <% @inci_acontecendo.each do |incidente| %>
+              <tr>
+                <td><%= detalhes2(incidente.tipo_incidente, :descricao) %></td>
+                <td>
+                  <button type="button" class="btn btn-default btn-small pull-right" data-toggle="modal" data-target="#myModalinci<%= cont_inci %>">
+                    <%= link_icone('detalhes') %>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Modal -->
+                <div class="modal fade" id="myModalinci<%= cont_inci %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><%= incidente.tipo_incidente.descricao %></h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= simple_format(incidente.descricao) %>
+                        <%= simple_format(incidente.data_inicio) %>
+                        <%= simple_format(incidente.status) %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- Fim Modal -->
+
+              <% cont_inci = cont_inci + 1 %>  
+            <% end %>
+          </tbody>
+        </table>  
+      </div>
+    </div>
+  </div>
+    
+  <div class="col-md-4">
+    <div class="panel chat panel-success">
+      <div class="panel-heading">
+        <svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Últimos Projetos (<%= @projetos.count %>)
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              
+            </tr>
+          </thead>
+          <% cont_proj = 1 %>
+          <tbody>
+            <% @projetos.each do |projeto| %>
+              <tr>
+                <td><%= projeto.nome.upcase %></td>
+                <td>
+                  <button type="button" class="btn btn-default btn-small pull-right" data-toggle="modal" data-target="#myModalproj<%= cont_proj %>">
+                    <%= link_icone('detalhes') %>
+                  </button>                
+                </td>
+              </tr>
+
+              <!-- Modal -->
+                <div class="modal fade" id="myModalproj<%= cont_proj %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><%= projeto.nome %></h4>
+                      </div>
+                      <div class="modal-body">
+                        <strong>Resumo</strong><br/>
+                        <%= simple_format(projeto.resumo) %>
+                        <strong>Por:</strong> <%= projeto.user.name %> em <%= projeto.created_at.strftime("%d/%m/%Y %H:%M") %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- Fim Modal -->
+
+              <% cont_proj = cont_proj + 1 %>
+            <% end %>
+          </tbody>
+        </table>  
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel chat panel-primary">
+      <div class="panel-heading">
+        Aniversariantes da Semana
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <% @nesta_semana.each do |u| %>
+              <tr>
+                <td><%= u.nascimento.day %>/<%= u.nascimento.month %></td>
+                <td><%= u.name.split.first %></td>
+                <td><%= u.departamento.sigla %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>  
+      </div>
+    </div>
+  </div>
+  
+</div><!-- /.row -->
+
+
+
+<div class="row">
+  <div class="col-md-5">
+    <%= render 'layouts/intranet/visitantes' %>     
+  </div>
+  
+  <section class="col-lg-7 connectedSortable">
+    <%= render 'layouts/intranet/mural' %>     
+  </section>
+</div>

@@ -1,0 +1,41 @@
+<% content_for :titulo do %>
+  Detalhes dos Equipamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  
+  Lista de Detalhes de Equipamentos
+  <%= link_to link_icone('novo'), new_detalhes_equipamento_path, :class=> 'btn btn-success', :title=>"Novo Detalhe de Equipamento" %>
+  
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Modelo</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @detalhes_equipamentos.each do |detalhes_equipamento| %>
+      <tr>
+        <td><%= detalhes2(detalhes_equipamento.tipo_equipamento, :tipo) %></td>
+        <td><%= detalhes_equipamento.modelo %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    detalhes_equipamento_path(detalhes_equipamento), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_detalhes_equipamento_path(detalhes_equipamento), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, detalhes_equipamento %>
+            <%= link_to link_icone('apagar'), detalhes_equipamento_path(detalhes_equipamento), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

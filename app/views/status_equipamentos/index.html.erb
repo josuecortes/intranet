@@ -1,0 +1,38 @@
+<% content_for :titulo do %>
+  Status Equipamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Status dos Equipamentos
+  <%= link_to link_icone('novo'), new_status_equipamento_path, :class=> 'btn btn-success', :title=>"Novo Status Equipamento" %>
+
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @status_equipamentos.each do |status_equipamento| %>
+      <tr>
+        <td><%= status_equipamento.status %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    status_equipamento_path(status_equipamento), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_status_equipamento_path(status_equipamento), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, status_equipamento %>
+            <%= link_to link_icone('apagar'), status_equipamento_path(status_equipamento), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

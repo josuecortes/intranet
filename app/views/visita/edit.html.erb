@@ -1,0 +1,43 @@
+<% content_for :titulo do %>
+  Visitantes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Saida
+<% end %>
+
+<h4>
+	<strong>VISITANTE </strong><%= @visitante.nome %><br/>
+	<strong>DEPARTAMENTO VISITADO </strong><%= detalhes2(@visitum.departamento, :nome) %><br/>
+	<strong>ENTRADA </strong><%= @visitum.entrada.strftime("%d/%m/%Y %H:%M") %>
+</h4>
+<br/>
+
+<%= simple_form_for([@visitante, @visitum]) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	
+  	<div class="row">
+  		<div class="col-md-6">
+  			<%= f.input :observacoes %>
+  		</div>
+  		<div class="col-md-6">
+  			
+  		</div>
+  	</div>
+        
+  </div>
+
+  <%= f.input :status, as: :hidden, :input_html=>{:value=>"CONCLUIDA"} %>
+  <%= f.input :saida, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+    
+ <br/>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', visitantes_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

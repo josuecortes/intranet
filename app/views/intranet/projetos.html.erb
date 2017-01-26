@@ -1,0 +1,28 @@
+<% content_for :titulo do %>
+  IS | Projetos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  IS | Lista de Projetos
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projetos.each do |p| %>
+      <tr>
+        <td><%= detalhes(p.nome) %></td>
+        <td><%= p.status %></td>
+        <td><%= link_to link_icone('detalhes'),
+                    intranet_projeto_show_path(:projeto_id=>p.id), :class => 'btn btn-default', :title=>"Detalhes" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

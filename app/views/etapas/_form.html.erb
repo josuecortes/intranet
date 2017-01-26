@@ -1,0 +1,86 @@
+<%= simple_form_for([@projeto, @etapa]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    
+    <%= f.input :nome %>
+    
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :data_inicio, :as=>:string, required: true, :input_html=>{:class=>'data'} %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :data_final, :as=>:string, required: true, :input_html=>{:class=>'data'} %>
+      </div>
+      <div class="col-md-4">
+        <% @status = ['PLANEJAMENTO','ELABORAÇÃO','EXECUÇÃO', 'FINALIZADA'] %>
+
+        <%= f.input :status, :label=>"Selecione o Status da Etapa", :collection=>@status %>    
+      </div>  
+    </div>
+    
+    <hr/>
+    <br/>
+
+    <div class="row">
+      
+      <div class="col-md-6">
+
+        <h4>Adicionar Participantes</h4>
+        <br/>
+
+        <table id="tabela" class="display" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>Usuários</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% for u in User.all %>
+            <tr>
+            <td>
+              <%= check_box_tag "etapa[user_ids][]", u.id, @etapa.users.include?(u) %>
+              <%= u.name %>
+            </td>
+            </tr>
+            <% end %>
+
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="col-md-6">
+        
+        <h4>Participantes (<%= @etapa.users.count %>)</h4>  
+        <br/>
+        
+        <table class="table table-responsive">      
+          <thead>
+            <th>Nome</th>
+            <th>Departamento</th>
+          </thead>
+          <tbody>
+            <% @etapa.users.each do |u| %>
+              <tr>
+                <td><%= u.name %> </td> <td>&nbsp;<%= detalhes2(u.departamento, :sigla) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        
+      </div>
+
+    </div>
+   
+
+  </div>
+
+  <br/>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', projeto_etapas_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

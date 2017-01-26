@@ -1,0 +1,87 @@
+<% content_for :titulo do %>
+  Projetos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Projeto
+<% end %>
+
+<p>
+  <strong>Departamento:</strong>
+  <%= detalhes2(@projeto.departamento, :sigla) %>
+</p>
+
+<p>
+  <strong>Atividade:</strong>
+  <%= @projeto.nome %>
+</p>
+
+<p>
+  <strong>Local:</strong>
+  <%= @projeto.local %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @projeto.status %>
+</p>
+
+<p>
+  <strong>Justificativa:</strong>
+  <%= simple_format(@projeto.resumo) %>
+</p>
+
+<p>
+  <strong>Data Inicial:</strong>
+  <%= @projeto.data_inicial.strftime("%d/%m/%Y") %>
+</p>
+
+<p>
+  <strong>Data Final:</strong>
+  <%= @projeto.data_final.strftime("%d/%m/%Y") %>
+</p>
+
+<p>
+  <strong>Metodo:</strong>
+  <%= @projeto.metodo %>
+</p>
+
+<p>
+  <strong>Custo:</strong>
+  <%= detalhes(@projeto.custo) %>
+</p>
+
+
+<p>
+  <strong>Publicado:</strong>
+  <%= simnao(@projeto.publicado) %>
+</p>
+
+<p>
+  <strong>Por:</strong>
+  <%= detalhes2(@projeto.user, :name) %> em <%= @projeto.created_at.strftime("%d/%m/%Y %H:%M") %>
+</p>
+
+<hr/>
+
+<h4>Responsáveis (<%= @projeto.users.count %>)</h4>
+<table class="table table-responsive">      
+  <thead>
+    <th>Nome</th>
+    <th>Departamento</th>
+  </thead>
+  <tbody>
+    <% @projeto.users.each do |u| %>
+      <tr>
+        <td><%= u.name %> </td> <td>&nbsp;<%= detalhes2(u.departamento, :sigla) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+
+<%= link_to link_icone('voltar'), projetos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_projeto_path(@projeto), :class=>"btn btn-primary", :title=>"Editar" %>
+<%= link_to link_icone('participantes'), projeto_participantes_path(@projeto), :class=> 'btn btn-success', :title=>"Participantes" %>
+<%= link_to link_icone('novo'), new_projeto_path, :class=> 'btn btn-success', :title=>"Novo" %>

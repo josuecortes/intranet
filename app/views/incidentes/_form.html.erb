@@ -1,0 +1,56 @@
+<%= simple_form_for(@incidente) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <div class="pull-right">
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+        Lista
+      </button>
+    </div>
+
+    <%= f.input :tipo_incidente_descricao, :label=>'Selecione o Tipo de Incidente', :url => autocomplete_tipo_incidente_descricao_incidentes_path, :as => :autocomplete, :id_element => "#tipo_incidente_id" ,:input_html=>{:value=>(@incidente.tipo_incidente.descricao if @incidente.tipo_incidente)}%>
+
+    <%= f.input :tipo_incidente_id, :as => :hidden, :input_html => { :id => "tipo_incidente_id"} %>
+    
+    <%= f.input :descricao %>
+
+    <%= f.input :data_inicio, :label=>"Quando Iniciou (dd/mm/aaaa hh:mm)", :input_html=>{:class=>'inci_data_ini'} %>
+    <%= f.input :previsao_fim, :label=>"Previsão de Termino (dd/mm/aaaa hh:mm)", :input_html=>{:class=>'inci_data_prev'} %>
+    <%= f.input :data_fim, :label=>"Quando Terminou (dd/mm/aaaa hh:mm)", :input_html=>{:class=>'inci_data_fim'} %>
+    
+    <% @lista_status = ['ACONTECENDO', 'FINALIZADO'] %>
+    <%= f.input :status, collection: @lista_status, as: :select, :include_blank => true %>
+    <%= f.input :observacoes %>
+    
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', incidentes_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tipos de Incidentes Cadastrados</h4>
+      </div>
+      <div class="modal-body">
+        <ol>
+          <% @tipo_incidentes_cadastrados.each do |p| %>
+            <li><%= p.descricao %></li>
+          <% end %>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<%= simple_form_for(@informativo) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <% @tipos = ['NOTÍCIA','DECRETO','OFÍCIO'] %>
+
+    <%= f.input :tipo, :label=>"Selecione o Tipo de Informação", :collection=>@tipos %>    
+    <%= f.input :titulo %>
+    <%= f.input :informacoes, :label=>"Informação", as: :text, :input_html=>{:rows => 10} %>
+    <br/>
+    <%= f.input :publicado %>
+    <br/>
+    <%= f.input :user_id, :as=>:hidden, :input_html=>{:value=>current_user.id}%>
+  </div>
+
+  <br/>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', informativos_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

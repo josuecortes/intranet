@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Departamento:</strong>
+  <%= @visitum.departamento_id %>
+</p>
+
+<p>
+  <strong>Visitante:</strong>
+  <%= @visitum.visitante_id %>
+</p>
+
+<p>
+  <strong>Entrada:</strong>
+  <%= @visitum.entrada %>
+</p>
+
+<p>
+  <strong>Saida:</strong>
+  <%= @visitum.saida %>
+</p>
+
+<p>
+  <strong>Observacoes:</strong>
+  <%= @visitum.observacoes %>
+</p>
+
+<%= link_to 'Edit', edit_visitum_path(@visitum) %> |
+<%= link_to 'Back', visita_path %>

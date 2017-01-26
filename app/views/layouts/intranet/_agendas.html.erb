@@ -1,0 +1,78 @@
+<!-- TABLE: LATEST ORDERS -->
+<div class="box box-warning">
+  <div class="box-header with-border">
+    <h3 class="box-title"><i class="fa fa-calendar"></i> Agenda</h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table no-margin">
+        <thead>
+        
+        </thead>
+        <tbody>
+          <% if @agendas.any? %>
+            <% cont_a = 1 %>
+            <% @agendas.each do |i| %>  
+              
+              <tr>
+                <td><%= i.titulo.upcase %></td>
+                <td><span class="label label-default"><%= i.data_hora.strftime("%d/%m/%Y %H:%M") %></span></td>
+                <td>
+                  <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-sm btn-primary btn-flat pull-left" data-toggle="modal" data-target="#myModala<%= cont_a %>">
+                      Leia +
+                    </button>
+                  <!-- Fim Button trigger modal -->
+
+                  <!-- Modal -->
+                    <div class="modal fade" id="myModala<%= cont_a %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><span class="label label-info"><%= i.titulo %></span></h4>
+                            <h5><span class="label label-warning"><i>Por</i> <%= (i.user.name.split(" ").first).capitalize %> <i>em</i> <%= i.created_at.strftime("%d/%m/%Y %H:%M") %></span></h5>
+
+                          </div>
+                          <div class="modal-body">
+                            <%= simple_format(i.informacoes) %>
+                            <br/>
+                            <strong>Horario:</strong> <span class="label label-danger"><%= i.data_hora.strftime("%d/%m/%Y %H:%M") %></span>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- Fim Modal -->
+
+                </td>
+              </tr>
+            <% cont_a = cont_a + 1 %>  
+            <% end %>  
+          <% end %>  
+        </tbody>
+      
+      </table>
+    </div>
+    <!-- /.table-responsive -->
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer clearfix">
+    <% if !current_user %>  
+      <a href="/users/sign_in" class="btn btn-sm btn-default btn-flat pull-right">Ver Todos</a>
+    <% else %>
+      <a href="/intranet/agendas" class="btn btn-sm btn-default btn-flat pull-right">Ver Todos</a>
+    <% end %>
+  </div>
+  <!-- /.box-footer -->
+</div>
+<!-- /.box -->

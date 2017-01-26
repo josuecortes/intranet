@@ -1,0 +1,194 @@
+<% content_for :titulo do %>
+  Estatísticas
+<% end %>
+
+<% content_for :sub_titulo do %>
+	Estatísticas
+  
+<% end %>
+
+<%= form_tag("/estatisticas/index", method: "get") do %>
+ 	<strong>De:</strong>
+  <%= select_tag(:mini, options_for_select(@meses), include_blank: true) %>
+  <strong>/</strong>
+  <%= select_tag(:aini, options_for_select(2015.upto(DateTime.now.year)), include_blank: true) %>
+  &nbsp;&nbsp;
+  <strong>a</strong>
+  &nbsp;&nbsp;
+  <%= select_tag(:mfim, options_for_select(@meses), include_blank: true) %>
+  <strong>/</strong>
+  <%= select_tag(:afim, options_for_select(2015.upto(DateTime.now.year)), include_blank: true) %>
+
+
+  <%= submit_tag("Pesquisar") %>
+<% end %>
+
+<br/><br/>
+<h3><strong>Total de Chamados: <%= @chamados.count %> </strong></h3>
+<h4><strong>Período pesquisado: <%= @ini.strftime("%d/%m/%Y")  %> a <%= @fim.strftime("%d/%m/%Y") %></strong></h4>
+
+<br/>
+<hr/>
+
+<h4><strong> RELATÓRIO DE ATENDIMENTOS POR TÉCNICO </strong></h4>
+<br/>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th>TECNICO</th>
+			<th>TOTAL</th>
+			<th>PERCENTUAL</th>
+			<th>RUIM</th>
+			<th>NORMAL</th>
+			<th>BOM</th>
+			<th>OTIMO</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tecnicos.each do |t| %>
+			<% if t.atendimentos.no_periodo(@ini, @fim).count > 0 %>
+				<tr>
+					<td><%= t.name %></td>
+					<td><%= t.atendimentos.no_periodo(@ini, @fim).count %></td>
+					<td><%= ((t.atendimentos.no_periodo(@ini, @fim).count)*100)/@chamados.count %>%</td>
+					
+					<% ctf = 0 %>
+					<% ctr = 0 %>
+					<% ctn = 0 %>
+					<% ctb = 0 %>
+					<% cto = 0 %>
+
+					<% t.atendimentos.no_periodo(@ini, @fim).each do |c| %>
+						<% if c.status == "FECHADO" %>
+							<% ctf = ctf + 1 %>
+							<% if c.nivel_satisfacao_usuario == 1 %>
+								<% ctr = ctr + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 2 %>
+								<% ctn = ctn + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 3 %>
+								<% ctb = ctb + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 4 %>
+								<% cto = cto + 1 %>
+							<% end %>
+						<% end %>
+					<% end %>
+
+					<% if ctf > 0 %>
+						<td><%= (ctr * 100)/ctf %>%</td>
+						<td><%= (ctn * 100)/ctf %>%</td>
+						<td><%= (ctb * 100)/ctf %>%</td>
+						<td><%= (cto * 100)/ctf %>%</td>
+					<% else %>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					<% end %>
+
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<br/>
+<hr/>
+
+<h4><strong> RELATÓRIO DE ABERTURA POR USUÁRIO </strong></h4>
+<br/>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th>REQUISITANTE</th>
+			<th>DEPARTAMENTO</th>
+			<th>TOTAL</th>
+			<th>PERCENTUAL</th>
+			<th>RUIM</th>
+			<th>NORMAL</th>
+			<th>BOM</th>
+			<th>OTIMO</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @normais.each do |t| %>
+			<% if t.chamados.no_periodo(@ini, @fim).count > 0 %>
+				<tr>
+					<td><%= t.name %></td>
+					<td><%= t.departamento.sigla %></td>
+					<td><%= t.chamados.count %></td>
+					<td><%= ((t.chamados.no_periodo(@ini, @fim).count)*100)/@chamados.count %>%</td>
+
+					<% ctf = 0 %>
+					<% ctr = 0 %>
+					<% ctn = 0 %>
+					<% ctb = 0 %>
+					<% cto = 0 %>
+
+					<% t.chamados.no_periodo(@ini, @fim).each do |c| %>
+						<% if c.status == "FECHADO" %>
+							<% ctf = ctf + 1 %>
+							<% if c.nivel_satisfacao_usuario == 1 %>
+								<% ctr = ctr + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 2 %>
+								<% ctn = ctn + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 3 %>
+								<% ctb = ctb + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 4 %>
+								<% cto = cto + 1 %>
+							<% end %>
+						<% end %>
+					<% end %>
+
+					<% if ctf > 0 %>
+						<td><%= (ctr * 100)/ctf %>%</td>
+						<td><%= (ctn * 100)/ctf %>%</td>
+						<td><%= (ctb * 100)/ctf %>%</td>
+						<td><%= (cto * 100)/ctf %>%</td>
+					<% else %>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					<% end %>	
+
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<br/>
+<hr/>
+
+<h4><strong> RELATÓRIO DE ABERTURA POR DEPARTAMENTO </strong></h4>
+<br/>
+
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th>DEPARTAMENTO</th>
+			<th>TOTAL</th>
+			<th>PERCENTUAL</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @departamentos.each do |d| %>
+			<% if d.chamados.no_periodo(@ini, @fim).count > 0 %>
+				<tr>
+					<td><%= d.sigla %></td>
+					<td><%= d.chamados.no_periodo(@ini, @fim).count %></td>
+					<td><%= (d.chamados.no_periodo(@ini, @fim).count*100)/@chamados.count %>%</td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

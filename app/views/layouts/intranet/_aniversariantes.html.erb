@@ -1,0 +1,31 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><i class="fa fa-birthday-cake"></i> Aniversáriantes</h3>
+
+    <div class="box-tools pull-right">
+      <span class="label label-primary"><%= @nesta_semana.count %></span>
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body no-padding">
+    <ul class="users-list clearfix">
+
+      <% @nesta_semana.each do |u| %>
+        <li>
+          <img src="<%= u.avatar.url(:info) %>" alt="Imagem">
+          <a class="users-list-name" href="#"><%= (u.name.split(" ").first).capitalize %></a>
+          <span class="users-list-date"><%= u.departamento.sigla %></span>
+          <span class="users-list-date"><%= u.nascimento.strftime("%d/%m") %></span>
+        </li>      
+      <% end %>
+
+      
+    </ul>
+    <!-- /.users-list -->
+  </div>
+  <!-- /.box-body -->
+</div>

@@ -1,0 +1,53 @@
+<% content_for :titulo do %>
+  Chamados
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success', :title=>"Novo Chamado" %>
+  Lista de Chamados ou Solicitações
+
+<% end %>
+
+<% @usuario_logado = current_user %>
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+
+    <li role="presentation" class="active"><a href="/chamados" aria-controls="ABERTOS" role="tab" data-toggle="tab">ABERTOS(<%= @abertos.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/chamados/em_atendimento">EM ATENDIMENTO(<%= @atendimentos.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/chamados/concluidos">CONCLUIDOS(<%= @concluidos.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/chamados/cancelados">CANCELADOS(<%= @cancelados.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/chamados/fechados">FECHADOS(<%= @fechados.count %>)</a></li>
+    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="ABERTOS">
+      
+      <br/>
+      
+      <table id="tabela" class="display" cellspacing="0" width="100%">
+        <thead>
+          <%= render partial: "chamados/header_tabela" %>
+        </thead>
+
+        <% @ordem = 1 %>
+        <tbody>
+          <% @abertos.each do |chamado| %>
+            <%= render partial: "chamados/tabela", object: chamado, as: 'chamado' %>
+            <% @ordem = @ordem + 1 %>
+          <% end %>
+        </tbody>
+      </table>
+
+     
+    </div>
+  </div>  
+</div>    

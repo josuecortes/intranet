@@ -1,0 +1,30 @@
+<div class="box box-warning">
+  <div class="box-header with-border">
+    <h3 class="box-title"><i class="fa fa-users"></i> Visitantes</h3>
+
+    <div class="box-tools pull-right">
+      <span class="label label-warning"><%= @visitas.count %></span>
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body no-padding">	
+    <ul class="users-list clearfix">
+
+      <% @visitas.each do |v| %>
+        <li>
+          <!-- <img src="" alt="Imagem"> -->
+          <a class="users-list-name" href="#" title="<%= detalhes2(v.visitante,:nome) %>"><%= detalhes2(v.visitante,:nome) %></a>
+          <span class="users-list-date"><%= detalhes2(v.departamento, :sigla) %> <%= detalhes(v.created_at.strftime("%d/%m/%Y %H:%M")) %></span>
+        </li>      
+      <% end %>
+
+      
+    </ul>
+    <!-- /.users-list -->
+  </div>
+  <!-- /.box-body -->
+  </div>

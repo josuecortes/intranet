@@ -1,0 +1,66 @@
+<% content_for :titulo do %>
+  Usuários
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Novo Usuário
+<% end %>
+
+<%= simple_form_for @usuario, :url=>usuarios_path, :html => { :multipart => true } do |f| %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :avatar, as: :file, :label=>"Selecionar Avatar - (100x100)", :class => 'btn-primary' %>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :name, :label=>"Nome" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :nascimento, :as=>:string, :label=>"Data de Nascimento", required: true, :input_html=>{:class=>'data', :value=>(@usuario.nascimento.strftime("%d/%m/%Y") if @usuario.nascimento != nil)} %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :cpf, :label=>"CPF", :input_html=>{:class=>'cpf'} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :email, :input_html => {:class=>"input-xxlarge", :required=>true} %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :departamento_nome, :label=>'Selecione o Departamento', :url => autocomplete_departamento_nome_usuarios_path, :as => :autocomplete, :id_element => "#departamento_id" ,:input_html=>{:value=>(@usuario.departamento.sigla if @usuario.departamento)}%>
+
+      <%= f.input :departamento_id, :as => :hidden, :input_html => { :id => "departamento_id"} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <% if can? :manage, Role %>
+        <%= f.input :role_ids, :label=>"Permissões", :collection=>Role.accessible_by(current_ability).order('nome ASC').collect {|d| [d.nome, d.id]}, as: :check_boxes %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <p class="text-danger">Atenção: A senha gerada sera: "12345678"</p>
+      <p class="text-info">Apos o primeiro login o usuario sera redirecionado e solicitado a mudar sua senha. </p>
+    </div>
+  </div>
+
+  <%= 
+    #f.association :escola, collection: Escola.order([:nome]), :label=>"Escola", label_method: :nome, value_method: :id, include_blank: true 
+  %>
+
+  <%= f.input :password, :as => :hidden, :input_html => {value: "12345678"} %>
+  <%= f.input :password_confirmation, :as => :hidden, :input_html => {value: "12345678"} %>
+
+  <div class="form-actions" align="center">
+    <%= f.button :submit, 'Criar Usuário', :class => 'btn btn-primary' %>
+    <%= link_to 'Voltar', usuarios_path, :class=>'btn btn-default' %>
+  </div>
+
+<% end %>

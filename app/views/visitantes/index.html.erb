@@ -1,0 +1,49 @@
+<% content_for :titulo do %>
+  Visitantes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Visitantes
+  <%= link_to link_icone('novo'), new_visitante_path, :class=> 'btn btn-success', :title=>"Novo" %>
+
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Rg</th>
+      <th>Cpf</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+     <% @visitantes.each do |visitante| %>
+      <tr>
+        <td><%= visitante.nome %></td>
+        <td><%= detalhes(visitante.rg) %></td>
+        <td><%= detalhes(visitante.cpf) %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    visitante_path(visitante), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_visitante_path(visitante), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, visitante %>
+            <%= link_to link_icone('apagar'), visitante_path(visitante), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+          <% if visitante.pode_dar_entrada %>
+            <%= link_to link_icone('entrada'),
+                    new_visitante_visitum_path(visitante), :class => 'btn btn-success', :title=>"Entrada" %>
+          <% else %>          
+            <%= link_to link_icone('saida'),
+                    edit_visitante_visitum_path(visitante, visitante.visitas.em_visita.last), :class => 'btn btn-danger', :title=>"Saida" %>
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

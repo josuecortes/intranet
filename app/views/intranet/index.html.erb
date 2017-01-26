@@ -1,0 +1,42 @@
+<% content_for :titulo_intra do %>
+	<section class="content-header">
+	  <h1>
+	    Intranet Seed
+	    <small>Seja bem-vindo</small>
+	  </h1>
+	  <ol class="breadcrumb">
+	    <li><a href="#"><i class="fa fa-dashboard"></i> Início</a></li>
+	    <li class="active">Area de Trabalho</li>
+	  </ol>
+	</section>
+<% end %>
+
+<% content_for :corpo_intra do %>
+	
+	<section class="content">
+    <!-- Info boxes -->
+    <%= render 'layouts/intranet/infobox' %>
+        
+    <div class="row">
+      
+      <div class="col-md-8">
+      	<%= render 'layouts/messages' %>
+			  <%= render 'layouts/intranet/informativos' %>
+			  <%= render 'layouts/intranet/mural' %>
+			</div>
+
+			<div class="col-md-4">
+			  <%= render 'layouts/intranet/agendas' %>
+			  <%= render 'layouts/intranet/projetos' %>
+			  <%= render 'layouts/intranet/incidentes' %>
+			  <%= render 'layouts/intranet/visitantes' %>
+			  <%= render 'layouts/intranet/aniversariantes' %>
+			</div>
+
+    </div>
+
+          
+  </section>
+  <!-- /.content -->
+
+<% end %>

@@ -1,0 +1,25 @@
+<%= simple_form_for(@visitante) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<div class="row">
+  		<div class="col-md-3">
+  			<%= f.input :rg, :input_html=>{:class=>'rg'} %>
+  		</div>
+  		<div class="col-md-3">
+  			<%= f.input :cpf, :input_html=>{:class=>'cpf'} %>
+  		</div>
+  		<div class="col-md-6">
+  			<%= f.input :nome %>
+  		</div>
+  	</div>
+        
+  </div>
+
+ <br/>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', visitantes_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

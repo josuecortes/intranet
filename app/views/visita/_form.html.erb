@@ -1,0 +1,37 @@
+<%= form_for(@visitum) do |f| %>
+  <% if @visitum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@visitum.errors.count, "error") %> prohibited this visitum from being saved:</h2>
+
+      <ul>
+      <% @visitum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :departamento_id %><br>
+    <%= f.number_field :departamento_id %>
+  </div>
+  <div class="field">
+    <%= f.label :visitante_id %><br>
+    <%= f.number_field :visitante_id %>
+  </div>
+  <div class="field">
+    <%= f.label :entrada %><br>
+    <%= f.datetime_select :entrada %>
+  </div>
+  <div class="field">
+    <%= f.label :saida %><br>
+    <%= f.datetime_select :saida %>
+  </div>
+  <div class="field">
+    <%= f.label :observacoes %><br>
+    <%= f.text_area :observacoes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

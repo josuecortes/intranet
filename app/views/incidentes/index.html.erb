@@ -1,0 +1,44 @@
+<% content_for :titulo do %>
+  incidentes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Incidentes
+  <% if can? :create, Incidente %>
+    <%= link_to link_icone('novo'), new_incidente_path, :class=> 'btn btn-success', :title=>"Novo Incidente" %>
+  <% end %>
+      
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Tipo de Problema</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @incidentes.each do |incidente| %>
+      <tr>
+        <td><%= detalhes2(incidente.tipo_incidente, :descricao) %></td>
+        <td><%= icone_incidente(incidente.status) %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    incidente_path(incidente), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <% if can? :update, Incidente %>
+            <%= link_to link_icone('editar'),
+                    edit_incidente_path(incidente), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% end %>
+          <% if can? :delete, incidente %>
+            <%= link_to link_icone('apagar'), incidente_path(incidente), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

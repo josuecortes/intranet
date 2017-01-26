@@ -1,0 +1,28 @@
+<% content_for :titulo do %>
+  IS | Incidentes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  IS | Lista de Incidentes
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @incidentes.each do |i| %>
+      <tr>
+        <td><%= detalhes2(i.tipo_incidente, :descricao) %></td>
+        <td><%= icone_incidente(i.status) %></td>
+        <td><%= link_to link_icone('detalhes'),
+                    intranet_incidente_show_path(:incidente_id=>i.id), :class => 'btn btn-default', :title=>"Detalhes" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,27 @@
+<%= simple_form_for(@departamento) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :nome %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :sigla %>  
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :email %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :telefone, :input_html=>{:class=>'telefone_normal'} %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions" align="center">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', departamentos_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

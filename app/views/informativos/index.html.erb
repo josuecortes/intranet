@@ -1,0 +1,51 @@
+<% content_for :titulo do %>
+  Informativos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Informações 
+  <%= link_to link_icone('nova'), new_informativo_path, :class=> 'btn btn-success', :title=>"Novo" %>
+  
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Ordem</th>
+      <th>Data</th>
+      <th>Tipo</th>
+      <th>Titulo</th>
+      <th>Publicado</th>
+      <th>Arquivos</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cont = 1 %>
+    <% @informativos.each do |informativo| %>
+      <tr>
+        <td><%= @cont %><% @cont = @cont + 1 %></td>
+        <td><%= detalhes(informativo.created_at.strftime("%d/%m/%Y")) %></td>
+        <td><%= informativo.tipo %></td>
+        <td><%= informativo.titulo %></td>
+        <td><%= simnao(informativo.publicado) %></td>
+        <td><%= informativo.arquivos.count %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    informativo_path(informativo), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_informativo_path(informativo), :class => 'btn btn-primary', :title=>"Editar" %>
+          <%= link_to link_icone('arquivos'),
+                    informativo_arquivos_path(informativo), :class => 'btn btn-success', :title=>"Arquivos" %>
+          <% if can? :delete, informativo %>
+            <%= link_to link_icone('apagar'), informativo_path(informativo), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

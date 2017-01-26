@@ -1,0 +1,29 @@
+<% content_for :titulo do %>
+  IS | Departamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  IS | Lista de Departamentos
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Sigla</th>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Telefone</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @departamentos.each do |d| %>
+      <tr>
+        <td><%= detalhes(d.sigla) %></td>
+        <td><%= detalhes(d.nome) %></td>
+        <td><%= detalhes(d.email).downcase %></td>
+        <td><%= detalhes(d.telefone) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

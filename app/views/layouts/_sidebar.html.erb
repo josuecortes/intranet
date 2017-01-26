@@ -1,0 +1,177 @@
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <a href="/users/edit" class="pull-left image">
+          <img src="<%= current_user.avatar.url(:thumb) %>" class="img-circle" alt="User Image">
+        </a>
+        <div class="pull-left info">
+          <p><%= (current_user.name.split(" ").first).capitalize %></p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      
+      <ul class="sidebar-menu">
+        <li class="header">MENU PRINCIPAL</li>
+        <li class="treeview">
+          <a href="/intranet/index">
+            <i class="fa fa-dashboard"></i> <span>Início</span>
+          </a>
+        </li>
+
+        <li class="treeview">
+          <a href="/intranet/informativos">
+            <i class="fa fa-file"></i> <span>Informativos</span>
+          </a>
+        </li>
+
+        <li class="treeview">
+          <a href="/intranet/agendas">
+            <i class="fa fa-calendar"></i> <span>Agenda</span>
+          </a>
+        </li>
+
+        <li class="treeview">
+          <a href="/intranet/lista_emails">
+            <i class="fa fa-inbox"></i> <span>Lista de E-mails</span>
+          </a>
+        </li>
+
+        <li class="treeview">
+          <a href="/intranet/lista_departamentos">
+            <i class="fa fa-sitemap"></i> <span>Lista de Departamentos</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/intranet/projetos">
+            <i class="fa fa-table"></i> <span>Lista Projetos</span>
+          </a>
+        </li>    
+
+        <li class="treeview">
+          <a href="/intranet/incidentes">
+            <i class="fa fa-ambulance"></i> <span>Lista de Incidentes</span>
+          </a>
+        </li>
+
+        <li class="header">ADMINISTRAÇÃO</li>
+        
+        <li>
+          <a href="/home/index">
+            <i class="fa fa-home"></i> <span>Area de Trabalho</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/chamados">
+            <i class="fa fa-windows"></i> <span>Chamados</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/incidentes">
+            <i class="fa fa-ambulance"></i> <span>Incidentes</span>
+          </a>
+        </li>
+
+        <% if current_user.nao_admin_nao_tecnico %>
+
+          <li>
+            <a href="/usuarios">
+              <i class="fa fa-users"></i> <span>Usuários</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/tipo_incidentes">
+              <i class="fa fa-chevron-right"></i> <span>Tipo Incidentes</span>
+            </a>
+          </li>
+
+
+          <li>
+            <a href="/departamentos">
+              <i class="fa fa-sitemap"></i> <span>Departamentos</span>
+            </a>
+          </li>    
+
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-desktop"></i> <span>Equipamentos</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-down pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/equipamentos"><i class="fa fa-circle-o"></i> Equipamentos</a></li>
+              <li><a href="/tipo_equipamentos"><i class="fa fa-circle-o"></i> Tipo Equipamentos</a></li>
+              <li><a href="/detalhes_equipamentos"><i class="fa fa-circle-o"></i> Detalhes Equipamento</a></li>
+              <li><a href="/status_equipamentos"><i class="fa fa-circle-o"></i> Status Equipamento</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="/problemas">
+              <i class="fa fa-bug"></i> <span>Problemas</span>
+            </a>
+          </li>    
+          
+        <% end %> 
+
+        <% if can? :show, :estatisticas %>
+
+          <li>
+            <a href="/estatisticas/index">
+              <i class="fa fa-bar-chart"></i> <span>Estatisticas</span>
+            </a>
+          </li>    
+
+        <% end %>
+
+        <li>
+          <a href="/murals">
+            <i class="fa fa-list"></i> <span>Mural</span>
+          </a>
+        </li>    
+
+        <% if current_user.e_editor or !current_user.nao_admin %>
+
+          <li>
+            <a href="/informativos">
+              <i class="fa fa-file"></i> <span>Informativos</span>
+            </a>
+          </li>   
+
+          <li>
+            <a href="/agendas">
+              <i class="fa fa-calendar"></i> <span>Agenda</span>
+            </a>
+          </li>    
+ 
+          <li>
+            <a href="/projetos">
+              <i class="fa fa-table"></i> <span>Projetos</span>
+            </a>
+          </li>    
+
+        <% end %>
+
+        <% if current_user.e_portaria or !current_user.nao_admin %>
+
+          <li>
+            <a href="/visitantes">
+              <i class="fa fa-camera"></i> <span>Visitantes</span>
+            </a>
+          </li>   
+
+        <% end %>
+
+      </ul>  
+
+    
+    </section>
+    <!-- /.sidebar -->
+  </aside>

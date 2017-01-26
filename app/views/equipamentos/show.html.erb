@@ -1,0 +1,74 @@
+<% content_for :titulo do %>
+  Equipamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Equipamento
+<% end %>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= detalhes2(@equipamento.detalhes_equipamento.tipo_equipamento, :tipo) %>
+</p>
+
+<p>
+  <strong>Modelo:</strong>
+  <%= detalhes2(@equipamento.detalhes_equipamento, :modelo) %>
+</p>
+
+<p>
+  <strong>Configuração:</strong>
+  <%= detalhes2(@equipamento.detalhes_equipamento, :configuracao) %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= detalhes2(@equipamento.status_equipamento, :status) %>
+</p>
+
+<p>
+  <strong>Patrimonio:</strong>
+  <%= @equipamento.patrimonio %>
+</p>
+
+<p>
+  <strong>Departamento:</strong>
+  <%= detalhes2(@equipamento.departamento, :sigla) %>
+</p>
+
+<hr/>
+
+<p>
+  <strong>Situação:</strong>
+  <%= @equipamento.situacao %>
+</p>
+
+<% if @equipamento.situacao == "EMPRESTIMO" %>
+  <p>
+    <strong>Emprestado para o Departamento:</strong>
+    <%= detalhes2(@equipamento.departamento_emprestimo, :sigla) %>
+  </p>
+  <p>
+    <strong>Responsavel:</strong>
+    <%= @equipamento.responsavel %>
+  </p>
+<% end %>
+
+<% if @equipamento.situacao == "PATRIMONIO" %>
+  <p>
+    <strong>Data que foi para o Patrimonio:</strong>
+    <%= @equipamento.data_patrimonio %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Quantidade:</strong>
+  <%= @equipamento.quantidade %>
+</p>
+
+<%= link_to link_icone('voltar'), equipamentos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if current_user.nao_admin_nao_tecnico %>
+  <%= link_to link_icone('editar'), edit_equipamento_path(@equipamento), :class=>"btn btn-primary", :title=>"Editar" %> 
+  <%= link_to link_icone('nova'), new_equipamento_path, :class=> 'btn btn-success', :title=>"Novo equipamento" %>
+<% end %>
+

@@ -1,0 +1,48 @@
+<% content_for :titulo do %>
+  Agenda
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Itens na Agenda 
+  <%= link_to link_icone('nova'), new_agenda_path, :class=> 'btn btn-success', :title=>"Novo" %>
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Ordem</th>
+      <th>Data</th>
+      <th>Hora</th>
+      <th>Tipo</th>
+      <th>Titulo</th>
+      <th>Publicado</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cont = 1 %>
+    <% @agendas.each do |agenda| %>
+      <tr>
+        <td><%= @cont %><% @cont = @cont + 1 %></td>
+        <td><%= detalhes(agenda.data_hora.strftime("%d/%m/%Y")) %></td>
+        <td><%= detalhes(agenda.data_hora.strftime("%H:%M")) %></td>
+        <td><%= agenda.tipo %></td>
+        <td><%= agenda.titulo %></td>
+        <td><%= simnao(agenda.publicado) %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    agenda_path(agenda), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_agenda_path(agenda), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, agenda %>
+            <%= link_to link_icone('apagar'), agenda_path(agenda), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

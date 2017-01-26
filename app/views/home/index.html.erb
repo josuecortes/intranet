@@ -1,0 +1,52 @@
+<% content_for :titulo do %>
+  Área de Trabalho
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Área de Trabalho
+<% end %>
+
+<% #if !current_user.nao_admin 
+%>
+<% if current_user.nao_admin_nao_tecnico %>
+	<% if @abertos.count > 0 %>
+	<div class="alert alert-danger">
+		<%= @abertos.count %>  
+			<% if @abertos.count < 2 %>
+				Chamado em aberto
+			<% else %>
+				Chamados em aberto
+			<% end %>
+		</svg></a>
+	</div>
+	<% end %>
+<% end %>
+
+<% if @inci_acontecendo.count > 0 %>
+	<div class="alert alert-info">
+		<%= @inci_acontecendo.count %>  
+			<% if @inci_acontecendo.count > 1 %>
+				Incidentes acontecendo
+			<% else %>
+				Incidente acontecendo
+			<% end %>
+		</svg></a>
+	</div>
+<% end %>
+
+
+<%= render "home/geral" %>
+
+<%= render "home/chamados" %>
+
+<% if current_user.nao_admin_nao_tecnico %>
+
+	<%= render "home/abertos" %>
+
+<% end %>
+
+<% if current_user.e_tecnico %>
+
+	<%= render "home/atendendo" %>
+
+<% end %>

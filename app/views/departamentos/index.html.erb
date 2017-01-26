@@ -1,0 +1,43 @@
+<% content_for :titulo do %>
+  Departamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Departamentos
+  <%= link_to link_icone('novo'), new_departamento_path, :class=> 'btn btn-success', :title=>"Novo Departamento" %>
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Sigla</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @departamentos.each do |departamento| %>
+      <tr>
+        <td><%= departamento.nome %></td>
+        <td><%= departamento.sigla %></td>
+        <td><%= detalhes(departamento.email) %></td>
+        <td><%= detalhes(departamento.telefone) %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    departamento_path(departamento), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_departamento_path(departamento), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, departamento %>
+            <%= link_to link_icone('apagar'), departamento_path(departamento), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

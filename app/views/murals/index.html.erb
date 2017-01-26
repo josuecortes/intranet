@@ -1,0 +1,51 @@
+<% content_for :titulo do %>
+  Mural
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <ul class="list-inline pull-right">
+    <%= link_to link_icone('nova'), new_mural_path, :class=> 'btn btn-success', :title=>"Novo" %>
+      <!-- /NOVO -->
+  </ul>
+  <h4>
+    <strong>
+      Lista de Itens no Mural
+    </strong>
+  </h4>
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Ordem</th>
+      <th>Data</th>
+      <th>Hora</th>
+      <th>Texto</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cont = 1 %>
+    <% @murals.each do |mural| %>
+      <tr>
+        <td><%= @cont %><% @cont = @cont + 1 %></td>
+        <td><%= detalhes(mural.created_at.strftime("%d/%m/%Y")) %></td>
+        <td><%= detalhes(mural.created_at.strftime("%H:%M")) %></td>
+        <td><%= mural.texto %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    mural_path(mural), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_mural_path(mural), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, mural %>
+            <%= link_to link_icone('apagar'), mural_path(mural), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

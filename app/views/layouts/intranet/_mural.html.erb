@@ -1,0 +1,60 @@
+<!-- Chat box -->
+<div class="box box-success">
+  <div class="box-header">
+    <i class="fa fa-comments-o"></i>
+
+    <h3 class="box-title">Mural</h3>
+
+    <div class="box-tools pull-right" data-toggle="tooltip" title="Atualizar">
+      <div class="btn-group" data-toggle="btn-toggle">
+         <a href="javascript:history.go(0)"><span class="fa fa-refresh"></span></a>
+      </div>
+    </div>
+  </div>
+  <div style="overflow:auto; max-height:300px; width:auto;" class="box-body chat" id="chat-box">
+    
+    <% if @mural.any? %>
+      <% @mural.each do |m| %> 
+        <!-- chat item -->
+        <div class="item">
+          <img src="<%= m.user.avatar.url(:info) %>" alt="img usu" class="online">
+
+          <p class="message">
+            <a href="#" class="name">
+              <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> <%= m.created_at.strftime("%H:%M") %></small>
+              <%= (m.user.name.split(" ").first).capitalize %>
+            </a>
+            <%= m.texto %>
+          </p>
+        </div>
+        <!-- /.item -->
+      <% end %>
+    <% end %>
+
+  </div>
+  <!-- /.chat -->
+  
+  <% if current_user %>
+
+    <div class="box-footer">
+      <div class="input-group">
+        <%= simple_form_for @mu, :url=>intranet_salvar_mural_url(@mu), :method => :post do |f| %>
+          
+          <%= f.input :user_id, :as=>:hidden, :input_html=>{:value=>current_user.id}%>
+          <div class="row">
+            <div class="col-md-10">
+              <%= f.input :texto, :label=>false, as: :string, :input_html => {:maxlength => 125, :class=>"form-control", :placeholder=>"Digite a msg..."}%>
+            </div>
+            
+            <div class="col-md-2">
+              <%= f.button :submit, "Enviar", :class=>'btn btn-success' %>
+            </div>
+          </div>  
+        <% end %>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
+<!-- /.box (chat box) -->

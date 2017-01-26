@@ -1,0 +1,41 @@
+<% content_for :titulo do %>
+  Agenda
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Item na Agenda
+<% end %>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @agenda.tipo %>
+</p>
+
+<p>
+  <strong>Titulo:</strong>
+  <%= @agenda.titulo %>
+</p>
+
+<p>
+  <strong>Informacoes:</strong>
+  <%= simple_format(@agenda.informacoes) %>
+</p>
+
+<p>
+  <strong>Data Hora:</strong>
+  <%= @agenda.data_hora.strftime("%d/%m/%Y %H:%M") %>
+</p>
+
+<p>
+  <strong>Publicado:</strong>
+  <%= simnao(@agenda.publicado) %>
+</p>
+
+<p>
+  <strong>Por:</strong>
+  <%= detalhes2(@agenda.user, :name) %> em <%= @agenda.created_at.strftime("%d/%m/%Y %H:%M") %>
+</p>
+
+<%= link_to link_icone('voltar'), agendas_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_agenda_path(@agenda), :class=>"btn btn-primary", :title=>"Editar" %>
+<%= link_to link_icone('novo'), new_agenda_path, :class=> 'btn btn-success', :title=>"Novo" %>

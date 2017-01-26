@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  visitante_id: 1
+  departamento_id: 1
+  observacoes: MyText
+  entrada: 2016-09-28 11:47:07
+  saida: 2016-09-28 11:47:07
+
+two:
+  visitante_id: 1
+  departamento_id: 1
+  observacoes: MyText
+  entrada: 2016-09-28 11:47:07
+  saida: 2016-09-28 11:47:07

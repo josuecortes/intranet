@@ -1,0 +1,16 @@
+<% content_for :titulo do %>
+  Tipo Equipamento
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Tipo de Equipamento
+<% end %>
+
+<p>
+  <strong>tipo:</strong>
+  <%= @tipo_equipamento.tipo %>
+</p>
+
+<%= link_to link_icone('voltar'), tipo_equipamentos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_tipo_equipamento_path(@tipo_equipamento), :class=>"btn btn-primary", :title=>"Editar" %> 
+<%= link_to link_icone('nova'), new_tipo_equipamento_path, :class=> 'btn btn-success', :title=>"Novo tipo Equipamento" %>

@@ -1,0 +1,35 @@
+<% content_for :titulo do %>
+  IS | Projetos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  IS | Detalhes do Projeto
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @projeto.nome %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @projeto.status %>
+</p>
+
+<p>
+  <strong>Ojetivo:</strong>
+  <%= simple_format(@projeto.objetivo) %>
+</p>
+
+<p>
+  <strong>Resumo:</strong>
+  <%= simple_format(@projeto.resumo) %>
+</p>
+
+<p>
+  <strong>Data Inicial:</strong>
+  <%= @projeto.data_inicial.strftime("%d/%m/%Y") %>
+</p>
+
+<%= link_to link_icone('voltar'), intranet_projetos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+

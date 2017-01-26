@@ -1,0 +1,56 @@
+<div class="wrapper">
+  <% if current_user %>
+    <!-- header nav -->
+    <%= render 'layouts/nav' %>
+    <!-- sidebar lateral -->
+    <%= render 'layouts/sidebar' %>
+  <% else %>
+    <!-- header nav -->
+    <%= render 'layouts/intranet/nav' %>
+    <!-- sidebar lateral -->
+    <%= render 'layouts/intranet/sidebar' %>
+  <% end %>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+  
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= yield :sub_titulo %></h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        
+        <div class="box-body">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+    </section>
+    <!-- /.content -->
+    
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>NUINFO</b>
+    </div>
+    <strong>Copyright &copy; 2016 <a href="http://192.168.0.254">Seed</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+
+</div>
+<!-- ./wrapper -->

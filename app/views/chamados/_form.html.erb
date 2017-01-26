@@ -1,0 +1,57 @@
+<%= simple_form_for(@chamado) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    
+    <div class="pull-right">
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+        Lista
+      </button>
+    </div>
+
+    <%= f.input :problema_descricao, :label=>'Selecione o Problema ou Solicitação', :url => autocomplete_problema_descricao_chamados_path, :as => :autocomplete, :id_element => "#problema_id" ,:input_html=>{:value=>(@chamado.problema.descricao if @chamado.problema)}%>
+
+    <%= f.input :problema_id, :as => :hidden, :input_html => { :id => "problema_id"} %>
+
+    <%= f.input :observacoes_usuario, :label=>"Observações" %>
+
+    <% if @chamado.user_id.blank? %>
+      <%= f.input :user_id, as: :hidden, :input_html=>{:value=>current_user.id} %>
+    <% end %>
+
+    <% if @chamado.status.blank? %>
+      <%= f.input :status, as: :hidden, :input_html=>{:value=>"ABERTO"} %>
+      <%= f.input :data_status_aberto, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+    <% end %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', chamados_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tipos de Problemas ou Solicitações Cadastrados</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <% @problemas_cadastrados.each do |p| %>
+            <li><%= p.descricao %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

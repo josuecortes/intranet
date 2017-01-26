@@ -1,0 +1,27 @@
+<% content_for :titulo do %>
+  IS | E-mails
+<% end %>
+
+<% content_for :sub_titulo do %>
+  IS | Lista de E-mails
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Departamento</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @emails.each do |e| %>
+      <tr>
+        <td><%= detalhes(e.name) %></td>
+        <td><%= detalhes(e.email) %></td>
+        <td><%= detalhes2(e.departamento, :sigla) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

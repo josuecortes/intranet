@@ -1,0 +1,117 @@
+ <%= search_form_for @q, :class=>'navbar-form navbar-right' do |f| %>
+
+  <%= f.search_field :nome_or_email_or_sexo_cont %>
+
+  <%= f.submit :label=>'', :class=>'btn btn-default' %><i class="glyphicon glyphicon-search"></i>
+<% end %>
+
+#################criar has_and_belong_to_many
+
+rails g model movie title:string
+rails g model theatre name:string
+
+rake db:migrate
+
+rails g migration create_join_table movie theatre
+
+
+
+Verify your migration file looks like this.
+
+class CreateJoinTable < ActiveRecord::Migration
+  def change
+    create_join_table :movies, :theatres do |t|
+      t.index [:movie_id, :theatre_id]
+      t.index [:theatre_id, :movie_id]
+    end
+  end
+end
+
+rake db:migrate
+
+# models/movie.rb
+class Movie < ActiveRecord::Base
+  has_and_belongs_to_many :theatres
+end
+
+# models/theatre.rb
+class Theatre < ActiveRecord::Base
+  has_and_belongs_to_many :movies
+end
+
+######################################
+exemplo de migration
+rails g migration AddPessoaAndAtivoAndMudarSenhaToUser pessoa:references ativo:boolean mudar_senha:boolean
+<<<<<<< HEAD
+
+
+
+############### jss
+
+jQuery(function($) {$("#pessoa_documento").change(function() {
+    // make a POST call and replace the content
+    var documento = $('#pessoa_documento').val();
+    jQuery.post("<%=atributos_documento_pessoas_path%>"+"?documento=" + documento, function(data){
+      $("#atributos_documento").html(data);   
+    });
+  });
+});
+
+
+
+jQuery(function($) {$("#pessoa_deficiente").change(function() {
+    // make a POST call and replace the content
+    var deficiente = $('#pessoa_deficiente').val();
+    jQuery.post("<%=atributos_deficiente_pessoas_path%>"+"?deficiente=" + deficiente, function(data){
+      $("#atributos_deficiente").html(data);   
+    });
+  });
+});
+
+
+jQuery(function($) {$("#ocorrencia_tipo_ocorrencia").change(function() {
+    // make a POST call and replace the content
+    var tipo_ocorrencia = $('#ocorrencia_tipo_ocorrencia').val();
+    jQuery.post("<%=desdobramento_tipo_ocorrencia_ocorrencias_path%>"+"?tipo_ocorrencia=" + tipo_ocorrencia, function(data){
+      $("#desdobramento_tipo_ocorrencia").html(data);   
+    });
+  });
+});
+
+jQuery(function($) {$("#desdobramento_tipo").change(function() {
+    // make a POST call and replace the content
+    var tipo = $('#desdobramento_tipo').val();
+    jQuery.post("<%=atributos_tipo_desdobramentos_path%>"+"?tipo=" + tipo, function(data){
+      $("#atributos_tipo").html(data);   
+    });
+  });
+});
+
+########### Código para gerar código ruby a partir de dados em outro sistema #############
+
+################### Executado no sistema onde estão os dados #########################
+arquivo = File.open("../escolas.rb",'w')
+Escola.all.each do |e|
+arquivo.puts "Escola.create(:nome=>'#{e.nome}',:email=>'#{e.email}',:contato=>'#{e.telefone}',:codigo=>'#{e.codigo}')"
+end
+arquivo.close
+
+####################### Executado no sistema em que se quer criar os objetos  ########################
+
+load "db/escolas.rb"
+
+#exemplo
+load "/caminho/do/arquivo.rb"
+
+
+
+##########################
+
+ails generate migration RemovePartNumberFromProducts part_number:string
+
+generates
+class RemovePartNumberFromProducts < ActiveRecord::Migration[5.0]
+  def change
+    remove_column :products, :part_number, :string
+  end
+end

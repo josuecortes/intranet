@@ -1,0 +1,42 @@
+<%= simple_form_for(@equipamento) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <%= f.input :detalhes_equipamento_nome, :label=>'Selecione o Equipamento', :url => autocomplete_detalhes_equipamento_nome_equipamentos_path, :as => :autocomplete, :id_element => "#equipamento_id" ,:input_html=>{:value=>(@equipamento.detalhes_equipamento.modelo if @equipamento.detalhes_equipamento)}%>
+
+    <%= f.input :detalhes_equipamento_id, :as => :hidden, :input_html => { :id => "equipamento_id"} %>
+
+    <%= f.input :status_equipamento_id, :label=>"Status", :collection=>StatusEquipamento.order('status ASC').collect {|s| [s.status, s.id]}, as: :select, :input_html => {:class=>"col-xs-2", :required=>true}  %> 
+    <br/><br/>
+    <%= f.input :patrimonio %>
+
+    <%= f.input :departamento_nome, :label=>'Selecione o Departamento', :url => autocomplete_departamento_nome_equipamentos_path, :as => :autocomplete, :id_element => "#departamento_id" ,:input_html=>{:value=>(@equipamento.departamento.nome if @equipamento.departamento)}%>
+
+    <%= f.input :departamento_id, :as => :hidden, :input_html => { :id => "departamento_id"} %>
+
+    <br/>
+    <hr/>
+    <br/>
+
+    <% @lista_situacao = ['NORMAL', 'EMPRESTIMO', 'PATRIMONIO'] %>
+
+    <%= f.input :situacao, :label=>"Situacao", collection: @lista_situacao, as: :select, :include_blank => false %>
+
+    <%= f.input :departamento_emprestimo_nome, :label=>'Selecione o Departamento Emprestado', :url => autocomplete_departamento_emprestimo_nome_equipamentos_path, :as => :autocomplete, :id_element => "#departamento_emprestimo_id" ,:input_html=>{:value=>(@equipamento.departamento_emprestimo_nome.nome if @equipamento.departamento_emprestimo_nome)}%>
+
+    <%= f.input :departamento_emprestimo_id, :as => :hidden, :input_html => { :id => "departamento_emprestimo_id"} %>
+
+    <%= f.input :responsavel, :label=>"Nome Responsavel" %>
+
+    <%= f.input :data_patrimonio, :label=>"Quando que foi para o partrimonio", :input_html=>{:class=>'inci_data_ini'} %>
+
+    <%= f.input :quantidade, collection: 1..30, :include_blank => false %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', equipamentos_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

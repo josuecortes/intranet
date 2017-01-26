@@ -1,0 +1,278 @@
+<% content_for :titulo do %>
+  Estatísticas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <ul class="list-inline pull-right">
+    
+  </ul>
+  <h4>
+    <strong>
+      Estatísticas
+    </strong>
+  </h4>
+<% end %>
+
+<%= form_tag("/estatisticas/index", method: "get") do %>
+ 	<strong>De:</strong>
+  <%= select_tag(:mini, options_for_select(@meses)) %>
+  <strong>/</strong>
+  <%= select_tag(:aini, options_for_select(2015.upto(DateTime.now.year))) %>
+  &nbsp;&nbsp;
+  <strong>a</strong>
+  &nbsp;&nbsp;
+  <%= select_tag(:mfim, options_for_select(@meses)) %>
+  <strong>/</strong>
+  <%= select_tag(:afim, options_for_select(2015.upto(DateTime.now.year))) %>
+
+
+  <%= submit_tag("Pesquisar") %>
+<% end %>
+
+<br/><br/>
+<h3><strong>Total de Chamados: <%= @chamados.count %> </strong></h3>
+<h4><strong>Período pesquisado: <%= @ini.strftime("%d/%m/%Y")  %> a <%= @fim.strftime("%d/%m/%Y") %></strong></h4>
+
+<br/>
+<hr/>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th>TECNICO</th>
+			<th>TOTAL</th>
+			<th>PERCENTUAL</th>
+			<th>TEMPO MEDIO (AB - AT)</th>
+			<th>TEMPO MEDIO (AT - CO)</th>
+			<th>RUIM</th>
+			<th>NORMAL</th>
+			<th>BOM</th>
+			<th>OTIMO</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tecnicos.each do |t| %>
+			<% if t.atendimentos.no_periodo(@ini, @fim).count > 0 %>
+				<tr>
+					<td><%= t.name %></td>
+					<td><%= t.atendimentos.no_periodo(@ini, @fim).count %></td>
+					<td><%= ((t.atendimentos.no_periodo(@ini, @fim).count)*100)/@chamados.count %>%</td>
+					
+					<% cta = 0 %>
+					<% tma = 0 %>
+					<% t.atendimentos.no_periodo(@ini, @fim).each do |c| %>
+						<% if c.data_status_em_atendimento != nil %>
+					  	<% cta = cta + 1 %>
+					  	<% tma = tma + (c.data_status_em_atendimento - c.data_status_aberto) %>
+					  <% end %>
+					<% end %>
+					<% if cta > 0 %>
+						<% tma = tma / cta %>
+
+						<% if tma < 60 %>
+							<td><%= tma.to_int %> Segundos</td>
+						<% elsif tma < 3600 %>
+						  <td><%= ((tma)/60).to_int %> Minuto(s)</td>
+						<% elsif tma < 86400 %>
+							<td><%= ((tma)/3600).to_int %> Hora(s)</td>
+						<% else %>
+							<td><%= ((tma)/86400).to_int %> Dia(s)</td>
+						<% end %>	
+					<% else %>
+						<td></td>
+					<% end %>	
+						
+					<% ctc = 0 %>
+					<% tmc = 0 %>
+					<% t.atendimentos.no_periodo(@ini, @fim).each do |c| %>
+						<% if c.data_status_concluido != nil %>
+					  	<% ctc = ctc + 1 %>
+					  	<% tmc = tmc + (c.data_status_concluido - c.data_status_em_atendimento) %>
+					  <% end %>
+					<% end %>
+					<% if ctc > 0 %>
+						<% tmc = tmc / ctc %>
+						
+						<% if tmc < 60 %>
+							<td><%= tmc.to_int %> Segundos</td>
+						<% elsif tmc < 3600 %>
+						  <td><%= ((tmc)/60).to_int %> Minuto(s)</td>
+						<% elsif tmc < 86400 %>
+							<td><%= ((tmc)/3600).to_int %> Hora(s)</td>
+						<% else %>
+							<td><%= ((tmc)/86400).to_int %> Dia(s)</td>
+						<% end %>	
+					<% else %>
+						<td></td>
+					<% end %>		
+						
+					<% ctf = 0 %>
+					<% ctr = 0 %>
+					<% ctn = 0 %>
+					<% ctb = 0 %>
+					<% cto = 0 %>
+
+					<% t.atendimentos.no_periodo(@ini, @fim).each do |c| %>
+						<% if c.status == "FECHADO" %>
+							<% ctf = ctf + 1 %>
+							<% if c.nivel_satisfacao_usuario == 1 %>
+								<% ctr = ctr + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 2 %>
+								<% ctn = ctn + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 3 %>
+								<% ctb = ctb + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 4 %>
+								<% cto = cto + 1 %>
+							<% end %>
+						<% end %>
+					<% end %>
+
+					<% if ctf > 0 %>
+						<td><%= (ctr * 100)/ctf %>%</td>
+						<td><%= (ctn * 100)/ctf %>%</td>
+						<td><%= (ctb * 100)/ctf %>%</td>
+						<td><%= (cto * 100)/ctf %>%</td>
+					<% end %>
+
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<br/>
+<hr/>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>REQUISITANTE</th>
+			<th>TOTAL</th>
+			<th>PERCENTUAL</th>
+			<th>TEMPO MEDIO (AB - CO)</th>
+			<th>TEMPO MEDIO (CO - FC)</th>
+			<th>RUIM</th>
+			<th>NORMAL</th>
+			<th>BOM</th>
+			<th>OTIMO</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @normais.each do |t| %>
+			<% if t.chamados.no_periodo(@ini, @fim).count > 0 %>
+				<tr>
+					<td><%= t.name %></td>
+					<td><%= t.chamados.count %></td>
+					<td><%= ((t.chamados.no_periodo(@ini, @fim).count)*100)/@chamados.count %>%</td>
+
+					<% ctc = 0 %>
+					<% tmc = 0 %>
+					<% t.chamados.no_periodo(@ini, @fim).each do |c| %>
+						<% if c.data_status_concluido != nil %>
+					  	<% ctc = ctc + 1 %>
+					  	<% tmc = tmc + (c.data_status_concluido - c.data_status_aberto) %>
+					  <% end %>
+					<% end %>
+					<% if ctc > 0 %>
+						<% tmc = tmc / ctc %>
+
+						<% if tmc < 60 %>
+							<td><%= tmc.to_int %> Segundos</td>
+						<% elsif tmc < 3600 %>
+						  <td><%= ((tmc)/60).to_int %> Minuto(s)</td>
+						<% elsif tmc < 86400 %>
+							<td><%= ((tmc)/3600).to_int %> Hora(s)</td>
+						<% else %>
+							<td><%= ((tmc)/86400).to_int %> Dia(s)</td>
+						<% end %>	
+					<% else %>
+						<td></td>
+					<% end %>			
+
+					<% ctf = 0 %>
+					<% tmf = 0 %>
+					<% t.chamados.no_periodo(@ini, @fim).each do |c| %>
+						<% if c.status == "FECHADO" %>
+					  	<% ctf = ctf + 1 %>
+					  	<% tmf = tmf + (c.data_status_fechado - c.data_status_concluido) %>
+					  <% end %>
+					<% end %>
+					<% if ctf > 0 %>
+						<% tmf = tmf / ctf %>
+
+						<% if tmf < 60 %>
+							<td><%= tmf.to_int %> Segundos</td>
+						<% elsif tmf < 3600 %>
+						  <td><%= ((tmf)/60).to_int %> Minuto(s)</td>
+						<% elsif tmf < 86400 %>
+							<td><%= ((tmf)/3600).to_int %> Hora(s)</td>
+						<% else %>
+							<td><%= ((tmf)/86400).to_int %> Dia(s)</td>
+						<% end %>	
+					<% else %>
+						<td></td>
+					<% end %>			
+
+					<% ctf = 0 %>
+					<% ctr = 0 %>
+					<% ctn = 0 %>
+					<% ctb = 0 %>
+					<% cto = 0 %>
+
+					<% t.chamados.no_periodo(@ini, @fim).each do |c| %>
+						<% if c.status == "FECHADO" %>
+							<% ctf = ctf + 1 %>
+							<% if c.nivel_satisfacao_usuario == 1 %>
+								<% ctr = ctr + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 2 %>
+								<% ctn = ctn + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 3 %>
+								<% ctb = ctb + 1 %>
+							<% end %>
+							<% if c.nivel_satisfacao_usuario == 4 %>
+								<% cto = cto + 1 %>
+							<% end %>
+						<% end %>
+					<% end %>
+
+					<% if ctf > 0 %>
+						<td><%= (ctr * 100)/ctf %>%</td>
+						<td><%= (ctn * 100)/ctf %>%</td>
+						<td><%= (ctb * 100)/ctf %>%</td>
+						<td><%= (cto * 100)/ctf %>%</td>
+					<% end %>	
+
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<br/>
+<hr/>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>DEPARTAMENTO</th>
+			<th>TOTAL</th>
+			<th>PERCENTUAL</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @departamentos.each do |d| %>
+			<% if d.chamados.no_periodo(@ini, @fim).count > 0 %>
+				<tr>
+					<td><%= d.sigla %></td>
+					<td><%= d.chamados.no_periodo(@ini, @fim).count %></td>
+					<td><%= (d.chamados.no_periodo(@ini, @fim).count*100)/@chamados.count %>%</td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

@@ -1,0 +1,75 @@
+<% content_for :titulo do %>
+  Projetos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Projetos
+  <%= link_to link_icone('novo'), new_projeto_path, :class=> 'btn btn-success', :title=>"Novo" %>
+<% end %>
+
+<table id="tabela" class="display table-responsive" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Ordem</th>
+      <th>Departamento</th>
+      <th>Atividade</th>
+      <th>Responsáveis</th>
+      <th>Prazo</th>
+      <th>Local</th>
+      <th>Justificativa</th>
+      <th>Metodo</th>
+      <th>Custo</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cont = 1 %>
+    <% @projetos.each do |projeto| %>
+      <tr>
+        <td><%= @cont %><% @cont = @cont + 1 %></td>
+        <td><%= detalhes2(projeto.departamento, :sigla) %></td>
+        <td><%= projeto.nome %></td>
+        <td>
+
+          <a class="btn btn-default" role="button" data-toggle="collapse" href="#collapseExample<%= @cont %>" aria-expanded="false" aria-controls="collapseExample">
+            Ver (<%= projeto.users.count %>)
+          </a>
+
+          <div class="collapse" id="collapseExample<%= @cont %>">
+            <div class="well">
+              <% if projeto.users.count > 0 %>
+                <% projeto.users.each do |u| %>
+                  <li><%= "#{u.name}" %></li>
+                <% end %>
+              <% else %>
+                Sem Responsáveis
+              <% end %>
+            </div>
+          </div>
+
+        </td>
+        <td>
+          <span class="label label-success"><%= detalhes(projeto.data_inicial.strftime("%d/%m/%Y")) %></span>
+          <span class="label label-danger"><%= detalhes(projeto.data_final.strftime("%d/%m/%Y")) %></span> 
+        </td>
+        <td><%= projeto.local %></td>
+        <td><%= simple_format(projeto.resumo).truncate(50) %></td>
+        <td><%= projeto.metodo %></td>
+        <td><%= detalhes(projeto.custo) %></td>
+        <td>
+          <div class="row">
+          <%= link_to link_icone('detalhes'),
+                    projeto_path(projeto), :class => 'btn btn-small btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_projeto_path(projeto), :class => 'btn btn-small btn-primary', :title=>"Editar" %>
+          <%= link_to link_icone('participantes'), projeto_participantes_path(projeto), :class=> 'btn btn-small btn-success', :title=>"Participantes" %>
+          <% if can? :delete, projeto %>
+            <%= link_to link_icone('apagar'), projeto_path(projeto), :class=>"btn btn-small btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+          </div>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

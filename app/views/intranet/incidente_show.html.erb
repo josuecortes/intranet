@@ -1,0 +1,55 @@
+<% content_for :titulo do %>
+  IS | Incidentes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  IS | Detalhes do Incidente
+<% end %>
+
+<p>
+  <strong>Status:</strong>
+  <%= icone_incidente(@incidente.status) %>
+</p>
+
+<p>
+  <strong>Incidente:</strong>
+  <%= detalhes2(@incidente.tipo_incidente, :descricao) %>
+</p>
+
+<p>
+  <strong>Descrição do Incidente:</strong>
+  <%= simple_format(@incidente.descricao) %>
+</p>
+
+<p>
+  <strong>Data que iniciou:</strong>
+  <%= @incidente.data_inicio %>
+</p>
+
+<p>
+  <strong>Previsao para normalizar:</strong>
+  <% if !@incidente.previsao_fim.blank? %>
+    <%= @incidente.previsao_fim %>
+  <% else %>
+    <%= detalhes(@incidente.previsao_fim) %>
+  <% end %>
+</p>
+
+<% if @incidente.status == "FINALIZADO" %>
+  <p>
+    <strong>Data que normalizou:</strong>
+    <% if !@incidente.data_fim.blank? %>
+    <%= @incidente.data_fim %>
+  <% else %>
+    <%= detalhes(@incidente.data_fim) %>
+  <% end %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Observações:</strong>
+  <%= detalhes(@incidente.observacoes) %>
+</p>
+
+<%= link_to link_icone('voltar'), intranet_incidentes_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+

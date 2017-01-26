@@ -1,0 +1,28 @@
+<% content_for :titulo do %>
+  Detalhes de Equipamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Equipamento
+<% end %>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= detalhes2(@detalhes_equipamento.tipo_equipamento, :tipo) %>
+</p>
+
+<p>
+  <strong>Modelo:</strong>
+  <%= @detalhes_equipamento.modelo %>
+</p>
+
+<p>
+  <strong>Configuracao:</strong>
+  <%= @detalhes_equipamento.configuracao %>
+</p>
+
+<%= link_to link_icone('voltar'), detalhes_equipamentos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if current_user.nao_admin_nao_tecnico %>
+  <%= link_to link_icone('editar'), edit_detalhes_equipamento_path(@detalhes_equipamento), :class=>"btn btn-primary", :title=>"Editar" %> 
+  <%= link_to link_icone('nova'), new_detalhes_equipamento_path, :class=> 'btn btn-success', :title=>"Novo equipamento" %>
+<% end %>

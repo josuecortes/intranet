@@ -1,0 +1,15 @@
+<%= simple_form_for([@informativo, @arquivo], :html => { :multipart => true }) do |f| %>
+
+  <div class="form-inputs">
+    <%= f.input :nome %>
+    <%= f.input :avatar, as: :file, :label=>"Selecionar o Arquivo", :class => 'btn-primary' %>
+
+    <%= f.input :informativo_id, as: :hidden, :input_html=>{:value=>@informativo.id} %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Salvar', :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', informativo_arquivos_path(@informativo), :class=>'btn btn-default' %>
+  </div>
+<% end %>

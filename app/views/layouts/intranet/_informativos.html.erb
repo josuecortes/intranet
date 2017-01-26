@@ -1,0 +1,80 @@
+<!-- PRODUCT LIST -->
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><i class="fa fa-file"></i> Informativos</h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <ul class="products-list product-list-in-box">
+      
+      <% if @informativos.any? %>
+        <% cont_i = 1 %>
+        <% @informativos.each do |i| %>  
+
+          <li class="item">
+            <div class="product-img">
+              <img src="<%= i.user.avatar.url(:info) %>" alt="Imagem do Usuario" class="img-circle">
+            </div>
+
+            <div class="product-info">
+              <a href="#" data-toggle="modal" data-target="#myModali<%= cont_i %>" class="product-title"><%= i.titulo %>
+                <span class="label label-warning pull-right"><%= (i.user.name.split(" ").first).capitalize %> <i>em</i> <%= i.created_at.strftime("%d/%m/%Y %H:%M") %></span></a>
+                  <span class="description">
+                    <%= simple_format(i.informacoes.truncate(120)) %>
+                  </span>
+
+              <div class="btn-group pull-right">
+                <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="fa fa-file" aria-hidden="true"></span> Arquivos(<%= i.arquivos.count%>) <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <% i.arquivos.each do |a| %>
+                    &nbsp;<%= link_icone("arquivo") %><a href="<%= a.avatar %>"  download target="_blank" class=""><span class="fa fa-file" aria-hidden="true"></span> <%= a.nome %></a><br/>
+                  <% end %>
+                </ul>
+              </div>    
+
+            </div>
+          </li>
+          
+          <!-- Modal -->
+            <div class="modal fade" id="myModali<%= cont_i %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title label label-info" id="myModalLabel"><%= i.titulo %></h4>
+                    <h5 class="label label-warning"><i>Por</i> <%= (i.user.name.split(" ").first).capitalize %> <i>em</i> <%= i.created_at.strftime("%d/%m/%Y %H:%M") %></h5>
+                  </div>
+                  <div class="modal-body product-info">
+                    <%= simple_format(i.informacoes) %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- Fim Modal -->
+
+          <% cont_i = cont_i + 1 %>
+        <% end %>
+      <% else %>
+        Sem informativos
+      <% end %>
+      
+    </ul>
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer text-center">
+    <a href="/intranet/informativos" class="uppercase">Ver todos</a>
+  </div>
+  <!-- /.box-footer -->
+</div>
+<!-- /.box -->

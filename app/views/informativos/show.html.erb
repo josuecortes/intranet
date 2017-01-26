@@ -1,0 +1,43 @@
+<% content_for :titulo do %>
+  Informativo
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes da Informação
+<% end %>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @informativo.tipo %>
+</p>
+
+<p>
+  <strong>Titulo:</strong>
+  <%= @informativo.titulo %>
+</p>
+
+<p>
+  <strong>Informação:</strong>
+  <%= simple_format(@informativo.informacoes) %>
+</p>
+
+<p>
+  <strong>Criado em:</strong>
+  <%= @informativo.created_at.strftime("%d/%m/%Y %H:%M") %>
+</p>
+
+<p>
+  <strong>Publicado:</strong>
+  <%= simnao(@informativo.publicado) %>
+</p>
+
+<p>
+  <strong>Por:</strong>
+  <%= detalhes2(@informativo.user, :name) %> em <%= @informativo.created_at.strftime("%d/%m/%Y %H:%M") %>
+</p>
+
+<%= link_to link_icone('voltar'), informativos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_informativo_path(@informativo), :class=>"btn btn-primary", :title=>"Editar" %>
+<%= link_to link_icone('arquivos'),
+                    informativo_arquivos_path(@informativo), :class => 'btn btn-success', :title=>"Arquivos" %>
+<%= link_to link_icone('novo'), new_informativo_path, :class=> 'btn btn-success', :title=>"Novo" %>

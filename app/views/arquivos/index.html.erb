@@ -1,0 +1,40 @@
+<% content_for :titulo do %>
+  Arquivos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Arquivos
+  <%= link_to link_icone('novo'), new_informativo_arquivo_path, :class=> 'btn btn-success', :title=>"Novo" %>
+
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th></th> 
+      <th>Arquivo</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @arquivos.each do |arquivo| %>
+      <tr>
+        <td><%= arquivo.nome %></td>
+        <td></td>
+        <td>
+          <a href="<%= arquivo.avatar %>"  download target="_blank" class="btn btn-primary btn-small">Clique Aqui</a>
+        </td>
+        <td>
+          <%= link_to link_icone('editar'),
+                    edit_informativo_arquivo_path(@informativo,arquivo), :class => 'btn btn-primary', :title=>"Editar" %>
+          <%= link_to link_icone('apagar'), informativo_arquivo_path(@informativo,arquivo), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to link_icone('voltar'), informativos_path, :class=>'btn btn-default' %>
+

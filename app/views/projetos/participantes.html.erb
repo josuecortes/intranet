@@ -1,0 +1,55 @@
+<% content_for :titulo do %>
+  Projetos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Participantes do Projeto (<%= @projeto.users.count %>)
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Departamento</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projeto.users.each do |p| %>
+      <tr>
+        <td><%= p.name %></td>
+        <td><%= detalhes2(p.departamento, :sigla) %></td>
+        <td>
+          <%= link_to link_icone('apagar'), projeto_remover_participante_url(@projeto,:user_id => p.id), :class=>"btn btn-danger" %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr/>
+
+<h4>Adicionar Participantes</h4>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Departamento</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% User.where('id not in (?)', @projeto.user_ids).each do |p| %>
+      <tr>
+        <td><%= p.name %></td>
+        <td><%= detalhes2(p.departamento, :sigla) %></td>
+        <td>
+          <%= link_to link_icone('novo'), projeto_salvar_participante_url(@projeto,:user_id => p.id), :class=>"btn btn-success" %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to link_icone('voltar'), projetos_path, :class=>'btn btn-default' %>

@@ -1,0 +1,21 @@
+<% content_for :titulo do %>
+  Log in
+<% end %>
+
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
+	
+	<fieldset>
+
+		<div class="form-inputs">
+	    	<%= f.input :cpf, :label=>"CPF", required: true, autofocus: true, :input_html=>{:class=>'cpf'} %>
+	    	<%= f.input :password, required: true %>
+	    	<%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+	  	</div>
+
+	  	<div class="form-actions">
+	    	<%= f.button :submit, "Log in", :html=>{:class=>"btn btn-primary"} %>
+	  	</div>
+
+  	</fieldset>
+
+<% end %>

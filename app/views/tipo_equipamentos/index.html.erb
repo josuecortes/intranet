@@ -1,0 +1,38 @@
+<% content_for :titulo do %>
+  Tipo Equipamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Tipos de Equipamentos
+  <%= link_to link_icone('novo'), new_tipo_equipamento_path, :class=> 'btn btn-success', :title=>"Novo Tipo Equipamento" %>
+
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tipo_equipamentos.each do |tipo_equipamento| %>
+      <tr>
+        <td><%= tipo_equipamento.tipo %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    tipo_equipamento_path(tipo_equipamento), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_tipo_equipamento_path(tipo_equipamento), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, tipo_equipamento %>
+            <%= link_to link_icone('apagar'), tipo_equipamento_path(tipo_equipamento), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

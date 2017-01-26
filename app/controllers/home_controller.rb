@@ -1,0 +1,17 @@
+class HomeController < ApplicationController
+  def index
+  	@meus_chamados = Chamado.where('user_id = ?', current_user.id)
+  	@chamados = Chamado.all
+  	@usuarios = User.all
+   	@incidentes = Incidente.order('data_inicio DESC').all
+    @inci_acontecendo = Incidente.order('data_inicio DESC').where(:status=>"ACONTECENDO").all
+
+
+   	@abertos = Chamado.where(:status=>"ABERTO").order('created_at ASC')
+   	@atendendo = Chamado.where(:status=>"EM ATENDIMENTO",:tecnico_id=>current_user.id).order('data_status_em_atendimento ASC')
+
+  end
+
+  def nao_autorizado
+  end
+end

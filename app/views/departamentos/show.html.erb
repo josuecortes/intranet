@@ -1,0 +1,61 @@
+<% content_for :titulo do %>
+  Departamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Departamento
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @departamento.nome %>
+</p>
+
+<p>
+  <strong>Sigla:</strong>
+  <%= @departamento.sigla %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= detalhes(@departamento.email) %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <%= detalhes(@departamento.telefone) %>
+</p>
+
+<hr/>
+
+<h4><strong>Inventario</strong></h4>
+  
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Modelo</th>
+      <th>Quantidade</th>
+      <th>Status</th>
+      <th>Situação</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @departamento.equipamentos.each do |eq| %>
+      <tr>
+        <td><%= eq.detalhes_equipamento.tipo_equipamento.tipo %></td>
+        <td><%= eq.detalhes_equipamento.modelo %></td>
+        <td><%= eq.quantidade %></td>
+        <td><%= eq.status_equipamento.status %></td>
+        <td><%= eq.situacao %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr/>
+
+<%= link_to link_icone('voltar'), departamentos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_departamento_path(@departamento), :class=>"btn btn-primary", :title=>"Editar" %>
+<%= link_to link_icone('novo'), new_departamento_path, :class=> 'btn btn-success', :title=>"Novo Departamento" %>

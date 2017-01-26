@@ -1,0 +1,49 @@
+<% content_for :titulo do %>
+  IS | Informativos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  IS | Lista de Informações
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Ordem</th>
+      <th>Data</th>
+      <th>Tipo</th>
+      <th>Titulo</th>
+      <th>Arquivos</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cont = 1 %>
+    <% @informativos.each do |informativo| %>
+      <tr>
+        <td><%= @cont %><% @cont = @cont + 1 %></td>
+        <td><%= detalhes(informativo.created_at.strftime("%d/%m/%Y")) %></td>
+        <td><%= informativo.tipo %></td>
+        <td><%= informativo.titulo %></td>
+        <td>
+          <div class="btn-group pull-right">
+            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-file" aria-hidden="true"></span> Arquivos(<%= informativo.arquivos.count%>) <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <% informativo.arquivos.each do |a| %>
+                &nbsp;<%= link_icone("arquivo") %><a href="<%= a.avatar %>"  download target="_blank" class=""><span class="fa fa-file" aria-hidden="true"></span> <%= a.nome %></a><br/>
+              <% end %>
+            </ul>
+          </div>
+        </td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    intranet_informativo_show_path(:informativo_id => informativo.id), :class => 'btn btn-default', :title=>"Detalhes" %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

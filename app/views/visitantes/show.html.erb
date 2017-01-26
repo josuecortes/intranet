@@ -1,0 +1,71 @@
+<% content_for :titulo do %>
+  Visitantes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Visitante
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @visitante.nome %>
+</p>
+
+<p>
+  <strong>Rg:</strong>
+  <%= detalhes(@visitante.rg) %>
+</p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= detalhes(@visitante.cpf) %>
+</p>
+
+<br/>
+
+<%= link_to link_icone('voltar'), visitantes_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_visitante_path(@visitante), :class=>"btn btn-primary", :title=>"Editar" %>
+<%= link_to link_icone('novo'), new_visitante_path, :class=> 'btn btn-success', :title=>"Novo" %>
+
+<% if @visitante.pode_dar_entrada %>
+	<%= link_to link_icone('entrada'),
+                    new_visitante_visitum_path(@visitante), :class => 'btn btn-success', :title=>"Entrada" %>
+<% else %>
+	<%= link_to link_icone('saida'),
+                    edit_visitante_visitum_path(@visitante, @visitante.visitas.em_visita.last), :class => 'btn btn-danger', :title=>"Saida" %>
+<% end %>
+
+<br/>
+<hr/>
+<h4>Histórico</h4>
+<hr/>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+ <thead>
+	 <tr>
+	 	<th>Ordem</th>
+	 	<th>Status</th>
+	 	<th>Departamento</th>
+	 	<th>Entrada</th>
+	 	<th>Saida</th>
+	 	<th>Obs</th>
+	 </tr>
+ </thead>
+ <tbody>
+ 	 <% cont = 1 %>	
+	 <% @visitante.visitas.order("entrada DESC").each do |v| %>
+		 <tr>
+		 	<td><%= cont %></td>
+		 	<td><%= v.status %></td>
+		 	<td><%= detalhes2(v.departamento, :sigla) %></td>
+		 	<td><%= v.entrada.strftime("%d/%m/%Y %H:%M") %></td>
+		 	<td><%= v.saida.strftime("%d/%m/%Y %H:%M") if !v.saida.blank? %></td>
+		 	<td><%= simple_format(detalhes(v.observacoes)) %></td>
+		 </tr>
+	 	 <% cont = cont + 1 %>
+	 <% end %>
+	</tbody>
+</table>
+
+<br/>
+

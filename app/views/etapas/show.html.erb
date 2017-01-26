@@ -1,0 +1,49 @@
+<% content_for :titulo do %>
+  Etapas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes da Etapa
+<% end %>
+<p>
+  <strong>Nome:</strong>
+  <%= @etapa.nome %>
+</p>
+
+<p>
+  <strong>Data inicial:</strong>
+  <%= @etapa.data_inicio %>
+</p>
+
+<p>
+  <strong>Data final:</strong>
+  <%= @etapa.data_final %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @etapa.status %>
+</p>
+
+<hr/>
+
+<h4>Participantes (<%= @etapa.users.count %>)</h4>
+<table class="table table-responsive">  		
+	<thead>
+		<th>Nome</th>
+		<th>Departamento</th>
+	</thead>
+	<tbody>
+		<% @etapa.users.each do |u| %>
+			<tr>
+				<td><%= u.name %> </td> <td>&nbsp;<%= detalhes2(u.departamento, :sigla) %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br/>
+
+<%= link_to link_icone('voltar'), projeto_etapas_path(@projeto), :class=> 'btn btn-default' %>
+<%= link_to link_icone('editar'), edit_projeto_etapa_path(@projeto, @etapa), :class => 'btn btn-primary', :title=>"Editar" %>
+<%= link_to link_icone('novo'), new_projeto_etapa_path(@projeto), :class=>"btn btn-success", :title=>"Novo" %>        

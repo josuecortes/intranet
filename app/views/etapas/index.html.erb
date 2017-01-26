@@ -1,0 +1,40 @@
+<% content_for :titulo do %>
+  Etapas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Etapas do Projeto: <%= @projeto.nome %>
+  <%= link_to link_icone('novo'), new_projeto_etapa_path(@projeto), :class=> 'btn btn-success', :title=>"Novo" %>  
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Data inicio</th>
+      <th>Data final</th>
+      <th>Status</th>
+      <th>Participantes</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @etapas.each do |etapa| %>
+      <tr>
+        <td><%= etapa.nome %></td>
+        <td><%= etapa.data_inicio %></td>
+        <td><%= etapa.data_final %></td>
+        <td><%= etapa.status %></td>
+        <td><%= etapa.users.count %></td>
+        <td>
+          <%= link_to link_icone('detalhes'), projeto_etapa_path(@projeto, etapa), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'), edit_projeto_etapa_path(@projeto, etapa), :class => 'btn btn-primary', :title=>"Editar" %>
+          <%= link_to link_icone('apagar'), projeto_etapa_path(@projeto, etapa), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %>        
+        </td>  
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to link_icone('voltar'), projetos_path, :class=>'btn btn-default' %>

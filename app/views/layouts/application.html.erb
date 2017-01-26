@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<% if !current_user %>
+	
+	<title>Intranet </title>
+	
+<% else %>
+
+	<% if !current_user.nao_admin or current_user.e_tecnico %>
+		<% @abertos = Chamado.where(:status=>"ABERTO").all %>
+		<% if @abertos.count > 0 %>
+			<title>(<%= @abertos.count %>) Intranet </title>
+		<% else %>
+			<title>Intranet </title>
+		<% end %>
+	<% else %>
+		<title>Intranet </title>
+	<% end %>
+
+<% end %>
+
+<!-- core CSS -->
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->     
+    <%= csrf_meta_tags %>
+
+</head>
+
+
+
+
+	<% if !current_user %>
+    <body class="hold-transition login-page">
+		<%= render 'layouts/deslogado' %>
+	<% else %>
+    <body class="hold-transition skin-blue sidebar-mini">
+		<%= render 'layouts/logado' %>
+	<% end %>
+
+    
+  <div class="control-sidebar-bg"></div>
+
+</div>
+
+<%= javascript_include_tag 'application' %>
+
+
+</body>
+
+
+
+
+
+</html>

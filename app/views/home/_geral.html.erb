@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-aqua"><i class="fa fa-home"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Chamados</span>
+        <span class="info-box-number"><%= @meus_chamados.count %></span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-red"><i class="fa fa-windows"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Total</span>
+        <span class="info-box-number"><%= @chamados.count %></span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+
+  <!-- fix for small devices only -->
+  <div class="clearfix visible-sm-block"></div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-green"><i class="fa fa-ambulance"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Incidentes</span>
+        <span class="info-box-number"><%= @incidentes.count %></span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Usuários</span>
+        <span class="info-box-number"><%= @usuarios.count %></span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->

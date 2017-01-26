@@ -1,0 +1,40 @@
+<% content_for :titulo do %>
+  Problemas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Problemas
+  <%= link_to link_icone('novo'), new_problema_path, :class=> 'btn btn-success', :title=>"Novo Problema" %>
+
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Tipo</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @problemas.each do |problema| %>
+      <tr>
+        <td><%= problema.descricao %></td>
+        <td><%= problema.tipo %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    problema_path(problema), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_problema_path(problema), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, problema %>
+            <%= link_to link_icone('apagar'), problema_path(problema), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>

@@ -1,0 +1,35 @@
+<% content_for :titulo do %>
+  IS | Informativo
+<% end %>
+
+<% content_for :sub_titulo do %>
+  IS | Detalhes da Informação
+<% end %>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @informativo.tipo %>
+</p>
+
+<p>
+  <strong>Titulo:</strong>
+  <%= @informativo.titulo %>
+</p>
+
+<p>
+  <strong>Informação:</strong>
+  <%= simple_format(@informativo.informacoes) %>
+</p>
+
+<p>
+  <strong>Criado em:</strong>
+  <%= @informativo.created_at.strftime("%d/%m/%Y %H:%M") %>
+</p>
+
+
+<p>
+  <strong>Por:</strong>
+  <%= detalhes2(@informativo.user, :name) %> em <%= @informativo.created_at.strftime("%d/%m/%Y %H:%M") %>
+</p>
+
+<%= link_to link_icone('voltar'), intranet_informativos_path, :class=>'btn btn-default', :title=>"Voltar" %> 

@@ -1,0 +1,15 @@
+<%= simple_form_for(@mural) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :texto, :label=>"Texto 250 caracteres", :input_html => {:maxlength => 125, :size => 40}%>
+    <%= f.input :user_id, :as=>:hidden, :input_html=>{:value=>current_user.id}%>
+  </div>
+
+  <br/>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', murals_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

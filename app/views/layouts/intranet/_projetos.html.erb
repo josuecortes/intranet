@@ -1,0 +1,106 @@
+<div class="box box-success">
+  <div class="box-header">
+    <h3 class="box-title"><i class="fa fa-table"></i> Projetos</h3>
+    
+    <div class="box-tools pull-right">
+      <span class="label label-success"><%= @projetos.count %></span>
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+    </div>
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body no-padding">
+    <table class="table">
+      <% cont_proj = 1 %>
+      <% @projetos.each do |projeto| %>
+        <tr>
+          <td><%= projeto.nome.upcase %></td>
+          <td>
+            <button type="button" class="btn btn-success btn-small pull-right" data-toggle="modal" data-target="#myModalproj<%= cont_proj %>">
+                    <%= link_icone('detalhes') %>
+                  </button>           
+          </td>
+        </tr>
+
+        <!-- Modal -->
+          <div class="modal fade" id="myModalproj<%= cont_proj %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title label label-success" id="myModalLabel"><%= projeto.nome.upcase %></h4>
+                </div>
+                <div class="modal-body">
+                  <strong>Departamento:</strong>
+                  <%= detalhes2(projeto.departamento, :sigla) %><br/>
+                  <strong>Justificativa:</strong>
+                  <%= simple_format(projeto.resumo) %><br/>
+                  <strong>Local:</strong>
+                  <%= projeto.local %><br/>
+                  <strong>Metodo:</strong>
+                  <%= projeto.metodo %><br/>
+                  <strong>Prazo:</strong>
+                  <%= detalhes(projeto.data_inicial.strftime("%d/%m/%Y")) %> - <%= detalhes(projeto.data_final.strftime("%d/%m/%Y")) %><br/>
+                  <strong>Status:</strong>
+                  <%= projeto.status %>
+
+                  <br/><br/>
+                  
+
+
+
+                  <div class="box box-success">
+                    <div class="box-header with-border">
+                      <h3 class="box-title"><i class="fa fa-users"></i> Participantes</h3>
+
+                      <div class="box-tools pull-right">
+                        <span class="label label-success"><%= projeto.users.count %></span>
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                      <ul class="users-list clearfix">
+
+                        <% projeto.users.each do |u| %>
+                          <li>
+                            <img src="<%= u.avatar.url(:info) %>" alt="Imagem">
+                            <a class="users-list-name" href="#"><%= (u.name.split(" ").first).capitalize %></a>
+                            <span class="users-list-date"><%= u.departamento.sigla %></span>
+                          </li>      
+                        <% end %>
+
+                        
+                      </ul>
+                      <!-- /.users-list -->
+                    </div>
+                    <!-- /.box-body -->
+                  </div>  
+
+
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- Fim Modal -->
+
+
+        <% cont_proj = cont_proj + 1 %>  
+      <% end %>
+      
+      
+
+      
+    </table>
+  </div>
+  <!-- /.box-body -->
+</div>
+<!-- /.box -->

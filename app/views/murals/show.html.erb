@@ -1,0 +1,17 @@
+<% content_for :titulo do %>
+  Mural
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Item no Mural
+<% end %>
+
+<p>
+  <strong>Texto:</strong>
+  <%= simple_format(@mural.texto) %>
+</p>
+
+
+<%= link_to link_icone('voltar'), murals_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_mural_path(@mural), :class=>"btn btn-primary", :title=>"Editar" %>
+<%= link_to link_icone('novo'), new_mural_path, :class=> 'btn btn-success', :title=>"Novo" %>

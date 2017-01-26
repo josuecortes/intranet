@@ -1,0 +1,15 @@
+<%= simple_form_for(@detalhes_equipamento) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<%= f.input :tipo_equipamento_id, :label=>"Tipo", :collection=>TipoEquipamento.order('tipo ASC').collect {|t| [t.tipo, t.id]}, as: :select, :input_html => {:class=>"col-xs-2", :required=>true}  %> 
+    <br/><br/>
+    <%= f.input :modelo %>
+    <%= f.input :configuracao %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', detalhes_equipamentos_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>
