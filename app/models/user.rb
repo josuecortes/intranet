@@ -20,28 +20,16 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :etapas
   has_and_belongs_to_many :projetos
 
-  #has_attached_file :avatar, styles: { original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" }, default_url: lambda { |image| ActionController::Base.helpers.asset_path('user-default.jpg') }
-  #validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  has_attached_file :avatar, styles: { original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" }, default_url: lambda { |image| ActionController::Base.helpers.asset_path('user-default.jpg') }
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   #do_not_validate_attachment_file_type :avatar
   
   #validates_attachment_content_type :avatar, content_type: /\Aimage/
   #validates_attachment_file_name :avatar, matches: [/png\z/, /jpe?g\z/]
-  #do_not_validate_attachment_file_type :avatar
+  do_not_validate_attachment_file_type :avatar
 
 
-  has_attached_file :avatar,
-    :styles => {
-      
-      original: "800>600>",
-      medium: "300x300>",
-      thumb: "100x100#",
-      info: "80x80#",
-      chat: "128x128#" },
-    :url => "/public/system/:class/:attachment/:id_partition/:style/:filename"
-  
-  validates_attachment :avatar, 
-      content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] },
-      :size => { :in => 0..20.kilobytes } 
+
 
 
   validates_presence_of :name, :cpf
