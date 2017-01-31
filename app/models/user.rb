@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   :default_style => :medium,
   :use_timestamp => false,
   :url => lambda { |image| ActionController::Base.helpers.asset_path('user-default.jpg') },
-  :path => ':rails_root/public:url',
+  :path => '/public/system/:class/:attachment/:id_partition/:style/:filename',
   :styles => { original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" }
 
 
