@@ -21,8 +21,14 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :projetos
 
   has_attached_file :avatar, styles: { original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" }, default_url: lambda { |image| ActionController::Base.helpers.asset_path('user-default.jpg') }
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  #validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   #do_not_validate_attachment_file_type :avatar
+
+  validates_attachment_content_type :avatar, content_type: /\Aimage/
+  # Validate filename
+  validates_attachment_file_name :avatar, matches: [/png\z/, /jpe?g\z/]
+  # Explicitly do not validate
+  do_not_validate_attachment_file_type :avatar
 
   validates_presence_of :name, :cpf
 	validates_uniqueness_of :name, :cpf
