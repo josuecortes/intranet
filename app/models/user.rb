@@ -32,10 +32,9 @@ class User < ActiveRecord::Base
   #do_not_validate_attachment_file_type :avatar
 
   has_attached_file :avatar,
-  :default_url => '/images/foto.jpg',
+  :default_url => lambda { |image| ActionController::Base.helpers.asset_path('user-default.jpg') },
   :default_style => :medium,
   :use_timestamp => false,
-  :url => lambda { |image| ActionController::Base.helpers.asset_path('user-default.jpg') },
   :path => '/public/system/:class/:attachment/:id_partition/:style/:filename',
   :styles => { original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" }
 
