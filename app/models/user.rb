@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
       thumb: "100x100#",
       info: "80x80#",
       chat: "128x128#" },
-    :url => "/:class/:attachment/:id/:style_:basename.:extension"
+    :url => "/public/system/:class/:attachment/:id_partition/:style/:filename"
   
   validates_attachment :avatar, 
       content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] },
