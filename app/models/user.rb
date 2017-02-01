@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :mes
 
+  attr_accessor :avatar
+
   belongs_to :departamento
   has_many :chamados, dependent: :restrict_with_error
   has_many :atendimentos, class_name: "Chamado", foreign_key: "tecnico_id", dependent: :restrict_with_error
@@ -20,8 +22,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :etapas
   has_and_belongs_to_many :projetos
 
-  has_attached_file :avatar, 
-  :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+  has_attached_file :avatar,
   styles: { 
     original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" }, 
     default_url: lambda { |image| ActionController::Base.helpers.asset_path('user-default.jpg') }
