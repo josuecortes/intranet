@@ -24,7 +24,7 @@
 //= require demo
 // require npm
 //= require jquery.mask.min
-//= require ckeditor/init
+// require ckeditor/init
 
 
 $(document).ready(function() {

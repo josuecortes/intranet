@@ -66,7 +66,7 @@ gem "font-awesome-rails"
 #gem "win32-sound"
 gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails'
 
-gem 'ckeditor'
+#gem 'ckeditor'
 
 gem 'rmagick'
 gem 'carrierwave'
