@@ -43,7 +43,7 @@ group :development, :test do
   gem 'spring'
 end
 
-#gem 'paperclip'
+gem 'paperclip'
 gem 'devise'
 gem 'devise-i18n'
 gem 'simple_form'
