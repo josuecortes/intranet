@@ -4,12 +4,13 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <a href="/users/edit" class="pull-left image">
-          <img src="<%= current_user.avatar.url(:thumb) %>" class="img-circle" alt="User Image">
+          <img src="<%= current_user.avatar.url(:thumb).to_s %>" class="user-image img-circle" alt="User Image">
         </a>
         <div class="pull-left info">
           <p><%= (current_user.name.split(" ").first).capitalize %></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
+        <br/>
       </div>
       <!-- search form -->
       

@@ -16,7 +16,9 @@
     <% else %>
       <h4>Avatar Atual</h4>
       <h4>
-        <%= image_tag(resource.avatar.url(:thumb)) %>
+        
+          <%= image_tag(resource.avatar.url) %>
+        
       </h4>
     <% end %>
 

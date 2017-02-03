@@ -43,7 +43,7 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'paperclip'
+#gem 'paperclip'
 gem 'devise'
 gem 'devise-i18n'
 gem 'simple_form'
@@ -67,3 +67,6 @@ gem "font-awesome-rails"
 gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails'
 
 gem 'ckeditor'
+
+gem 'rmagick'
+gem 'carrierwave'
