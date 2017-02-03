@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202210220) do
+ActiveRecord::Schema.define(version: 20170203143846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +30,9 @@ ActiveRecord::Schema.define(version: 20170202210220) do
   create_table "arquivos", force: :cascade do |t|
     t.string   "nome"
     t.integer  "informativo_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "avatar"
   end
 
   create_table "chamados", force: :cascade do |t|
