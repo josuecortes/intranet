@@ -16,7 +16,7 @@
 
       <% @nesta_semana.each do |u| %>
         <li>
-          <img src="<%= u.avatar.url(:info) %>" alt="Imagem">
+          <img src="<%= u.avatar.url(:thumb) %>" alt="Imagem">
           <a class="users-list-name" href="#"><%= (u.name.split(" ").first).capitalize %></a>
           <span class="users-list-date"><%= u.departamento.sigla %></span>
           <span class="users-list-date"><%= u.nascimento.strftime("%d/%m") %></span>

@@ -65,6 +65,11 @@ class ProjetosController < ApplicationController
 
   def participantes
     @projeto = Projeto.accessible_by(current_ability).find(params[:projeto_id])
+    if @projeto.user_ids.blank?
+      @usuarios_fora = User.all
+    else
+      @usuarios_fora = User.where('id not in (?)', @projeto.user_ids).all
+    end
   end
 
   def salvar_participante

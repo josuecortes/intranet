@@ -40,7 +40,7 @@
     </tr>
   </thead>
   <tbody>
-    <% User.where('id not in (?)', @projeto.user_ids).each do |p| %>
+    <% @usuarios_fora.each do |p| %>
       <tr>
         <td><%= p.name %></td>
         <td><%= detalhes2(p.departamento, :sigla) %></td>
