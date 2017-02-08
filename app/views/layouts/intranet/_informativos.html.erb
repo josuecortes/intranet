@@ -22,7 +22,7 @@
               <% if !i.user.avatar.blank? %>
                 <img src="<%= i.user.avatar.url(:thumb) %>" alt="Imagem do Usuario" class="img-circle">
               <% else %>
-                <img src="/assets/user-default.jpg" alt="Imagem do Usuario" class="img-circle">
+                <%= image_tag('user-default.jpg', :class=>"user-image img-circle") %>
               <% end %>
             </div>
 

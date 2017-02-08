@@ -19,7 +19,7 @@
           <% if !u.avatar.blank? %>
             <img src="<%= u.avatar.url(:thumb) %>" alt="Imagem">
           <% else %>
-            <img src="/assets/user-default.jpg" alt="Imagem">
+            <%= image_tag('user-default.jpg') %>
           <% end %>
           <a class="users-list-name" href="#"><%= (u.name.split(" ").first).capitalize %></a>
           <span class="users-list-date"><%= u.departamento.sigla %></span>

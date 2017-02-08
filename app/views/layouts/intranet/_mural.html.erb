@@ -20,7 +20,7 @@
           <% if !m.user.avatar.blank? %>
             <img src="<%= m.user.avatar.url(:thumb) %>" alt="img usu" class="online">
           <% else %>
-            <img src="/assets/user-default.jpg" alt="img usu" class="online">
+            <%= image_tag('user-default.jpg', :class=>"online") %>
           <% end %>  
           <p class="message">
             <a href="#" class="name">
