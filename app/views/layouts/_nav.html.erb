@@ -22,15 +22,22 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<%= current_user.avatar.url(:thumb).to_s %>" class="user-image" alt="User Image">
+              <% if !current_user.avatar.blank? %>
+                <img src="<%= current_user.avatar.url(:thumb).to_s %>" class="user-image" alt="User Image">
+              <% else %>
+                <img src="/assets/user-default.jpg" class="user-image" alt="User Image">
+              <% end %>  
               
               <span class="hidden-xs"><%= (current_user.name.split(" ").first).capitalize %></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<%= current_user.avatar.url(:thumb).to_s %>" class="img-circle" alt="User Image">
-                
+                <% if !current_user.avatar.blank? %>
+                  <img src="<%= current_user.avatar.url(:thumb).to_s %>" class="img-circle" alt="User Image">
+                <% else %>
+                  <img src="/assets/user-default.jpg" class="img-circle" alt="User Image">
+                <% end %>    
 
                 <p>
                   <%= current_user.name %>
