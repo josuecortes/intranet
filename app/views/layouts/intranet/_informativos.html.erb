@@ -19,7 +19,11 @@
 
           <li class="item">
             <div class="product-img">
-              <img src="<%= i.user.avatar.url(:thumb) %>" alt="Imagem do Usuario" class="img-circle">
+              <% if !i.user.avatar.blank? %>
+                <img src="<%= i.user.avatar.url(:thumb) %>" alt="Imagem do Usuario" class="img-circle">
+              <% else %>
+                <img src="/assets/user-default.jpg" alt="Imagem do Usuario" class="img-circle">
+              <% end %>
             </div>
 
             <div class="product-info">
