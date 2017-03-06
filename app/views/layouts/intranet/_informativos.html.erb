@@ -17,36 +17,79 @@
         <% cont_i = 1 %>
         <% @informativos.each do |i| %>  
 
-          <li class="item">
-            <div class="product-img">
-              <% if !i.user.avatar.blank? %>
-                <img src="<%= i.user.avatar.url(:thumb) %>" alt="Imagem do Usuario" class="img-circle">
-              <% else %>
-                <%= image_tag('user-default.jpg', :class=>"user-image img-circle") %>
-              <% end %>
-            </div>
+          <% if i.avatar.blank? %>
+            <li class="item">
+              <div class="product-img">
+                <% if !i.user.avatar.blank? %>
+                  <img src="<%= i.user.avatar.url(:thumb) %>" alt="Imagem do Usuario" class="img-circle">
+                <% else %>
+                  <%= image_tag('user-default.jpg', :class=>"user-image img-circle") %>
+                <% end %>
+              </div>
 
-            <div class="product-info">
-              <a href="#" data-toggle="modal" data-target="#myModali<%= cont_i %>" class="product-title"><%= i.titulo %>
-                <span class="label label-warning pull-right"><%= (i.user.name.split(" ").first).capitalize %> <i>em</i> <%= i.created_at.strftime("%d/%m/%Y %H:%M") %></span></a>
-                  <span class="description">
-                    <%= simple_format(i.informacoes.truncate(120)) %>
-                  </span>
+              <div class="product-info">
+                <a href="#" data-toggle="modal" data-target="#myModali<%= cont_i %>" class="product-title"><%= i.titulo %>
+                  <span class="label label-warning pull-right"><%= (i.user.name.split(" ").first).capitalize %> <i>em</i> <%= i.created_at.strftime("%d/%m/%Y %H:%M") %></span></a>
+                    <span class="description">
+                      <%= simple_format(i.informacoes.truncate(120)) %>
+                    </span>
 
-              <div class="btn-group pull-right">
-                <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="fa fa-file" aria-hidden="true"></span> Arquivos(<%= i.arquivos.count%>) <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <% i.arquivos.each do |a| %>
-                    &nbsp;<%= link_icone("arquivo") %><a href="<%= a.avatar %>"  download target="_blank" class=""><span class="fa fa-file" aria-hidden="true"></span> <%= a.nome %></a><br/>
-                  <% end %>
-                </ul>
-              </div>    
+                <div class="btn-group pull-right">
+                  <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fa fa-file" aria-hidden="true"></span> Arquivos(<%= i.arquivos.count%>) <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <% i.arquivos.each do |a| %>
+                      &nbsp;<%= link_icone("arquivo") %><a href="<%= a.avatar %>"  download target="_blank" class=""><span class="fa fa-file" aria-hidden="true"></span> <%= a.nome %></a><br/>
+                    <% end %>
+                  </ul>
+                </div>    
 
-            </div>
-          </li>
+              </div>
+            </li>
+          <% else %>
+            <div class="row">
+              <div class="col-md-8">  
+                <li class="item">
+                  <div class="product-img">
+                    <% if !i.user.avatar.blank? %>
+                      <img src="<%= i.user.avatar.url(:thumb) %>" alt="Imagem do Usuario" class="img-circle">
+                    <% else %>
+                      <%= image_tag('user-default.jpg', :class=>"user-image img-circle") %>
+                    <% end %>
+                  </div>
+
+                  <div class="product-info">
+                    <a href="#" data-toggle="modal" data-target="#myModali<%= cont_i %>" class="product-title"><%= i.titulo %>
+                      <span class="label label-warning pull-right"><%= (i.user.name.split(" ").first).capitalize %> <i>em</i> <%= i.created_at.strftime("%d/%m/%Y %H:%M") %></span></a>
+                        <span class="description">
+                          <%= simple_format(i.informacoes.truncate(120)) %>
+                        </span>
+
+                    <div class="btn-group pull-right">
+                      <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="fa fa-file" aria-hidden="true"></span> Arquivos(<%= i.arquivos.count%>) <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <% i.arquivos.each do |a| %>
+                          &nbsp;<%= link_icone("arquivo") %><a href="<%= a.avatar %>"  download target="_blank" class=""><span class="fa fa-file" aria-hidden="true"></span> <%= a.nome %></a><br/>
+                        <% end %>
+                      </ul>
+                    </div>    
+
+                  </div>
+                </li>
+              </div>
+
+              <div class="col-md-4">
+                <a href="#" data-toggle="modal" data-target="#myModali<%= cont_i %>" class="product-title">
+                  <img src="<%= i.avatar.url.to_s %>" class="img img-responsive" alt="Imagem">
+                </a>
+              </div>
+            </div>  
+          <% end %>
           
+
           <!-- Modal -->
             <div class="modal fade" id="myModali<%= cont_i %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
@@ -56,7 +99,11 @@
                     <h4 class="modal-title label label-info" id="myModalLabel"><%= i.titulo %></h4>
                     <h5 class="label label-warning"><i>Por</i> <%= (i.user.name.split(" ").first).capitalize %> <i>em</i> <%= i.created_at.strftime("%d/%m/%Y %H:%M") %></h5>
                   </div>
-                  <div class="modal-body product-info">
+                  <div class="modal-body">
+                    <% if !i.avatar.blank? %>
+                      <img src="<%= i.avatar.url.to_s %>" class="img img-responsive" alt="Imagem">
+                      <br/>
+                    <% end %>  
                     <%= simple_format(i.informacoes) %>
                   </div>
                   <div class="modal-footer">

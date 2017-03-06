@@ -72,6 +72,6 @@ class InformativosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def informativo_params
-      params.require(:informativo).permit(:tipo, :titulo, :informacoes, :publicado, :user_id)
+      params.require(:informativo).permit(:tipo, :titulo, :informacoes, :publicado, :user_id, :avatar)
     end
 end

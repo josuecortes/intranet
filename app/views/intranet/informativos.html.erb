@@ -27,16 +27,22 @@
         <td><%= informativo.tipo %></td>
         <td><%= informativo.titulo %></td>
         <td>
-          <div class="btn-group pull-right">
-            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="fa fa-file" aria-hidden="true"></span> Arquivos(<%= informativo.arquivos.count%>) <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <% informativo.arquivos.each do |a| %>
-                &nbsp;<%= link_icone("arquivo") %><a href="<%= a.avatar %>"  download target="_blank" class=""><span class="fa fa-file" aria-hidden="true"></span> <%= a.nome %></a><br/>
-              <% end %>
-            </ul>
-          </div>
+          <% if informativo.arquivos.count > 0 %>
+            <div class="pull-left">
+              <div class="btn-group pull-right">
+                <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="fa fa-file" aria-hidden="true"></span> Arquivos(<%= informativo.arquivos.count%>) <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <% informativo.arquivos.each do |a| %>
+                    &nbsp;<%= link_icone("arquivo") %><a href="<%= a.avatar %>"  download target="_blank" class=""><span class="fa fa-file" aria-hidden="true"></span> <%= a.nome %></a><br/>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          <% else %>
+            <div class="pull-left">Sem Arquivos</div>
+          <% end %>
         </td>
         <td>
           <%= link_to link_icone('detalhes'),

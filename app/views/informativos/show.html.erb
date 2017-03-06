@@ -36,6 +36,14 @@
   <%= detalhes2(@informativo.user, :name) %> em <%= @informativo.created_at.strftime("%d/%m/%Y %H:%M") %>
 </p>
 
+<% if !@informativo.avatar.blank? %>
+  <p>
+    <img src="<%= @informativo.avatar.url(:thumb).to_s %>" class="img img-responsive" alt="Imagem">
+  </p>
+<% else %>
+  <p>Sem Imagem</p>
+<% end %>
+
 <%= link_to link_icone('voltar'), informativos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
 <%= link_to link_icone('editar'), edit_informativo_path(@informativo), :class=>"btn btn-primary", :title=>"Editar" %>
 <%= link_to link_icone('arquivos'),

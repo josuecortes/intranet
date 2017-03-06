@@ -6,19 +6,19 @@
 
 <% if !current_user %>
 	
-	<title>Intranet </title>
+	<title>Siscom </title>
 	
 <% else %>
 
 	<% if !current_user.nao_admin or current_user.e_tecnico %>
 		<% @abertos = Chamado.where(:status=>"ABERTO").all %>
 		<% if @abertos.count > 0 %>
-			<title>(<%= @abertos.count %>) Intranet </title>
+			<title>(<%= @abertos.count %>) Siscom </title>
 		<% else %>
-			<title>Intranet </title>
+			<title>Siscom </title>
 		<% end %>
 	<% else %>
-		<title>Intranet </title>
+		<title>Siscom </title>
 	<% end %>
 
 <% end %>

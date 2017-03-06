@@ -26,6 +26,11 @@
   <%= @informativo.created_at.strftime("%d/%m/%Y %H:%M") %>
 </p>
 
+<% if !@informativo.avatar.blank? %>
+  <p>
+    <img src="<%= @informativo.avatar.url.to_s %>" class="img img-responsive" alt="Imagem">
+  </p>
+<% end %>
 
 <p>
   <strong>Por:</strong>
