@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :sub_titulo do %>
-  IS | Detalhes da Informação
+  SC | Detalhes da Informação
 <% end %>
 
 <p>
@@ -37,4 +37,4 @@
   <%= detalhes2(@informativo.user, :name) %> em <%= @informativo.created_at.strftime("%d/%m/%Y %H:%M") %>
 </p>
 
-<%= link_to link_icone('voltar'), intranet_informativos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('voltar'), intranet_informativos_path, :class=>'btn btn-default', :title=>"Voltar" %>

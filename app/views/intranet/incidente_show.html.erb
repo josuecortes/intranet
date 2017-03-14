@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :sub_titulo do %>
-  IS | Detalhes do Incidente
+  SC | Detalhes do Incidente
 <% end %>
 
 <p>
@@ -51,5 +51,4 @@
   <%= detalhes(@incidente.observacoes) %>
 </p>
 
-<%= link_to link_icone('voltar'), intranet_incidentes_path, :class=>'btn btn-default', :title=>"Voltar" %> 
-
+<%= link_to link_icone('voltar'), intranet_incidentes_path, :class=>'btn btn-default', :title=>"Voltar" %>

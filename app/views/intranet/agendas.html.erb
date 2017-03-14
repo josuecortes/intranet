@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :sub_titulo do %>
-  IS | Lista de Itens na Agenda
+  SC | Lista de Itens na Agenda
 <% end %>
 
 <table id="tabela" class="display" cellspacing="0" width="100%">
@@ -14,7 +14,7 @@
       <th>Hora</th>
       <th>Tipo</th>
       <th>Titulo</th>
-     
+
       <th>Ações</th>
     </tr>
   </thead>
@@ -28,11 +28,11 @@
         <td><%= detalhes(agenda.data_hora.strftime("%H:%M")) %></td>
         <td><%= agenda.tipo %></td>
         <td><%= agenda.titulo %></td>
-        
+
         <td>
           <%= link_to link_icone('detalhes'),
                     intranet_agenda_show_path(:agenda_id=>agenda.id), :class => 'btn btn-default', :title=>"Detalhes" %>
-          
+
         </td>
 
       </tr>

@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :sub_titulo do %>
-  IS | Detalhes do Projeto
+  SC | Detalhes do Projeto
 <% end %>
 
 <p>
@@ -31,5 +31,4 @@
   <%= @projeto.data_inicial.strftime("%d/%m/%Y") %>
 </p>
 
-<%= link_to link_icone('voltar'), intranet_projetos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
-
+<%= link_to link_icone('voltar'), intranet_projetos_path, :class=>'btn btn-default', :title=>"Voltar" %>
