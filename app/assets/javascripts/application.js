@@ -25,7 +25,7 @@
 // require npm
 //= require jquery.mask.min
 // require ckeditor/init
-//= require multicarousel
+
 
 
 $(document).ready(function() {
