@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     get :salvar_participante
 
     get :remover_participante
-    
+
   end
 
   resources :agendas
@@ -110,7 +110,7 @@ Rails.application.routes.draw do
     get :fechados, :on => :collection
 
     get :autocomplete_problema_descricao, :on => :collection
-    
+
   end
 
   resources :inventarios
@@ -123,7 +123,7 @@ Rails.application.routes.draw do
 
   get 'home/index'
   get 'home/nao_autorizado'
-  
+
   resources :usuarios do
 
     get :redefinir_senha
@@ -131,7 +131,7 @@ Rails.application.routes.draw do
     get :autocomplete_departamento_nome, :on => :collection
 
   end
-  
+
   devise_for :users
   resources :users
 
@@ -145,5 +145,5 @@ Rails.application.routes.draw do
       root 'intranet#index', as: :unauthenticated_root
     end
   end
-  
+
 end

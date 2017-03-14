@@ -2,8 +2,8 @@ class IntranetController < ApplicationController
 	skip_before_filter :authenticate_user!
 	#layout "intranet"
   def index
-  	@agendas = Agenda.where("data_hora >= ?",Time.now).publicado.order('data_hora ASC').limit(6) 	
-  	@informativos = Informativo.order('created_at DESC').publicado.limit(6)
+  	@agendas = Agenda.where("data_hora >= ?",Time.now).publicado.order('data_hora ASC').limit(6)
+  	@informativos = Informativo.order('created_at DESC').publicado.limit(9)
   	@inci_acontecendo = Incidente.order('data_inicio DESC').where(:status=>"ACONTECENDO").all
   	@projetos = Projeto.order('created_at DESC').publicado.limit(6)
 
@@ -27,7 +27,7 @@ class IntranetController < ApplicationController
   end
 
   def salvar_mural
-    
+
     @mu = Mural.new(mural_params)
 
     respond_to do |format|
@@ -51,7 +51,7 @@ class IntranetController < ApplicationController
   end
 
   def agendas
-    @agendas = Agenda.where("data_hora >= ?",Time.now).publicado.order('data_hora ASC')  
+    @agendas = Agenda.where("data_hora >= ?",Time.now).publicado.order('data_hora ASC')
   end
 
   def agenda_show
@@ -84,7 +84,7 @@ class IntranetController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def mural_params
       params.require(:mural).permit(:texto, :user_id)

@@ -25,6 +25,7 @@
 // require npm
 //= require jquery.mask.min
 // require ckeditor/init
+//= require multicarousel
 
 
 $(document).ready(function() {
@@ -49,11 +50,11 @@ $(document).ready(function() {
 
   $('.ordem').mask('000');
 
-  $('.inci_data_ini').mask('00/00/0000 00:00'); 
-  
-  $('.inci_data_fim').mask('00/00/0000 00:00');  
+  $('.inci_data_ini').mask('00/00/0000 00:00');
 
-  $('.inci_data_prev').mask('00/00/0000 00:00'); 
+  $('.inci_data_fim').mask('00/00/0000 00:00');
+
+  $('.inci_data_prev').mask('00/00/0000 00:00');
 
   $('.telefone_normal').mask('0000-0000');
 
@@ -73,7 +74,7 @@ $('table.display').dataTable({
   "language": {
     "sProcessing":    "Processando...",
     "sLengthMenu":    "Mostrar _MENU_ Registros",
-    "sZeroRecords":   "Nenhum registro encontrado", 
+    "sZeroRecords":   "Nenhum registro encontrado",
     "sEmptyTable":    "Nenhum dado disponivel nesta tabela",
     "sInfo":          "Mostrando registros de _START_ ate _END_ de um total de _TOTAL_ registros",
     "sInfoEmpty":     "Mostrando registros de 0 a 0 de um total de 0 registros",

@@ -12,17 +12,24 @@
 <% end %>
 
 <% content_for :corpo_intra do %>
-	
+
 	<section class="content">
     <!-- Info boxes -->
     <%= render 'layouts/intranet/infobox' %>
-        
+
     <div class="row">
-      
-      <div class="col-md-8">
+
+      <div class="col-md-12">
       	<%= render 'layouts/messages' %>
 			  <%= render 'layouts/intranet/informativos' %>
-			  <%= render 'layouts/intranet/mural' %>
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-8">
+				<%= render 'layouts/intranet/mural' %>
 			</div>
 
 			<div class="col-md-4">
@@ -35,7 +42,7 @@
 
     </div>
 
-          
+
   </section>
   <!-- /.content -->
 

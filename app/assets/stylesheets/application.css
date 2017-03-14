@@ -14,11 +14,12 @@
  *= require jquery-ui/core
  *= require jquery-ui/theme
  *= require skin-blue
- *= require dataTables/jquery.dataTables 
+ *= require dataTables/jquery.dataTables
  *= require datatables_responsive
  *= require datatables_rowreorder
  *= require bootstrap.min
  *= require font-awesome
  *= require AdminLTE.min
+ *= require multicarousel
  *= require_self
  */
