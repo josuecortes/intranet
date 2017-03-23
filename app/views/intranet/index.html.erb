@@ -30,14 +30,20 @@
 
 			<div class="col-md-8">
 				<%= render 'layouts/intranet/mural' %>
+				<div class="row">
+					<div class="col-md-6">
+						<%= render 'layouts/intranet/incidentes' %>
+					</div>
+					<div class="col-md-6">
+						<%= render 'layouts/intranet/aniversariantes' %>
+					</div>
+				</div>
 			</div>
 
 			<div class="col-md-4">
 			  <%= render 'layouts/intranet/agendas' %>
 			  <%= render 'layouts/intranet/projetos' %>
-			  <%= render 'layouts/intranet/incidentes' %>
 			  <%= render 'layouts/intranet/visitantes' %>
-			  <%= render 'layouts/intranet/aniversariantes' %>
 			</div>
 
     </div>
