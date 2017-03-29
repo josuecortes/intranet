@@ -22,15 +22,19 @@
             <% @agendas.each do |i| %>  
               
               <tr>
-                <td><%= i.titulo.upcase %></td>
-                <td><span class="label label-default"><%= i.data_hora.strftime("%d/%m/%Y %H:%M") %></span></td>
                 <td>
+
+                  <p>
+                  <span class="label label-default"><%= i.data_hora.strftime("%d/%m/%Y %H:%M") %></span>
                   <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm btn-primary btn-flat pull-left" data-toggle="modal" data-target="#myModala<%= cont_a %>">
+                    <button type="button" class="label label-primary pull-right" data-toggle="modal" data-target="#myModala<%= cont_a %>">
                       Leia +
                     </button>
                   <!-- Fim Button trigger modal -->
-
+                  </p>
+                  
+                  <%= i.titulo.upcase %>
+           
                   <!-- Modal -->
                     <div class="modal fade" id="myModala<%= cont_a %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                       <div class="modal-dialog" role="document">

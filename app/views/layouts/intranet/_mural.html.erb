@@ -24,7 +24,7 @@
           <% end %>  
           <p class="message">
             <a href="#" class="name">
-              <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> <%= m.created_at.strftime("%H:%M") %></small>
+              <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> <%= m.created_at.strftime("%d/%m %H:%M") %></small>
               <%= (m.user.name.split(" ").first).capitalize %>
             </a>
             <%= m.texto %>
@@ -46,7 +46,7 @@
           <%= f.input :user_id, :as=>:hidden, :input_html=>{:value=>current_user.id}%>
           <div class="row">
             <div class="col-md-10">
-              <%= f.input :texto, :label=>false, as: :string, :input_html => {:maxlength => 125, :class=>"form-control", :placeholder=>"Digite a msg..."}%>
+              <%= f.input :texto, :label=>false, as: :string, :input_html => {:maxlength => 600, :class=>"form-control", :placeholder=>"Digite a msg..."}%>
             </div>
             
             <div class="col-md-2">
