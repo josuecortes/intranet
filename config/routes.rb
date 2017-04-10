@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'admin/index'
+
+  get 'status/index'
+
   #mount Ckeditor::Engine => '/ckeditor'
   #resources :visita
 

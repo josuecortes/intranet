@@ -1,4 +1,107 @@
-<!-- PRODUCT LIST -->
+<% if @noticias_rapidas.count > 0 %>
+  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+
+      <% if @noticias_rapidas[0] %>
+        <div class="item active">
+          <center>
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">
+                  <a href="#" data-toggle="modal" data-target="#myModalRapidas0" class="product-title" title="<%= @informativos[0].titulo %>">
+        	      	  <i class="fa fa-info-circle"></i> <%= @noticias_rapidas[0].titulo %>
+                  </a>
+                </h3>
+              </div>
+            </div>
+          </center>
+        </div>
+      <% end %>
+
+      <% if @noticias_rapidas[1] %>
+        <div class="item">
+          <center>
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">
+                  <a href="#" data-toggle="modal" data-target="#myModalRapidas1" class="product-title" title="<%= @informativos[0].titulo %>">
+        	      	  <i class="fa fa-info-circle"></i> <%= @noticias_rapidas[1].titulo %>
+                  </a>
+                </h3>
+              </div>
+            </div>
+          </center>
+        </div>
+      <% end %>
+
+      <% if @noticias_rapidas[2] %>
+        <div class="item">
+          <center>
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">
+                  <a href="#" data-toggle="modal" data-target="#myModalRapidas2" class="product-title" title="<%= @informativos[0].titulo %>">
+        	      	  <i class="fa fa-info-circle"></i> <%= @noticias_rapidas[2].titulo %>
+                  </a>
+                </h3>
+              </div>
+            </div>
+          </center>
+        </div>
+      <% end %>
+
+      <% if @noticias_rapidas[3] %>
+        <div class="item">
+          <center>
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">
+                  <a href="#" data-toggle="modal" data-target="#myModalRapidas3" class="product-title" title="<%= @informativos[0].titulo %>">
+        	      	  <i class="fa fa-info-circle"></i> <%= @noticias_rapidas[3].titulo %>
+                  </a>
+                </h3>
+              </div>
+            </div>
+          </center>
+        </div>
+      <% end %>
+
+      <% if @noticias_rapidas[4] %>
+        <div class="item">
+          <center>
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">
+                  <a href="#" data-toggle="modal" data-target="#myModalRapidas4" class="product-title" title="<%= @informativos[0].titulo %>">
+        	      	  <i class="fa fa-info-circle"></i> <%= @noticias_rapidas[4].titulo %>
+                  </a>
+                </h3>
+              </div>
+            </div>
+          </center>
+        </div>
+      <% end %>
+
+      <% if @noticias_rapidas[5] %>
+        <div class="item">
+          <center>
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">
+                  <a href="#" data-toggle="modal" data-target="#myModalRapidas5" class="product-title" title="<%= @informativos[0].titulo %>">
+        	      	  <i class="fa fa-info-circle"></i> <%= @noticias_rapidas[5].titulo %>
+                  </a>
+                </h3>
+              </div>
+            </div>
+          </center>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>
+
 <div class="box box-primary">
   <div class="box-header with-border">
     <h3 class="box-title"><i class="fa fa-file"></i> Informativos</h3>
@@ -213,5 +316,70 @@
     </div>
   <!-- Fim Modal -->
   <% cont = cont + 1 %>
+
+<% end %>
+-----------------------
+
+
+
+<% contr = 0 %>
+
+<% @noticias_rapidas.each do |informativo| %>
+  <!-- Modal -->
+    <div class="modal fade" id="myModalRapidas<%= contr %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="row">
+              <div class="col-xs-3">
+                <center>
+                  <div class="product-img">
+                    <% if !informativo.user.avatar.blank? %>
+                      <img src="<%= informativo.user.avatar.url(:thumb) %>" alt="Imagem do Usuario" class="img-circle">
+                    <% else %>
+                      <%= image_tag('user-default.jpg', :class=>"user-image img-circle") %>
+                    <% end %>
+                  </div>
+                </center>
+              </div>
+              <div class="col-xs-9">
+                <h4 class="modal-title" id="myModalLabel"><%= informativo.titulo %>
+                  <br>
+                  <small>
+                    <i>Por</i> <%= (informativo.user.name.split(" ").first).capitalize %> <i>em</i> <%= informativo.created_at.strftime("%d/%m/%Y %H:%M") %>
+                  </small>
+
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="fa fa-file" aria-hidden="true"></span> Arquivos(<%= informativo.arquivos.count%>) <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <% informativo.arquivos.each do |a| %>
+                        &nbsp;<%= link_icone("arquivo") %><a href="<%= a.avatar %>"  download target="_blank" class=""><span class="fa fa-file" aria-hidden="true"></span> <%= a.nome %></a><br/>
+                      <% end %>
+                    </ul>
+                  </div>
+
+
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <% if !informativo.avatar.blank? %>
+              <img src="<%= informativo.avatar.url.to_s %>" class="img img-responsive" alt="Imagem">
+              <br/>
+            <% end %>
+            <%= simple_format(informativo.informacoes) %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Fim Modal -->
+  <% contr = contr + 1 %>
 
 <% end %>

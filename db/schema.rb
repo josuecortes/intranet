@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306134050) do
+ActiveRecord::Schema.define(version: 20170406151435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,16 @@ ActiveRecord::Schema.define(version: 20170306134050) do
     t.integer  "tipo_equipamento_id"
   end
 
+  create_table "documentos", force: :cascade do |t|
+    t.string   "numero"
+    t.string   "tipo"
+    t.string   "assunto"
+    t.string   "status"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "equipamentos", force: :cascade do |t|
     t.string   "patrimonio"
     t.datetime "created_at",                 null: false
@@ -180,6 +190,18 @@ ActiveRecord::Schema.define(version: 20170306134050) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orgaos", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "sigla"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "problemas", force: :cascade do |t|
     t.text     "descricao"
     t.text     "solucao"
@@ -243,6 +265,17 @@ ActiveRecord::Schema.define(version: 20170306134050) do
     t.string   "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tramitacaos", force: :cascade do |t|
+    t.string   "tipo"
+    t.text     "descricao"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "orgao_id"
+    t.integer  "departamento_id"
+    t.integer  "documento_id"
   end
 
   create_table "users", force: :cascade do |t|

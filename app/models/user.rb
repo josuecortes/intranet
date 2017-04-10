@@ -25,18 +25,18 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :projetos
 
   #has_attached_file :avatar,
-  #styles: { 
-  #  original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" }, 
+  #styles: {
+  #  original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" },
   #  default_url: lambda { |image| ActionController::Base.helpers.asset_path('user-default.jpg') }
 
   #validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   #do_not_validate_attachment_file_type :avatar
-  
+
   #validates_attachment_content_type :avatar, content_type: /\Aimage/
   #validates_attachment_file_name :avatar, matches: [/png\z/, /jpe?g\z/]
   #do_not_validate_attachment_file_type :avatar
 
- 
+
 
   validates_presence_of :name, :cpf
 	validates_uniqueness_of :name, :cpf
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
       else
         return false
       end
-    else 
+    else
       return true
     end
   end
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
       return true
     else
       return false
-    end 
+    end
   end
 
   def nao_admin
@@ -73,13 +73,13 @@ class User < ActiveRecord::Base
       return false
     else
       return true
-    end 
+    end
   end
 
   def nao_admin_nao_tecnico
     r1 = Role.where(:nome=>"ADMINISTRADOR").first
     r2 = Role.where(:nome=>"TECNICO").first
-    if (self.roles.include?r1 or self.roles.include?r2) 
+    if (self.roles.include?r1 or self.roles.include?r2)
       return true
     else
       return false
@@ -91,12 +91,12 @@ class User < ActiveRecord::Base
       return true
     else
       return false
-    end 
+    end
   end
 
   def e_editor
     r1 = Role.where(:nome=>"EDITOR").first
-    
+
     if (self.roles.include?r1)
       return true
     else
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
 
   def e_portaria
     r1 = Role.where(:nome=>"PORTARIA").first
-    
+
     if (self.roles.include?r1)
       return true
     else
@@ -132,13 +132,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  
+
 	before_save :maiusculas_sem_acentos
 
 	def maiusculas_sem_acentos
 
-		self.name = ActiveSupport::Inflector.transliterate(self.name).upcase if !self.name.blank?  
-		
+		self.name = ActiveSupport::Inflector.transliterate(self.name).upcase if !self.name.blank?
+
 	end
 
   validate :is_valid_dob?
@@ -150,6 +150,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  
 
-end 
+
+end

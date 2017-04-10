@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	  <title>Siscom | Seed </title>
+	  <%= stylesheet_link_tag 'application', media: 'all' %>
+	  <%= csrf_meta_tags %>
+	</head>
+
+	<body class="hold-transition skin-blue sidebar-mini">
+		<div class="content">
+
+			<% if current_user %>
+		    <%= render 'layouts/nav' %>
+		    
+		  <% end %>
+		  
+		  
+
+			<div class="box-body">
+	      <%= render 'layouts/messages' %>
+	      <%= yield %>
+
+      </div>
+
+	  	<div class="control-sidebar-bg"></div>
+
+		</div>
+		
+		<%= javascript_include_tag 'application' %>
+
+
+	</body>
+
+</html>

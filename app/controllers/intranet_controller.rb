@@ -3,9 +3,10 @@ class IntranetController < ApplicationController
 	#layout "intranet"
   def index
   	@agendas = Agenda.where("data_hora >= ?",Time.now).publicado.order('data_hora ASC').limit(6)
-  	@informativos = Informativo.order('created_at DESC').publicado.limit(9)
+  	@informativos = Informativo.where('tipo != ?', 'NOTÍCIA RAPIDA').order('created_at DESC').publicado.limit(9)
   	@inci_acontecendo = Incidente.order('data_inicio DESC').where(:status=>"ACONTECENDO").all
   	@projetos = Projeto.order('created_at DESC').publicado.limit(6)
+		@noticias_rapidas = Informativo.where('tipo = ?', 'NOTÍCIA RAPIDA').order('created_at DESC').publicado.limit(6)
 
     @mural = Mural.order('created_at DESC').limit(60)
 

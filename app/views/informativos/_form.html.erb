@@ -3,13 +3,13 @@
 
   <div class="form-inputs">
 
-    <% @tipos = ['NOTÍCIA','DECRETO','OFÍCIO'] %>
+    <% @tipos = ['NOTÍCIA','DECRETO','OFÍCIO', 'NOTÍCIA RAPIDA'] %>
 
-    <%= f.input :tipo, :label=>"Selecione o Tipo de Informação", :collection=>@tipos %>    
+    <%= f.input :tipo, :label=>"Selecione o Tipo de Informação", :collection=>@tipos %>
     <%= f.input :titulo %>
     <%= f.input :informacoes, :label=>"Informação", as: :text, :input_html=>{:rows => 10} %>
     <%= f.input :user_id, :as=>:hidden, :input_html=>{:value=>current_user.id}%>
-    <br/>  
+    <br/>
     <% if !@informativo.avatar.blank? %>
       <p>Imagem Atual</p>
       <p>
