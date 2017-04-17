@@ -61,15 +61,15 @@ $(document).ready(function() {
 
   $('.rg').mask("999999999999");
 
-  $('#tamanho_img0').css('height', '400px', 'width', '100%');
-  $('#tamanho_img1').css('height', '400px', 'width', '100%');
-  $('#tamanho_img2').css('height', '400px', 'width', '100%');
-  $('#tamanho_img3').css('height', '400px', 'width', '100%');
-  $('#tamanho_img4').css('height', '400px', 'width', '100%');
-  $('#tamanho_img5').css('height', '400px', 'width', '100%');
-  $('#tamanho_img6').css('height', '400px', 'width', '100%');
-  $('#tamanho_img7').css('height', '400px', 'width', '100%');
-  $('#tamanho_img8').css('height', '400px', 'width', '100%');
+  $('#tamanho_img0').css('height', '350px', 'width', '100%');
+  $('#tamanho_img1').css('height', '350px', 'width', '100%');
+  $('#tamanho_img2').css('height', '350px', 'width', '100%');
+  $('#tamanho_img3').css('height', '350px', 'width', '100%');
+  $('#tamanho_img4').css('height', '350px', 'width', '100%');
+  $('#tamanho_img5').css('height', '350px', 'width', '100%');
+  $('#tamanho_img6').css('height', '350px', 'width', '100%');
+  $('#tamanho_img7').css('height', '350px', 'width', '100%');
+  $('#tamanho_img8').css('height', '350px', 'width', '100%');
 
 
 
