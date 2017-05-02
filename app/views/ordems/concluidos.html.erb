@@ -1,0 +1,53 @@
+<% content_for :titulo do %>
+  Ordens
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <%= link_to link_icone('nova'), new_chamado_path, :class=> 'btn btn-success', :title=>"Nova Ordem" %>
+  Lista de Ordens de Serviço
+
+<% end %>
+
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+
+  	<li role="presentation" class=""><a href="/ordems">ABERTAS(<%= @abertas.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/ordems/em_atendimento">EM ATENDIMENTO(<%= @atendimentos.count %>)</a></li>
+
+    <li role="presentation" class="active"><a href="#CONCLUIDAS" aria-controls="CONCLUIDAS" role="tab" data-toggle="tab">CONCLUIDAS(<%= @concluidas.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/ordems/aguardando">AGUARDANDO(<%= @aguardando.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/ordems/fechados">FECHADAS(<%= @fechadas.count %>)</a></li>
+
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="CONCLUIDAS">
+
+      <br/>
+
+      <table id="tabela" class="display" cellspacing="0" width="100%">
+        <thead>
+          <%= render partial: "ordems/header_tabela" %>
+        </thead>
+
+        <% @ordem = 1 %>
+        <tbody>
+          <% @concluidas.each do |ordem| %>
+            <%= render partial: "ordems/tabela", object: ordem, as: 'ordem' %>
+            <% @ordem = @ordem + 1 %>
+          <% end %>
+        </tbody>
+      </table>
+
+
+
+    </div>
+  </div>
+</div>

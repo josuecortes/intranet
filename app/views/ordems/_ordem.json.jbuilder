@@ -1,0 +1,2 @@
+json.extract! ordem, :id, :status, :data_status_aberto, :data_status_em_atendimento, :data_status_concluido, :data_status_aguardando, :data_status_fechado, :user_id, :cliente_id, :departamento_id, :tipo_equipamento, :especificacoes, :condicoes, :problema, :acoes, :conversa, :created_at, :updated_at
+json.url ordem_url(ordem, format: :json)

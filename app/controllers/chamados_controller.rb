@@ -3,11 +3,11 @@ class ChamadosController < ApplicationController
   before_action :pegar_todos, only: [:index, :em_atendimento, :concluidos, :cancelados, :fechados]
   before_filter :colecoes
   load_and_authorize_resource :class=>"Chamado", except: :create
-  
+
   # GET /chamados
   # GET /chamados.json
   def index
-    
+
   end
 
   def em_atendimento
@@ -24,7 +24,7 @@ class ChamadosController < ApplicationController
 
   def fechados
 
-  end 
+  end
 
   # GET /chamados/1
   # GET /chamados/1.json
@@ -85,13 +85,13 @@ class ChamadosController < ApplicationController
           @chamado.status = Chamado.where("id = ?", @chamado.id).first.status
           format.html { render :fechar_chamado }
           format.json { render json: @chamado.errors, status: :unprocessable_entity }
-        end    
+        end
 
         if @chamado.status == "CONCLUIDO"
           @chamado.status = Chamado.where("id = ?", @chamado.id).first.status
           format.html { render :concluir_chamado }
           format.json { render json: @chamado.errors, status: :unprocessable_entity }
-        end          
+        end
       end
     end
   end
@@ -129,7 +129,7 @@ class ChamadosController < ApplicationController
       redirect_to chamados_url, notice: 'Algo estranho aconteceu'
     else
       @chamado = Chamado.find(params[:chamado_id])
-      if @chamado.status == 'ABERTO'        
+      if @chamado.status == 'ABERTO'
         @usuario = User.find(params[:usuario_id])
         @chamado.tecnico = @usuario
         @chamado.status = 'EM ATENDIMENTO'
@@ -161,9 +161,9 @@ class ChamadosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chamado_params
-      params.require(:chamado).permit(:problema_id, :tecnico_id, :observacoes_usuario, :user_id, 
-                                      :status, :data_status_aberto, :data_status_fechado, :data_status_em_atendimento, 
-                                      :data_status_concluido, :parecer_preliminar_tecnico, :parecer_final_tecnico, 
+      params.require(:chamado).permit(:problema_id, :tecnico_id, :observacoes_usuario, :user_id,
+                                      :status, :data_status_aberto, :data_status_fechado, :data_status_em_atendimento,
+                                      :data_status_concluido, :parecer_preliminar_tecnico, :parecer_final_tecnico,
                                       :motivo_cancelamento, :avaliacao_usuario, :nivel_satisfacao_usuario,
                                       :data_status_cancelado)
     end
@@ -172,12 +172,12 @@ class ChamadosController < ApplicationController
       # @chamados = Chamado.all
       # @q = Chamado.ransack(params[:q])
       # @chamados = @q.result.accessible_by(current_ability).order('created_at DESC').paginate(:page => params[:page], :per_page => @@per_page)
-      # @abertos = @q.result.accessible_by(current_ability).order('data_status_aberto DESC').where("status = ?", "ABERTO").paginate(:page => params[:page], :per_page => @@per_page)  
-      # @atendimentos = @q.result.accessible_by(current_ability).order('data_status_em_atendimento ASC').where("status = ?", "EM ATENDIMENTO").paginate(:page => params[:page], :per_page => @@per_page)  
-      # @concluidos = @q.result.accessible_by(current_ability).order('data_status_concluido DESC').where("status = ?", "CONCLUIDO").paginate(:page => params[:page], :per_page => @@per_page)  
-      # @cancelados = @q.result.accessible_by(current_ability).order('data_status_cancelado DESC').where("status = ?", "CANCELADO").paginate(:page => params[:page], :per_page => @@per_page)  
-      # @fechados = @q.result.accessible_by(current_ability).order('data_status_fechado DESC').where("status = ?", "FECHADO").paginate(:page => params[:page], :per_page => @@per_page)  
-      
+      # @abertos = @q.result.accessible_by(current_ability).order('data_status_aberto DESC').where("status = ?", "ABERTO").paginate(:page => params[:page], :per_page => @@per_page)
+      # @atendimentos = @q.result.accessible_by(current_ability).order('data_status_em_atendimento ASC').where("status = ?", "EM ATENDIMENTO").paginate(:page => params[:page], :per_page => @@per_page)
+      # @concluidos = @q.result.accessible_by(current_ability).order('data_status_concluido DESC').where("status = ?", "CONCLUIDO").paginate(:page => params[:page], :per_page => @@per_page)
+      # @cancelados = @q.result.accessible_by(current_ability).order('data_status_cancelado DESC').where("status = ?", "CANCELADO").paginate(:page => params[:page], :per_page => @@per_page)
+      # @fechados = @q.result.accessible_by(current_ability).order('data_status_fechado DESC').where("status = ?", "FECHADO").paginate(:page => params[:page], :per_page => @@per_page)
+
       @chamados = Chamado.accessible_by(current_ability).order('created_at DESC')
       @abertos = Chamado.accessible_by(current_ability).order('created_at ASC').where("status = ?", "ABERTO")
       @atendimentos = Chamado.accessible_by(current_ability).order('created_at ASC').where("status = ?", "EM ATENDIMENTO")

@@ -7,15 +7,15 @@ class Ability
   ESTATISTICAS = Role.where(:nome=>"ESTATISTICAS").first
   EDITOR = Role.where(:nome=>"EDITOR").first
   PORTARIA = Role.where(:nome=>"PORTARIA").first
-                        
+
   def initialize(user)
-    
+
     if user.roles.include?ADMINISTRADOR
-      can :manage, :all      
+      can :manage, :all
       can :show, :estatisticas
       cannot [:create, :update], Chamado
 
-    end 
+    end
 
     if user.roles.include?TECNICO
     	can :manage, Role
@@ -34,11 +34,13 @@ class Ability
       can :manage, Mural, :user_id => user.id
 
       can :show, :estatisticas
-      
 
       can :manage, Chamado#, Chamado.where(:user_id != user.id)
       #cannot :fechar_chamado, Chamado, Chamado.where(:user_id != user.id)
       cannot :delete, Chamado, :user_id != user.id
+
+      can :manage, Ordem
+      cannot :delete, Ordem, :user_id != user.id
 
     	#cannot :pegar_chamado, Chamado, Chamado.where(:status != "ABERTO")
       #can :pegar_chamado, Chamado, Chamado.where(:status=>"ABERTO")
@@ -48,12 +50,12 @@ class Ability
     end
 
     if user.roles.include?REQUISITANTE
-      
+
       #can :manage, Chamado, {:user_id=>user.id}
       can :manage, Chamado, :user_id => user.id
       #cannot :pegar_chamado, Chamado
-      #cannot :cancelar_chamado, {:status=>'ABERTO'} 
-      #cannot :cancelar_chamado, Chamado, status: ['ABERTO', 'CONCLUIDO'] 
+      #cannot :cancelar_chamado, {:status=>'ABERTO'}
+      #cannot :cancelar_chamado, Chamado, status: ['ABERTO', 'CONCLUIDO']
       #cannot :concluir_chamado, Chamado
       #cannot :delete, Chamado
 
@@ -62,6 +64,10 @@ class Ability
       can :read, Incidente
 
       can :manage, Mural, :user_id => user.id
+
+      can :manage, Ordem, :cliente_id => user.id
+      cannot :create, Ordem
+
 
       #cannot
     	#can :edit, Chamado.where(:user_id=>user.id, :status=>"ABERTO")
@@ -79,7 +85,7 @@ class Ability
       can :manage, Agenda, :user_id => user.id
       can :manage, Projeto, :user_id => user.id
       can :manage, Informativo, :user_id => user.id
-      can :manage, Mural, :user_id => user.id   
+      can :manage, Mural, :user_id => user.id
     end
 
     if user.roles.include?PORTARIA

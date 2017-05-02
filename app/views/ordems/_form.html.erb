@@ -1,0 +1,33 @@
+<%= simple_form_for([@chamado, @ordem]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <% @tipo_equipamentos = ['COMPUTADOR','NOTEBOOK','IMPRESSORA', 'PERIFÉRICO', 'ROTEADOR', 'NOBREAK/ESTABILIZADOR', 'PENDRIVE', 'OUTRO'] %>
+
+    <%= f.input :tipo_equipamento, :label=>"Selecione o Tipo de Equipamento", :collection=>@tipo_equipamentos %>
+
+    <%= f.input :especificacoes %>
+
+    <%= f.input :problema %>
+
+    <%= f.input :condicoes %>
+
+    <% if @ordem.user_id.blank? %>
+      <%= f.input :user_id, as: :hidden, :input_html=>{:value=>current_user.id} %>
+      <%= f.input :cliente_id, as: :hidden, :input_html=>{:value=>@chamado.user.id} %>
+      <%= f.input :departamento_id, as: :hidden, :input_html=>{:value=>@chamado.user.departamento.id} %>
+    <% end %>
+
+    <% if @ordem.status.blank? %>
+      <%= f.input :status, as: :hidden, :input_html=>{:value=>"ABERTO"} %>
+      <%= f.input :data_status_aberto, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+    <% end %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Criar Ordem de Serviço", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', chamado_path(@ordem.chamado), :class=>'btn btn-default' %>
+  </div>
+<% end %>

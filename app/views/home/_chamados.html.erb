@@ -1,7 +1,7 @@
 <hr/>
 <div class="row">
 
-	<div class="col-md-6">	
+	<div class="col-md-6">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Meus Chamados(<%= @meus_chamados.count %>)</h3>
@@ -21,7 +21,7 @@
 					<% if @meus_chamados.last.status == "CONCLUIDO" %>
 						<div class="alert alert-warning" role="alert"> Você possui 1 chamado concluido </div>
 					<% end %>
-				<% end %> 
+				<% end %>
 				<% if @meus_chamados.count > 0 %>
 					<% if (@meus_chamados.last.status == "ABERTO" or @meus_chamados.last.status == "EM ATENDIMENTO" or @meus_chamados.last.status == "CONCLUIDO") %>
 
@@ -38,12 +38,12 @@
 										<td>
 											<%= link_to link_icone('detalhes'),
 			            chamado_path(@meus_chamados.last), :class => 'btn btn-default', :title=>"Detalhes" %>
-			            	
+
 			            	</td>
 									</tr>
 								</tbody>
-							</table>	
-						
+							</table>
+
 					<% else %>
 						<center>Você não possui chamados pendente <%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success btn-md', :title=>"Novo Chamado" %></center>
 					<% end %>
@@ -52,9 +52,61 @@
 				<% end %>
 		  </div>
 		</div>
+
+
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Ordens de Serviço(<%= @minhas_ordens.count %>)</h3>
+		  </div>
+		  <div class="panel-body">
+		    <% if @minhas_ordens.count < 1 %>
+					<div class="alert bg-primary" role="alert">
+						 Você não possui Ordens de Serviço </span></a>
+					</div>
+				<% else %>
+					<% if @minhas_ordens.last.status == "ABERTO" %>
+						<div class="alert alert-success" role="alert"> Você possui 1 ordem em aberto </div>
+					<% end %>
+					<% if @minhas_ordens.last.status == "EM ATENDIMENTO" %>
+						<div class="alert alert-info" role="alert"> Você possui 1 ordem em atendimento </div>
+					<% end %>
+					<% if @minhas_ordens.last.status == "AGUARDANDO" %>
+						<div class="alert alert-danger" role="alert"> Você possui 1 ordem aguardando </div>
+					<% end %>
+					<% if @minhas_ordens.last.status == "CONCLUIDO" %>
+						<div class="alert alert-warning" role="alert"> Você possui 1 ordem concluida </div>
+					<% end %>
+				<% end %>
+				<% if @minhas_ordens.count > 0 %>
+					<% if (@minhas_ordens.last.status == "ABERTO" or @minhas_ordens.last.status == "EM ATENDIMENTO" or @minhas_ordens.last.status == "CONCLUIDO" or @minhas_ordens.last.status == "AGUARDANDO") %>
+
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Ordem</th>
+										<th>Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><%= @minhas_ordens.last.created_at.year %><%= @minhas_ordens.last.id %></td>
+										<td>
+											<%= link_to link_icone('detalhes'),
+			            ordem_path(@minhas_ordens.last), :class => 'btn btn-default', :title=>"Detalhes" %>
+
+			            	</td>
+									</tr>
+								</tbody>
+							</table>
+
+					<% end %>
+				<% end %>
+		  </div>
+		</div>
+
 	</div>
 
-	<div class="col-md-6">	
+	<div class="col-md-6">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Incidentes Acontecendo(<%= @inci_acontecendo.count %>)</h3>
@@ -76,14 +128,14 @@
 								<td>
 									<%= link_to link_icone('detalhes'),
 	            incidente_path(incidente), :class => 'btn btn-default', :title=>"Detalhes" %>
-	            	
+
 	            	</td>
 							</tr>
 						<% end %>
 					</tbody>
-				</table>	
+				</table>
 			</div>
 		</div>
 	</div>
 
-</div>		
+</div>

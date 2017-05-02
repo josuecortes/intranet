@@ -1,0 +1,51 @@
+<% content_for :titulo do %>
+  Ordens
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Ordens de Serviço
+<% end %>
+
+<% @usuario_logado = current_user %>
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+
+    <li role="presentation" class="active"><a href="/ordems" aria-controls="ABERTOS" role="tab" data-toggle="tab">ABERTAS(<%= @abertas.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/ordems/em_atendimento">EM ATENDIMENTO(<%= @atendimentos.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/ordems/concluidos">CONCLUIDAS(<%= @concluidas.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/ordems/aguardando">AGUARDANDO(<%= @aguardando.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/ordems/fechados">FECHADAS(<%= @fechadas.count %>)</a></li>
+
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="ABERTOS">
+
+      <br/>
+
+      <table id="tabela" class="display" cellspacing="0" width="100%">
+        <thead>
+          <%= render partial: "ordems/header_tabela" %>
+        </thead>
+
+        <% @ordem = 1 %>
+        <tbody>
+          <% @abertas.each do |ordem| %>
+            <%= render partial: "ordems/tabela", object: ordem, as: 'ordem' %>
+            <% @ordem = @ordem + 1 %>
+          <% end %>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  data_status_aberto: 2017-04-20 12:45:34
+  data_status_em_atendimento: 2017-04-20 12:45:34
+  data_status_concluido: 2017-04-20 12:45:34
+  data_status_aguardando: 2017-04-20 12:45:34
+  data_status_fechado: 2017-04-20 12:45:34
+  user_id: 1
+  cliente_id: 1
+  departamento_id: 1
+  tipo_equipamento: MyString
+  especificacoes: MyText
+  condicoes: MyText
+  problema: MyText
+  acoes: MyText
+  conversa: MyText
+
+two:
+  status: MyString
+  data_status_aberto: 2017-04-20 12:45:34
+  data_status_em_atendimento: 2017-04-20 12:45:34
+  data_status_concluido: 2017-04-20 12:45:34
+  data_status_aguardando: 2017-04-20 12:45:34
+  data_status_fechado: 2017-04-20 12:45:34
+  user_id: 1
+  cliente_id: 1
+  departamento_id: 1
+  tipo_equipamento: MyString
+  especificacoes: MyText
+  condicoes: MyText
+  problema: MyText
+  acoes: MyText
+  conversa: MyText

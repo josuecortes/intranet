@@ -17,7 +17,7 @@
         <br/>
       </div>
       <!-- search form -->
-      
+
       <ul class="sidebar-menu">
         <li class="header">MENU PRINCIPAL</li>
         <li class="treeview">
@@ -54,7 +54,7 @@
           <a href="/intranet/projetos">
             <i class="fa fa-table"></i> <span>Lista Projetos</span>
           </a>
-        </li>    
+        </li>
 
         <li class="treeview">
           <a href="/intranet/incidentes">
@@ -63,7 +63,7 @@
         </li>
 
         <li class="header">ADMINISTRAÇÃO</li>
-        
+
         <li>
           <a href="/home/index">
             <i class="fa fa-home"></i> <span>Area de Trabalho</span>
@@ -73,6 +73,12 @@
         <li>
           <a href="/chamados">
             <i class="fa fa-windows"></i> <span>Chamados</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/ordems">
+            <i class="fa fa-file"></i> <span>Ordens (OS)</span>
           </a>
         </li>
 
@@ -101,7 +107,7 @@
             <a href="/departamentos">
               <i class="fa fa-sitemap"></i> <span>Departamentos</span>
             </a>
-          </li>    
+          </li>
 
           <li class="treeview">
             <a href="#">
@@ -122,9 +128,9 @@
             <a href="/problemas">
               <i class="fa fa-bug"></i> <span>Problemas</span>
             </a>
-          </li>    
-          
-        <% end %> 
+          </li>
+
+        <% end %>
 
         <% if can? :show, :estatisticas %>
 
@@ -132,7 +138,7 @@
             <a href="/estatisticas/index">
               <i class="fa fa-bar-chart"></i> <span>Estatisticas</span>
             </a>
-          </li>    
+          </li>
 
         <% end %>
 
@@ -140,7 +146,7 @@
           <a href="/murals">
             <i class="fa fa-list"></i> <span>Mural</span>
           </a>
-        </li>    
+        </li>
 
         <% if current_user.e_editor or !current_user.nao_admin %>
 
@@ -148,19 +154,19 @@
             <a href="/informativos">
               <i class="fa fa-file"></i> <span>Informativos</span>
             </a>
-          </li>   
+          </li>
 
           <li>
             <a href="/agendas">
               <i class="fa fa-calendar"></i> <span>Agenda</span>
             </a>
-          </li>    
- 
+          </li>
+
           <li>
             <a href="/projetos">
               <i class="fa fa-table"></i> <span>Projetos</span>
             </a>
-          </li>    
+          </li>
 
         <% end %>
 
@@ -170,13 +176,13 @@
             <a href="/visitantes">
               <i class="fa fa-camera"></i> <span>Visitantes</span>
             </a>
-          </li>   
+          </li>
 
         <% end %>
 
-      </ul>  
+      </ul>
 
-    
+
     </section>
     <!-- /.sidebar -->
   </aside>

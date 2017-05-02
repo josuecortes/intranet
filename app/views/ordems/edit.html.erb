@@ -1,0 +1,30 @@
+<% content_for :titulo do %>
+  Ordens
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Editar OS
+<% end %>
+
+<%= simple_form_for([@chamado, @ordem]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <% @tipo_equipamentos = ['COMPUTADOR','NOTEBOOK','IMPRESSORA', 'PERIFÉRICO', 'ROTEADOR', 'NOBREAK/ESTABILIZADOR', 'PENDRIVE', 'OUTRO'] %>
+
+    <%= f.input :tipo_equipamento, :label=>"Selecione o Tipo de Equipamento", :collection=>@tipo_equipamentos %>
+
+    <%= f.input :especificacoes %>
+
+    <%= f.input :problema %>
+
+    <%= f.input :condicoes %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Atualizar Ordem de Serviço", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', ordem_path(@ordem), :class=>'btn btn-default' %>
+  </div>
+<% end %>

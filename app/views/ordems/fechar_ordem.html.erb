@@ -1,0 +1,16 @@
+<% content_for :titulo do %>
+  Ordems
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Receber Equipamento (Fechar Ordem)
+<% end %>
+
+<% if @ordem.status == "CONCLUIDO" %>
+
+	<%= render 'form_fechar_ordem' %>
+
+<% else %>
+	<div class="alert alert-warning" role="alert">Opss.. Algo estranho aconteceu :).</div>
+	<%= link_to 'Voltar', ordems_path, :class=>'btn btn-default' %>
+<% end %>

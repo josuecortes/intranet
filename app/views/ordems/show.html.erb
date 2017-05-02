@@ -1,0 +1,131 @@
+<% content_for :titulo do %>
+  Ordens
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes da Ordem de Serviço
+<% end %>
+
+<br/>
+
+<table class="table table-bordered">
+	<tbody>
+		<tr>
+			<td> <strong>Ordem Número:</strong> <%= @ordem.created_at.year %><%= @ordem.id %> </td>
+      <td> <strong>Departamento:</strong> <%= @ordem.departamento.sigla %> </td>
+		</tr>
+		<tr>
+			<td><strong>Status Atual:</strong> <%= @ordem.status %></td>
+			<td>
+          <strong>Historico:</strong>
+          <br/>
+
+          <strong>Data de abertura da OS:</strong>
+          <%= data_br_completa(@ordem.data_status_aberto) %>
+          <br/>
+
+          <% if @ordem.data_status_em_atendimento != nil %>
+            <strong>Data de Liberação do Equipamento:</strong>
+            <%= data_br_completa(@ordem.data_status_em_atendimento) %>
+            <br/>
+          <% end %>
+
+          <% if @ordem.data_status_aguardando != nil and (@ordem.status == "AGUARDANDO" or @ordem.status == "CONCLUIDO" or @ordem.status == "FECHADO") %>
+            <strong>Data Aguardando:</strong>
+            <%= data_br_completa(@ordem.data_status_aguardando) %>
+            <br/>
+          <% end %>
+
+          <% if @ordem.data_status_concluido != nil and (@ordem.status == "CONCLUIDO" or @ordem.status == "FECHADO") %>
+            <strong>Data da Conclusão do Serviço:</strong>
+            <%= data_br_completa(@ordem.data_status_concluido) %>
+            <br/>
+          <% end %>
+
+          <% if @ordem.data_status_fechado != nil  %>
+            <strong>Data de Entrega:</strong>
+            <%= data_br_completa(@ordem.data_status_fechado) %>
+            <br/>
+          <% end %>
+
+      </td>
+		</tr>
+		<tr>
+			<td colspan="2"><strong>Tipo de Equipamento:</strong> <%= @ordem.tipo_equipamento %> </td>
+    </tr>
+		<tr>
+			<td colspan="2">
+        <strong>Especificações:</strong>
+        <br/>
+        <%= simple_format(@ordem.especificacoes) %>
+      </td>
+		</tr>
+		<tr>
+      <td colspan="2">
+        <strong>Condições:</strong>
+        <br/>
+        <%= simple_format(@ordem.condicoes) %>
+      </td>
+		</tr>
+		<tr>
+      <td colspan="2">
+        <strong>Problemas:</strong>
+        <br/>
+        <%= simple_format(@ordem.problema) %>
+      </td>
+		</tr>
+		<tr>
+			<td><strong>Técnico: </strong> <%= @ordem.user.name %> </td>
+			<td><strong>Cliente: </strong> <%= @ordem.cliente.name %> </td>
+		</tr>
+    <% if !@ordem.acoes.blank? %>
+  		<tr>
+        <td colspan="2">
+          <strong>Ações Realizadas pelo Técnico:</strong>
+          <br/>
+          <%= simple_format(@ordem.acoes) %>
+        </td>
+  		</tr>
+    <% end %>
+    <% if !@ordem.conversa.blank? %>
+  		<tr>
+        <td colspan="2">
+          <strong>Observações do Cliente:</strong>
+          <br/>
+          <%= simple_format(@ordem.conversa) %>
+        </td>
+  		</tr>
+    <% end %>
+	</tbody>
+</table>
+
+<br/>
+
+<%= link_to link_icone('voltar'), ordems_path, :class => 'btn btn-default', :title=>"Voltar" %>
+
+<% if @ordem.status == "ABERTO" and @ordem.user == current_user %>
+  <%= link_to link_icone('editar'),
+          edit_ordem_path(@ordem), :class => 'btn btn-primary', :title=>"Editar" %>
+<% end %>
+
+<% if @ordem.status == "ABERTO" and current_user == @ordem.cliente %>
+  <%= link_to "Liberar Equipamento",
+          ordem_liberar_equipamento_path(@ordem.id), :class => 'btn btn-danger', :title=>"Liberar Equipamento", data: { confirm: 'Liberar Equipamento... Ao clicar em OK você estara concordando com todas as informações que o Técnico obeservou. Você está certo disso?' } %>
+<% end %>
+
+<% if @ordem.status == "EM ATENDIMENTO" and current_user == @ordem.user %>
+  <%= link_to link_icone('concluir'),
+          ordem_concluir_ordem_path(@ordem), :class => 'btn btn-primary', :title=>"Concluir" %>
+  <%= link_to 'Aguardar',
+          ordem_aguardando_ordem_path(@ordem), :class => 'btn btn-danger', :title=>"Aguardar" %>
+<% end %>
+
+<% if @ordem.status == "AGUARDANDO" and current_user == @ordem.user %>
+  <%= link_to link_icone('concluir'),
+          ordem_concluir_ordem_path(@ordem), :class => 'btn btn-primary', :title=>"Concluir" %>
+<% end %>
+
+<% if @ordem.status == "CONCLUIDO" and current_user == @ordem.cliente %>
+  <%= link_to 'Fechar OS',
+        ordem_fechar_ordem_path(@ordem), :class => 'btn btn-danger', :title=>"Fechar" %>
+<% end %>

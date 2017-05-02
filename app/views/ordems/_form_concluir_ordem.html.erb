@@ -1,0 +1,20 @@
+<%= simple_form_for(@ordem) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <% @ordem.conversa = "" %>
+
+    <%= f.input :acoes %>
+
+    <%= f.input :status, as: :hidden, :input_html=>{:value=>"CONCLUIDO"} %>
+    <%= f.input :data_status_concluido, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+    <%= f.input :cabecalho, as: :hidden, :input_html=>{:value=>"#{current_user.name} - #{data_br_completa(DateTime.now)}"} %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Concluir OS", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', ordems_path, :class=>'btn btn-default' %>
+  </div>
+  <% end %>

@@ -1,5 +1,28 @@
 Rails.application.routes.draw do
 
+  resources :ordems do
+
+    get :fechar_ordem
+
+    get :aguardando_ordem
+
+    get :liberar_equipamento
+
+    get :concluir_ordem
+
+    get :em_atendimento, :on => :collection
+
+    get :concluidos, :on => :collection
+
+    get :cancelados, :on => :collection
+
+    get :aguardando, :on => :collection
+
+    get :fechados, :on => :collection
+
+
+  end
+
   get 'admin/index'
 
   get 'status/index'
@@ -114,6 +137,8 @@ Rails.application.routes.draw do
     get :fechados, :on => :collection
 
     get :autocomplete_problema_descricao, :on => :collection
+
+    resources :ordems
 
   end
 

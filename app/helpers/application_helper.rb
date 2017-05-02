@@ -14,7 +14,7 @@ module ApplicationHelper
 
 	    when 'editar'
 	    	html="<span class='fa fa-pencil'></span>"
-	      
+
 	    when 'apagar'
 	      html="<span class='fa fa-trash'></span>"
 
@@ -79,22 +79,22 @@ module ApplicationHelper
 	      html="<span class='fa fa-arrow-right'></span> Concluir"
 
 	    when 'entrada'
-	      html="<span class='fa fa-arrow-down'></span> Entrada"  
+	      html="<span class='fa fa-arrow-down'></span> Entrada"
 
 	    when 'saida'
-	      html="Saida <span class='fa fa-arrow-right'></span>"  
+	      html="Saida <span class='fa fa-arrow-right'></span>"
 
 	    when 'etapas'
-	      html="<span class='fa fa-tasks'></span>" 
+	      html="<span class='fa fa-tasks'></span>"
 
 	    when 'participantes'
-	      html="<span class='fa fa-users'></span>" 
+	      html="<span class='fa fa-users'></span>"
 
 	    when 'arquivos'
-	      html="<span class='fa fa-file'></span>" 
-	    
+	      html="<span class='fa fa-file'></span>"
+
 	  end
-	  
+
 	  return raw(html)
 	end
 
@@ -183,9 +183,9 @@ module ApplicationHelper
 	    when 'receber'
 	      html="<span class='glyphicon glyphicon-icon-arrow-down'></span> "
 	      html+= texto2
-	    
+
 	  end
-	  
+
 	  return raw(html)
 	end
 
@@ -233,7 +233,7 @@ module ApplicationHelper
 	end
 
 	def detalhes2(objeto,atributo)
-	  if !objeto.nil? 
+	  if !objeto.nil?
 	    return objeto.send("#{atributo.to_s}")
 	  else
 	    return raw("Nada Cadastrado")
@@ -255,7 +255,7 @@ module ApplicationHelper
 			when 'REQUISITANTE'
 				html+="REQ "
 
-			
+
 
 		end
 
@@ -280,6 +280,9 @@ module ApplicationHelper
 
 			when 'CONCLUIDO'
 				html="<span class='label label-warning'>CONCLUIDO</span>"
+
+			when 'AGUARDANDO'
+				html="<span class='label label-danger'>AGUARDANDO</span>"
 
 		end
 

@@ -37,7 +37,7 @@
 </p>
 
 <% if !@chamado.data_status_em_atendimento.blank? %>
-  
+
   <p>
     <strong>Data que entrou em Atendimento:</strong>
     <%= data_br_completa(@chamado.data_status_em_atendimento) %>
@@ -51,7 +51,7 @@
 <% end %>
 
 <% if !@chamado.data_status_concluido.blank? %>
-  
+
   <p>
     <strong>Data da Conclusão:</strong>
     <%= data_br_completa(@chamado.data_status_concluido) %>
@@ -65,7 +65,7 @@
 <% end %>
 
 <% if !@chamado.data_status_fechado.blank? %>
-  
+
   <p>
     <strong>Avaliação do Chamado:</strong>
     <%= @chamado.avaliacao_usuario %>
@@ -84,7 +84,7 @@
 <% end %>
 
 <% if !@chamado.data_status_cancelado.blank? %>
-  
+
   <p>
     <strong>Motivo do Cancelamento:</strong>
     <%= @chamado.motivo_cancelamento %>
@@ -97,14 +97,14 @@
 
 <% end %>
 
-<%= link_to link_icone('voltar'), chamados_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('voltar'), chamados_path, :class=>'btn btn-default', :title=>"Voltar" %>
 <% if @chamado.status == "ABERTO" and @chamado.user == current_user %>
-  <%= link_to link_icone('editar'), edit_chamado_path(@chamado), :class=>"btn btn-primary", :title=>"Editar" %> 
+  <%= link_to link_icone('editar'), edit_chamado_path(@chamado), :class=>"btn btn-primary", :title=>"Editar" %>
 <% end %>
 
 
 <% if (@chamado.status == "ABERTO" and @chamado.user == current_user) %>
-  <%= link_to link_icone('cancelar'), chamado_cancelar_chamado_path(@chamado), :class=>"btn btn-danger", :title=>"Cancelar", data: { confirm: 'Você está certo disso?' } %> 
+  <%= link_to link_icone('cancelar'), chamado_cancelar_chamado_path(@chamado), :class=>"btn btn-danger", :title=>"Cancelar", data: { confirm: 'Você está certo disso?' } %>
 <% end %>
 
 <% if @chamado.status == "ABERTO" and current_user.e_tecnico %>
@@ -118,9 +118,18 @@
 <% end %>
 
 <% if @chamado.status == "CONCLUIDO" and @chamado.user == current_user %>
-  <%= link_to link_icone('fechar'), chamado_fechar_chamado_path(@chamado), :class=>"btn btn-success", :title=>"Fechar" %> 
+  <%= link_to link_icone('fechar'), chamado_fechar_chamado_path(@chamado), :class=>"btn btn-success", :title=>"Fechar" %>
 <% end %>
 
 <% if current_user.pode_criar_chamado %>
   <%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success', :title=>"Novo Chamado" %>
+<% end %>
+
+<% if @chamado.ordem.blank? and (@chamado.status != "FECHADO" and @chamado.status != "CANCELADO" and @chamado.status != "ABERTO") %>
+  <% if can? :create, Ordem %>
+    <%= link_to 'Abrir OS', new_chamado_ordem_path(@chamado), :class=> 'btn btn-success', :title=>"Abrir OS" %>
+  <% end %>
+<% end %>
+<% if !@chamado.ordem.blank? %>
+  <%= link_to 'Ver OS', ordem_path(@chamado.ordem), :class=> 'btn btn-success', :title=>"Ver OS" %>
 <% end %>

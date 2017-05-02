@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   has_many :chamados, dependent: :restrict_with_error
   has_many :atendimentos, class_name: "Chamado", foreign_key: "tecnico_id", dependent: :restrict_with_error
 
+  has_many :ordems, dependent: :restrict_with_error
+  has_many :ordem_servicos, class_name: "Ordem", foreign_key: "cliente_id", dependent: :restrict_with_error
+
   has_many :agendas, dependent: :restrict_with_error
   has_many :informativos, dependent: :restrict_with_error
   has_many :projetos, dependent: :restrict_with_error

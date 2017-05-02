@@ -6,6 +6,7 @@ class Departamento < ActiveRecord::Base
 
 	has_many :chamados, through: :users
 	has_many :projetos
+	has_many :ordems
 
 	has_many :visitas, :class_name=>"Visitum", dependent: :restrict_with_error
 
@@ -16,8 +17,8 @@ class Departamento < ActiveRecord::Base
 
 	def maiusculas_sem_acentos
 
-		self.nome = ActiveSupport::Inflector.transliterate(self.nome).upcase if !self.nome.blank?  
-		self.sigla = ActiveSupport::Inflector.transliterate(self.sigla).upcase if !self.sigla.blank?  
+		self.nome = ActiveSupport::Inflector.transliterate(self.nome).upcase if !self.nome.blank?
+		self.sigla = ActiveSupport::Inflector.transliterate(self.sigla).upcase if !self.sigla.blank?
 
 	end
 end

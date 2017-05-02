@@ -1,0 +1,25 @@
+<%= simple_form_for(@ordem) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :status %>
+    <%= f.input :data_status_aberto %>
+    <%= f.input :data_status_em_atendimento %>
+    <%= f.input :data_status_concluido %>
+    <%= f.input :data_status_aguardando %>
+    <%= f.input :data_status_fechado %>
+    <%= f.input :user_id %>
+    <%= f.input :cliente_id %>
+    <%= f.input :departamento_id %>
+    <%= f.input :tipo_equipamento %>
+    <%= f.input :especificacoes %>
+    <%= f.input :condicoes %>
+    <%= f.input :problema %>
+    <%= f.input :acoes %>
+    <%= f.input :conversa %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

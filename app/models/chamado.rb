@@ -5,7 +5,9 @@ class Chamado < ActiveRecord::Base
 	belongs_to :problema
 	belongs_to :user
 	belongs_to :tecnico, class_name: "User"
-	
+
+	has_one :ordem
+
 	validates_presence_of :problema_id, :user_id, :status, :data_status_aberto
 
 	validates_presence_of :data_status_em_atendimento, :if => :verificar_status_em_atendimento
@@ -55,7 +57,7 @@ class Chamado < ActiveRecord::Base
       return true
     else
       return false
-    end 
+    end
   end
 
 
@@ -63,9 +65,9 @@ class Chamado < ActiveRecord::Base
 
 	def maiusculas_sem_acentos
 
-		self.observacoes_usuario = ActiveSupport::Inflector.transliterate(self.observacoes_usuario).upcase if !self.observacoes_usuario.blank?  
-		self.parecer_preliminar_tecnico = ActiveSupport::Inflector.transliterate(self.parecer_preliminar_tecnico).upcase if !self.parecer_preliminar_tecnico.blank?  
-		self.parecer_final_tecnico = ActiveSupport::Inflector.transliterate(self.parecer_final_tecnico).upcase if !self.parecer_final_tecnico.blank?  
+		self.observacoes_usuario = ActiveSupport::Inflector.transliterate(self.observacoes_usuario).upcase if !self.observacoes_usuario.blank?
+		self.parecer_preliminar_tecnico = ActiveSupport::Inflector.transliterate(self.parecer_preliminar_tecnico).upcase if !self.parecer_preliminar_tecnico.blank?
+		self.parecer_final_tecnico = ActiveSupport::Inflector.transliterate(self.parecer_final_tecnico).upcase if !self.parecer_final_tecnico.blank?
 
 	end
 
@@ -74,10 +76,10 @@ class Chamado < ActiveRecord::Base
   scope :no_periodo, ->(ini,fim) { where("data_status_aberto >= ? and data_status_aberto <= ?", ini, fim) }
 
   # Chamado.where("data_status_aberto >= ? and data_status_aberto <= ? and tecnico_id = ?", "01/11/2016", "30/11/2016", "3")
-  # cs.each do |c|	
+  # cs.each do |c|
   # 	puts "Abertura = #{c.data_status_aberto} - Atendimento = #{c.data_status_em_atendimento} - #{c.tecnico.name} - #{c.user.name} - #{c.user.departamento.sigla} - #{c.status}"
   # 	puts ""
-  # 	puts "\n" 
+  # 	puts "\n"
   # end
 
 end

@@ -1,60 +1,114 @@
 <hr/>
 <div class="row">
-<div class="col-md-12">
+	<div class="col-md-12">
 
-	<div class="panel panel-default">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Chamados em atendimento(<%= @atendendo.count %>)</h3>
-	  </div>
-	  <div class="panel-body">
-	    <% if @atendendo.count < 1 %>
-				<div class="alert alert-info" role="alert">
-					No momento você não esta atendendo nenhum chamado </span></a>
-				</div>
-			<% else %>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Chamados em atendimento(<%= @atendendo.count %>)</h3>
+		  </div>
+		  <div class="panel-body">
+		    <% if @atendendo.count < 1 %>
+					<div class="alert alert-info" role="alert">
+						No momento você não esta atendendo nenhum chamado </span></a>
+					</div>
+				<% else %>
 
-				<div class="alert alert-danger" role="alert">
-					Você esta atendendo <%= @atendendo.count %> chamados </span></a>
-				</div>
+					<div class="alert alert-danger" role="alert">
+						Você esta atendendo <%= @atendendo.count %> chamados </span></a>
+					</div>
 
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Data Abertura</th>
-							<th>Problema</th>
-							<th>Usuario</th>
-							<th>Departamento</th>
-							<th>Ações</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @atendendo.each do |chamado| %>
+					<table class="table table-hover">
+						<thead>
 							<tr>
-								<td><%= data_br_completa(chamado.data_status_aberto) %></td>
-								<td><%= chamado.problema.descricao %></td>
-								<td><%= detalhes2(chamado.user, :name) %></td>
-								<td><%= detalhes2(chamado.user.departamento, :sigla) %></td>
-								<td>
-									<%= link_to link_icone('detalhes'),
-              chamado_path(chamado), :class => 'btn btn-default', :title=>"Detalhes" %>
-              		
-              		<% if chamado.status == "EM ATENDIMENTO" and current_user.e_tecnico and chamado.tecnico == current_user %>
-							      <%= link_to link_icone('concluir'),
-							              chamado_concluir_chamado_path(chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Concluir" %>
-							    <% end %>
-	            	
-	            	</td>
+								<th>Data Abertura</th>
+								<th>Problema</th>
+								<th>Usuario</th>
+								<th>Departamento</th>
+								<th>Ações</th>
 							</tr>
-						<% end %>
-					</tbody>
-				</table>	
+						</thead>
+						<tbody>
+							<% @atendendo.each do |chamado| %>
+								<tr>
+									<td><%= data_br_completa(chamado.data_status_aberto) %></td>
+									<td><%= chamado.problema.descricao %></td>
+									<td><%= detalhes2(chamado.user, :name) %></td>
+									<td><%= detalhes2(chamado.user.departamento, :sigla) %></td>
+									<td>
+										<%= link_to link_icone('detalhes'),
+	              chamado_path(chamado), :class => 'btn btn-default', :title=>"Detalhes" %>
+
+	              		<% if chamado.status == "EM ATENDIMENTO" and current_user.e_tecnico and chamado.tecnico == current_user %>
+								      <%= link_to link_icone('concluir'),
+								              chamado_concluir_chamado_path(chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Concluir" %>
+								    <% end %>
+
+		            	</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
 
 
-			<% end %> 
+				<% end %>
 
-			
-	  </div>
+
+		  </div>
+		</div>
+
 	</div>
-
 </div>
-</div>		
+
+<hr/>
+<div class="row">
+	<div class="col-md-12">
+
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Ordens em atendimento(<%= @ordens_atendendo.count %>)</h3>
+		  </div>
+		  <div class="panel-body">
+		    <% if @ordens_atendendo.count < 1 %>
+					<div class="alert alert-info" role="alert">
+						No momento você não esta atendendo nenhuma Ordem </span></a>
+					</div>
+				<% else %>
+
+					<div class="alert alert-danger" role="alert">
+						Você esta atendendo <%= @ordens_atendendo.count %> Ordens </span></a>
+					</div>
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Data Abertura</th>
+								<th>Número OS</th>
+								<th>Cliente</th>
+								<th>Departamento</th>
+								<th>Ações</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @ordens_atendendo.each do |ordem| %>
+								<tr>
+									<td><%= data_br_completa(ordem.data_status_aberto) %></td>
+									<td><%= ordem.created_at.year %><%= ordem.id %></td>
+									<td><%= detalhes2(ordem.cliente, :name) %></td>
+									<td><%= detalhes2(ordem.departamento, :sigla) %></td>
+									<td>
+										<%= link_to link_icone('detalhes'),
+	              ordem_path(ordem), :class => 'btn btn-default', :title=>"Detalhes" %>
+	              	</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+
+				<% end %>
+
+
+		  </div>
+		</div>
+
+	</div>
+</div>
