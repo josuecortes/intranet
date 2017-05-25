@@ -13,6 +13,7 @@
     <tr>
       <th>Tipo</th>
       <th>Modelo</th>
+      <th>Nome</th>
       <th>Status</th>
       <th>Departamento</th>
       <th>Ações</th>
@@ -23,6 +24,7 @@
     <% @equipamentos.each do |equipamento| %>
       <tr>
         <td><%= detalhes2(equipamento.detalhes_equipamento.tipo_equipamento, :tipo) %></td>
+        <td><%= detalhes(equipamento.nome) %></td>
         <td><%= detalhes2(equipamento.detalhes_equipamento, :modelo) %></td>
         <td><%= detalhes2(equipamento.status_equipamento, :status) %></td>
         <td><%= detalhes2(equipamento.departamento, :sigla) %></td>
@@ -32,7 +34,7 @@
           <%= link_to link_icone('editar'),
                     edit_equipamento_path(equipamento), :class => 'btn btn-primary', :title=>"Editar" %>
           <% if can? :delete, equipamento %>
-            <%= link_to link_icone('apagar'), equipamento_path(equipamento), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+            <%= link_to link_icone('apagar'), equipamento_path(equipamento), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %>
           <% end %>
         </td>
 

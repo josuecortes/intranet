@@ -32,6 +32,11 @@
 </p>
 
 <p>
+  <strong>Nome:</strong>
+  <%= detalhes(@equipamento.nome) %>
+</p>
+
+<p>
   <strong>Departamento:</strong>
   <%= detalhes2(@equipamento.departamento, :sigla) %>
 </p>
@@ -66,9 +71,8 @@
   <%= @equipamento.quantidade %>
 </p>
 
-<%= link_to link_icone('voltar'), equipamentos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('voltar'), equipamentos_path, :class=>'btn btn-default', :title=>"Voltar" %>
 <% if current_user.nao_admin_nao_tecnico %>
-  <%= link_to link_icone('editar'), edit_equipamento_path(@equipamento), :class=>"btn btn-primary", :title=>"Editar" %> 
+  <%= link_to link_icone('editar'), edit_equipamento_path(@equipamento), :class=>"btn btn-primary", :title=>"Editar" %>
   <%= link_to link_icone('nova'), new_equipamento_path, :class=> 'btn btn-success', :title=>"Novo equipamento" %>
 <% end %>
-

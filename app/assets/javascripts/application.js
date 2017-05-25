@@ -17,8 +17,8 @@
 //= require dataTables/jquery.dataTables
 //= require datatables_responsive
 //= require datatables_rowreorder
-//= require jquery-ui/autocomplete
 //= require autocomplete-rails
+// require jquery-ui/autocomplete
 //= require app
 //= require dashboard
 //= require demo
