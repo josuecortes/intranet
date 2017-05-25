@@ -24,8 +24,8 @@
     <% @equipamentos.each do |equipamento| %>
       <tr>
         <td><%= detalhes2(equipamento.detalhes_equipamento.tipo_equipamento, :tipo) %></td>
-        <td><%= detalhes(equipamento.nome) %></td>
         <td><%= detalhes2(equipamento.detalhes_equipamento, :modelo) %></td>
+        <td><%= detalhes(equipamento.nome) %></td>
         <td><%= detalhes2(equipamento.status_equipamento, :status) %></td>
         <td><%= detalhes2(equipamento.departamento, :sigla) %></td>
         <td>
