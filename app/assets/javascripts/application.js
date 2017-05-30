@@ -71,7 +71,33 @@ $(document).ready(function() {
   $('#tamanho_img7').css('height', '350px', 'width', '100%');
   $('#tamanho_img8').css('height', '350px', 'width', '100%');
 
+  $('.equipamento_situacao').each(function(){
+    var valor = $(this).val();
+    if(valor == "NORMAL"){
+      $('.equipamento_situacao_emprestimo').hide();
+      $('.equipamento_situacao_patrimonio').hide();
+    } else if(valor == "EMPRESTIMO"){
+      $('.equipamento_situacao_emprestimo').show();
+      $('.equipamento_situacao_patrimonio').hide();
+    } else if(valor == "PATRIMONIO"){
+      $('.equipamento_situacao_emprestimo').hide();
+      $('.equipamento_situacao_patrimonio').show();
+    }
+  });
 
+  $('.equipamento_situacao').change(function(){
+    var valor = $(this).val();
+    if(valor == "NORMAL"){
+      $('.equipamento_situacao_emprestimo').hide();
+      $('.equipamento_situacao_patrimonio').hide();
+    } else if(valor == "EMPRESTIMO"){
+      $('.equipamento_situacao_emprestimo').show();
+      $('.equipamento_situacao_patrimonio').hide();
+    } else if(valor == "PATRIMONIO"){
+      $('.equipamento_situacao_emprestimo').hide();
+      $('.equipamento_situacao_patrimonio').show();
+    }
+  });
 
 });
 

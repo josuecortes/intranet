@@ -28,22 +28,32 @@
       </div>
     </div>
 
-    <hr/>
-    <br/>
+    <div class="row">
+      <div class="col-md-6">
 
-    <% @lista_situacao = ['NORMAL', 'EMPRESTIMO', 'PATRIMONIO'] %>
+        <% @lista_situacao = ['NORMAL', 'EMPRESTIMO', 'PATRIMONIO'] %>
 
-    <%= f.input :situacao, :label=>"Situacao", collection: @lista_situacao, as: :select, :include_blank => false %>
+        <%= f.input :situacao, :label=>"Situacao", collection: @lista_situacao, as: :select, :include_blank => false, :input_html=>{:class=>"equipamento_situacao"}%>
 
-    <%= f.input :departamento_emprestimo_nome, :label=>'Selecione o Departamento Emprestado', :url => autocomplete_departamento_emprestimo_nome_equipamentos_path, :as => :autocomplete, :id_element => "#departamento_emprestimo_id" ,:input_html=>{:value=>(@equipamento.departamento_emprestimo_nome.nome if @equipamento.departamento_emprestimo_nome)}%>
+        <div class="equipamento_situacao_emprestimo">
 
-    <%= f.input :departamento_emprestimo_id, :as => :hidden, :input_html => { :id => "departamento_emprestimo_id"} %>
+          <%= f.input :departamento_emprestimo_nome, :label=>'Selecione o Departamento Emprestado', :url => autocomplete_departamento_emprestimo_nome_equipamentos_path, :as => :autocomplete, :id_element => "#departamento_emprestimo_id" ,:input_html=>{:value=>(@equipamento.departamento_emprestimo_nome.nome if @equipamento.departamento_emprestimo_nome)}%>
 
-    <%= f.input :responsavel, :label=>"Nome Responsavel" %>
+          <%= f.input :departamento_emprestimo_id, :as => :hidden, :input_html => { :id => "departamento_emprestimo_id"} %>
 
-    <%= f.input :data_patrimonio, :label=>"Quando que foi para o partrimonio", :input_html=>{:class=>'inci_data_ini'} %>
+          <%= f.input :responsavel, :label=>"Nome Responsavel" %>
 
-    <%= f.input :quantidade, collection: 1..30, :include_blank => false %>
+        </div>
+
+        <div class="equipamento_situacao_patrimonio">
+            <%= f.input :data_patrimonio, :label=>"Quando que foi para o partrimonio", :input_html=>{:class=>'inci_data_ini'} %>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <%= f.input :quantidade, collection: 1..30, :include_blank => false %>
+      </div>
+    </div>
 
   </div>
 
