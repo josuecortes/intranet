@@ -73,7 +73,7 @@ class Chamado < ActiveRecord::Base
 
 	scope :este_mes, ->{ where("data_status_aberto >= ? and data_status_aberto <= ?", Date.today.beginning_of_month, Date.today.end_of_month) }
 
-  scope :no_periodo, ->(ini,fim) { where("data_status_aberto >= ? and data_status_aberto <= ?", ini.to_date.beginning_of_month, fim.to_date.end_of_month) }
+  scope :no_periodo, ->(ini,fim) { where("data_status_aberto >= ? and data_status_aberto <= ?", ini, fim) }
 
   # Chamado.where("data_status_aberto >= ? and data_status_aberto <= ? and tecnico_id = ?", "01/11/2016", "30/11/2016", "3")
   # cs.each do |c|
