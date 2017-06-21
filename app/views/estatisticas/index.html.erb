@@ -192,3 +192,33 @@
 		<% end %>
 	</tbody>
 </table>
+
+
+<br/>
+<hr/>
+
+<h4><strong> RELATÓRIO DE ABERTURA POR PROBLEMA </strong></h4>
+<br/>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th>TIPO</th>
+			<th>PROBLEMA</th>
+			<th>TOTAL</th>
+			<th>PERCENTUAL</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @problemas.each do |p| %>
+			<% if p.chamados.no_periodo(@ini, @fim).count > 0 %>
+				<tr>
+					<td><%= p.tipo %></td>
+          <td><%= p.descricao %></td>
+					<td><%= p.chamados.no_periodo(@ini, @fim).count %></td>
+					<td><%= ((p.chamados.no_periodo(@ini, @fim).count)*100)/@chamados.no_periodo(@ini, @fim).count %>%</td>
+        </tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

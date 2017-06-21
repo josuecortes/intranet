@@ -12,7 +12,7 @@ class EstatisticasController < ApplicationController
     else
       @mini = params[:mini]
     end
-    
+
     if params[:mfim].blank?
   		#@mfim = Date.today.end_of_month
       @mfim = DateTime.now.month
@@ -27,7 +27,7 @@ class EstatisticasController < ApplicationController
     else
       @aini = params[:aini]
     end
-    
+
     if params[:afim].blank?
       #@mfim = Date.today.end_of_month
       @afim = DateTime.now.year
@@ -38,11 +38,11 @@ class EstatisticasController < ApplicationController
     @ini = "#{@mini}/#{@aini}".to_date.beginning_of_month
     @fim = "#{@mfim}/#{@afim}".to_date.end_of_month
 
-    
+
     if @ini > @fim
       @ini = Date.today.beginning_of_month
       @fim = Date.today.end_of_month
-      flash[:info] = "A data final era maior que a data inicial." 
+      flash[:info] = "A data final era maior que a data inicial."
     end
 
     @meses = [["Janeiro",1],
@@ -67,7 +67,7 @@ class EstatisticasController < ApplicationController
     @chamados = Chamado.no_periodo(@ini, @fim)
 
     r = Role.where(:nome=>"TECNICO").first
-    
+
     @tecnicos = r.users
 
     r2 = Role.where(:nome=>"REQUISITANTE").first
@@ -76,6 +76,8 @@ class EstatisticasController < ApplicationController
 
     @departamentos = Departamento.all
 
-   
+    @problemas = Problema.all
+
+
   end
 end
