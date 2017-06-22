@@ -222,3 +222,45 @@
 		<% end %>
 	</tbody>
 </table>
+
+<br/>
+<hr/>
+
+	<script type="text/javascript">
+window.onload = function () {
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		theme: "theme2",
+		title:{
+			text: "Grafico por Problema"
+		},
+		data: [
+		{
+			type: "pie",
+			showInLegend: true,
+			toolTipContent: "{y} - #percent %",
+			yValueFormatString: "#0. Vezes",
+			legendText: "{indexLabel}",
+			dataPoints: [
+
+				<% @problemas.each do |p| %>
+					<% if p.chamados.no_periodo(@ini, @fim).count > 0 %>
+							<% x = p.chamados.no_periodo(@ini, @fim).count %>
+							{  y: <%= x.to_int %>, indexLabel: "<%= p.descricao %>" },
+							
+					<% end %>
+				<% end %>
+
+			]
+		}
+		]
+	});
+	chart.render();
+}
+	</script>
+	
+	<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+
+
+
+

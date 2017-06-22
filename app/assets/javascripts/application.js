@@ -25,6 +25,7 @@
 // require npm
 //= require jquery.mask.min
 // require ckeditor/init
+//= require canvasjs.min
 
 
 
