@@ -20,5 +20,7 @@
  *= require bootstrap.min
  *= require font-awesome
  *= require AdminLTE.min
+ *= require buttons.dataTables.min
+ *= require jquery.dataTables.min
  *= require_self
  */

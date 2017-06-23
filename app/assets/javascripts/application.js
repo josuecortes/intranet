@@ -26,6 +26,13 @@
 //= require jquery.mask.min
 // require ckeditor/init
 //= require canvasjs.min
+//= require dataTables.buttons.min
+//= require buttons.flash.min
+//= require jszip.min
+//= require pdfmake.min
+//= require vfs_fonts
+//= require buttons.html5.min
+//= require buttons.print.min
 
 
 
@@ -100,10 +107,77 @@ $(document).ready(function() {
     }
   });
 
+  
+  
+  
+
 });
 
 
 $('table.display').dataTable({
+  
+  rowReorder: {
+    selector: 'td:nth-child(2)'
+  },
+  responsive: true,
+  "language": {
+    "sProcessing":    "Processando...",
+    "sLengthMenu":    "Mostrar _MENU_ Registros",
+    "sZeroRecords":   "Nenhum registro encontrado",
+    "sEmptyTable":    "Nenhum dado disponivel nesta tabela",
+    "sInfo":          "Mostrando registros de _START_ ate _END_ de um total de _TOTAL_ registros",
+    "sInfoEmpty":     "Mostrando registros de 0 a 0 de um total de 0 registros",
+    "sInfoFiltered":  "(filtrado de um total de _MAX_ registros)",
+    "sInfoPostFix":   "",
+    "sSearch":        "Buscar:",
+    "sUrl":           "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Carregando...",
+    "oPaginate": {
+      "sFirst":    "Primeiro",
+      "sLast":    "Último",
+      "sNext":    "Proximo",
+      "sPrevious": "Anterior"
+    },
+    "oAria": {
+      "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+  }
+});
+
+$('table.display2').dataTable({
+  dom: 'Bfrtip',
+      buttons: [
+
+          {
+              extend: 'copy',
+              title: 'Relatório Siscom'
+          },
+
+          {
+              extend: 'csv',
+              title: 'Relatório Siscom'
+          },
+
+          {
+              extend: 'excel',
+              title: 'Relatório Siscom'
+          },
+
+          {
+              extend: 'pdf',
+              title: 'Relatório Siscom'
+          },
+
+          {
+              extend: 'print',
+              title: 'Relatório Siscom'
+          }
+
+          
+      ],
+
   rowReorder: {
     selector: 'td:nth-child(2)'
   },
