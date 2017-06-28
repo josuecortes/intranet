@@ -76,6 +76,14 @@
           </a>
         </li>
 
+        <% if current_user.e_tecnico %>
+          <li>
+            <a href="/chamados/abrir_chamado">
+              <i class="fa fa-unlock"></i> <span>Abrir Chamado TEC</span>
+            </a>
+          </li>
+        <% end %>
+
         <li>
           <a href="/ordems">
             <i class="fa fa-file"></i> <span>Ordens (OS)</span>

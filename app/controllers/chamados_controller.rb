@@ -4,6 +4,7 @@ class ChamadosController < ApplicationController
   before_filter :colecoes
   load_and_authorize_resource :class=>"Chamado", except: :create
 
+
   # GET /chamados
   # GET /chamados.json
   def index
@@ -42,6 +43,12 @@ class ChamadosController < ApplicationController
     render :json => problemas.map { |problema| {:id => problema.id,:label => problema.descricao, :value => problema.descricao} }
   end
 
+  def autocomplete_user_name
+    term = params[:term]
+    users = User.where('name ilike ?',"%#{term}%").order(:name).all
+    render :json => users.map { |user| {:id => user.id,:label => user.name, :value => user.name} }
+  end
+
   # GET /chamados/1/edit
   def edit
   end
@@ -50,7 +57,7 @@ class ChamadosController < ApplicationController
   # POST /chamados.json
   def create
     @chamado = Chamado.new(chamado_params)
-
+    
     respond_to do |format|
       if @chamado.save
         format.html { redirect_to @chamado, notice: @@msgs }
@@ -60,6 +67,7 @@ class ChamadosController < ApplicationController
         format.json { render json: @chamado.errors, status: :unprocessable_entity }
       end
     end
+    
   end
 
   # PATCH/PUT /chamados/1
@@ -149,6 +157,25 @@ class ChamadosController < ApplicationController
 
   end
 
+  def abrir_chamado
+    @chamado = Chamado.new
+  end
+
+  def salvar_chamado
+    @chamado = Chamado.new(chamado_params)
+
+    respond_to do |format|
+      if @chamado.save
+        format.html { redirect_to @chamado, notice: @@msgs }
+        format.json { render :show, status: :created, location: @chamado }
+      else
+        format.html { render :abrir_chamado }
+        format.json { render json: @chamado.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_chamado
@@ -165,7 +192,7 @@ class ChamadosController < ApplicationController
                                       :status, :data_status_aberto, :data_status_fechado, :data_status_em_atendimento,
                                       :data_status_concluido, :parecer_preliminar_tecnico, :parecer_final_tecnico,
                                       :motivo_cancelamento, :avaliacao_usuario, :nivel_satisfacao_usuario,
-                                      :data_status_cancelado)
+                                      :data_status_cancelado, :administrativo, :problema_descricao, :autocomplete_user_name)
     end
 
     def pegar_todos
@@ -191,5 +218,7 @@ class ChamadosController < ApplicationController
     def colecoes
       @problemas_cadastrados = Problema.order('descricao ASC').all
     end
+
+
 
 end

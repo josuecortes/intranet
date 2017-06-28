@@ -22,6 +22,10 @@
 
     <% end %>
 
+    <% if ordem.status == "ABERTO" and current_user == ordem.user %>
+      <%= link_to "Apagar Ordem", ordem_path(ordem), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %>
+    <% end %>
+
     <% if ordem.status == "EM ATENDIMENTO" and current_user == ordem.user %>
       <%= link_to link_icone('concluir'),
               ordem_concluir_ordem_path(ordem), :class => 'btn btn-primary', :title=>"Concluir" %>

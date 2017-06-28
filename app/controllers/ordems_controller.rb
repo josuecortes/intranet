@@ -60,11 +60,26 @@ class OrdemsController < ApplicationController
   # DELETE /ordems/1
   # DELETE /ordems/1.json
   def destroy
-    @ordem.destroy
-    respond_to do |format|
-      format.html { redirect_to ordems_url, notice: 'Ordem was successfully destroyed.' }
-      format.json { head :no_content }
+
+    if @ordem.status == "ABERTO" 
+      if @ordem.destroy
+        respond_to do |format|
+          format.html { redirect_to ordems_url, notice: 'Ordem Apagada.' }
+          format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to ordems_url, notice: 'Erro ao apagar a Ordem.' }
+          format.json { head :no_content }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to ordems_url, notice: 'Essa Ordem não pode ser apagada.' }
+        format.json { head :no_content }
+      end
     end
+     
   end
 
   def fechar_ordem

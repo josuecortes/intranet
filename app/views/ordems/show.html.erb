@@ -108,6 +108,10 @@
           edit_ordem_path(@ordem), :class => 'btn btn-primary', :title=>"Editar" %>
 <% end %>
 
+ <% if @ordem.status == "ABERTO" and current_user == @ordem.user %>
+  <%= link_to "Apagar Ordem", ordem_path(@ordem), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %>
+<% end %>
+
 <% if @ordem.status == "ABERTO" and current_user == @ordem.cliente %>
   <%= link_to "Liberar Equipamento",
           ordem_liberar_equipamento_path(@ordem.id), :class => 'btn btn-danger', :title=>"Liberar Equipamento", data: { confirm: 'Liberar Equipamento... Ao clicar em OK você estara concordando com todas as informações que o Técnico obeservou. Você está certo disso?' } %>

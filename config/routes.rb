@@ -120,6 +120,14 @@ Rails.application.routes.draw do
 
   resources :chamados do
 
+    collection do
+
+      get :abrir_chamado
+
+      post :salvar_chamado
+
+    end
+
     get :fechar_chamado
 
     get :cancelar_chamado
@@ -137,6 +145,8 @@ Rails.application.routes.draw do
     get :fechados, :on => :collection
 
     get :autocomplete_problema_descricao, :on => :collection
+
+    get :autocomplete_user_name, :on => :collection
 
     resources :ordems
 

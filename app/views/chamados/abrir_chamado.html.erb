@@ -1,0 +1,79 @@
+<% content_for :titulo do %>
+  Chamados
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Abrir Chamado Tecnico
+<% end %>
+
+<%= simple_form_for(@chamado, :url=>salvar_chamado_chamados_url) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    
+    <div class="pull-right">
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+        Lista
+      </button>
+    </div>
+
+    <%= f.input :problema_descricao, :label=>'Selecione o Problema ou Solicitação', :url => autocomplete_problema_descricao_chamados_path, :as => :autocomplete, :id_element => "#problema_id" ,:input_html=>{:value=>(@chamado.problema.descricao if @chamado.problema)}%>
+
+    <%= f.input :problema_id, :as => :hidden, :input_html => { :id => "problema_id"} %>
+
+
+    <%= f.input :user_name, :label=>'Selecione o Usuário', :url => autocomplete_user_name_chamados_path, :as => :autocomplete, :id_element => "#user_id" ,:input_html=>{:value=>(@chamado.user.name if @chamado.user)}%>
+
+    <%= f.input :user_id, :as => :hidden, :input_html => { :id => "user_id"} %>
+
+
+    <%= f.input :observacoes_usuario, :label=>"Observações" %>
+
+    <%= f.input :tecnico_id, as: :hidden, :input_html=>{:value=>current_user.id} %>
+    
+    <% if @chamado.status.blank? %>
+      <%= f.input :status, as: :hidden, :input_html=>{:value=>"FECHADO"} %>
+      <%= f.input :data_status_aberto, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+      <%= f.input :data_status_em_atendimento, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+      <%= f.input :data_status_concluido, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+      <%= f.input :data_status_fechado, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+
+      <%= f.input :parecer_final_tecnico, as: :hidden, :input_html=>{:value=>"Solicitacao atendida!"} %>
+      <%= f.input :avaliacao_usuario, as: :hidden, :input_html=>{:value=>"Solicitacao atendida!"} %>
+      <%= f.input :nivel_satisfacao_usuario, as: :hidden, :input_html=>{:value=>4} %>
+
+      <%= f.input :administrativo, as: :hidden, :input_html=>{:value=>"ADMINISTRATIVO"} %>
+
+    <% end %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', chamados_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tipos de Problemas ou Solicitações Cadastrados</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <% @problemas_cadastrados.each do |p| %>
+            <li><%= p.descricao %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

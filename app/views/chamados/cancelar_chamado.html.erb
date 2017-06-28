@@ -6,7 +6,7 @@
   Cancelar Chamado
 <% end %>
 
-<% if @chamado.status == "ABERTO" or @chamado.status == "EM ATENDIMENTO" %>
+<% if @chamado.status == "ABERTO" %>
 
 	<%= render 'form_cancelar_chamado' %>
 
