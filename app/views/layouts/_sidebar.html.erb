@@ -83,12 +83,6 @@
             </a>
           </li>
 
-          <li>
-          <a href="/estatisticas/equipamentos">
-            <i class="fa fa-microchip"></i> <span>Quant Equipamentos</span>
-          </a>
-        </li>
-
         <% end %>
 
         <li>
@@ -148,6 +142,14 @@
               <li><a href="/tipo_equipamentos"><i class="fa fa-circle-o"></i> Tipo Equipamentos</a></li>
               <li><a href="/detalhes_equipamentos"><i class="fa fa-circle-o"></i> Detalhes Equipamento</a></li>
               <li><a href="/status_equipamentos"><i class="fa fa-circle-o"></i> Status Equipamento</a></li>
+
+              <% if current_user.e_tecnico %>
+                <li>
+                  <a href="/estatisticas/equipamentos">
+                    <i class="fa fa-microchip"></i> <span>Quant Equipamentos</span>
+                  </a>
+                </li>
+              <% end %>
             </ul>
           </li>
 

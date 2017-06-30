@@ -7,6 +7,8 @@ class Equipamento < ActiveRecord::Base
   belongs_to :escola
   belongs_to :orgao
 
+  delegate :tipo_equipamento, to: :detalhes_equipamento
+
 	attr_accessor :departamento_nome, :departamento_emprestimo_nome, :detalhes_equipamento_nome, :orgao_nome, :escola_nome
 
 	validates_presence_of :status_equipamento_id, :departamento_id, :detalhes_equipamento_id, :situacao
