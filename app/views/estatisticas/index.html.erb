@@ -269,18 +269,22 @@ window.onload = function () {
 	});
 
 
-
-
-
-
-
-
-
-
-
-
 	chart.render();
+
+var canvas = $("#chartContainer .canvasjs-chart-canvas").get(0);
+var dataURL = canvas.toDataURL();
+//console.log(dataURL);
+
+$("#exportButton").click(function(){
+    var pdf = new jsPDF();
+    pdf.addImage(dataURL, 'JPEG', 0, 0);
+    pdf.save("download.pdf");
+});
+
+
 }
 	</script>
 	
+
 <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+<button id="exportButton" type="button">Exportar para PDF</button>

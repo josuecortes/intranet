@@ -33,6 +33,7 @@
 //= require vfs_fonts
 //= require buttons.html5.min
 //= require buttons.print.min
+//= require jspdf
 
 
 
