@@ -13,6 +13,7 @@
     <tr>
       <th>Tipo</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -20,6 +21,7 @@
     <% @tipo_equipamentos.each do |tipo_equipamento| %>
       <tr>
         <td><%= tipo_equipamento.tipo %></td>
+        <td></td>
         <td>
           <%= link_to link_icone('detalhes'),
                     tipo_equipamento_path(tipo_equipamento), :class => 'btn btn-default', :title=>"Detalhes" %>

@@ -226,6 +226,9 @@
 <br/>
 <hr/>
 
+<% cores = ['#E32636','#FFFF00', '#ECDB00', '#FFFFE0', '#ECD690', '#F2B73F', '#ADFF2F', '#EEAD2D', '#DDA0DD', '#9966CC', '#7BA05B', '#0000FF', '#6A5ACD', '#00BDCE', '#054F77', '#a6aa3e', '#8B5742', '#DC143C', '#712F26', '#DE3163', '#808080', '#A9A9A9' '#F08080', '#BDB76B', '#FF2400', '#555D50', '#44D7A8', '#B7410E', '#3D2B1F', '#831D1C', '#2E8B57', '#DF73FF', '#4C516D', '#00A86B', '#E79FC4', '#C8A2C8', '#BC8F8F', '#808000', '#000000', '#8A008A', '#705714', '#FF2401'] %>
+
+
 	<script type="text/javascript">
 window.onload = function () {
 	var chart = new CanvasJS.Chart("chartContainer",
@@ -254,10 +257,10 @@ window.onload = function () {
 					<% if p.chamados.no_periodo(@ini, @fim).count > 0 %>
 							<% x = p.chamados.no_periodo(@ini, @fim).count %>
 							{  y: <%= x.to_int %>, indexLabel: "<%= p.descricao %>(<%= x %>)",
-							   color: "#<%= valor %>F4F4F" },
+							   color: "<%= cores[valor] %>" },
 							
 					<% end %>
-					<% valor = valor + 2 %>
+					<% valor = valor + 1 %>
 				<% end %>
 
 			]
