@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525125639) do
+ActiveRecord::Schema.define(version: 20170630143355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,28 @@ ActiveRecord::Schema.define(version: 20170525125639) do
     t.string   "data_patrimonio"
     t.integer  "quantidade"
     t.string   "nome"
+    t.text     "especificacoes"
+    t.text     "descricao"
+    t.string   "serie"
+    t.string   "mac"
+    t.string   "nota"
+    t.date     "data_aquisicao"
+    t.string   "forma_aquisicao"
+    t.string   "doador"
+    t.string   "proprietario"
+    t.integer  "escola_id"
+    t.integer  "orgao_id"
+  end
+
+  create_table "escolas", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "codigo"
+    t.string   "email"
+    t.string   "contato"
+    t.string   "tipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "municipio"
   end
 
   create_table "etapas", force: :cascade do |t|
@@ -202,6 +224,12 @@ ActiveRecord::Schema.define(version: 20170525125639) do
     t.integer  "chamado_id"
     t.text     "historico"
     t.string   "cabecalho"
+  end
+
+  create_table "orgaos", force: :cascade do |t|
+    t.string   "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "problemas", force: :cascade do |t|

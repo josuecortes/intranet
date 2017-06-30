@@ -31,6 +31,9 @@ class Ability
       can :manage, DetalhesEquipamento
       can :manage, StatusEquipamento
 
+      can :manage, Escola
+      can :manage, Orgao
+
       can :manage, Mural, :user_id => user.id
 
       can :show, :estatisticas

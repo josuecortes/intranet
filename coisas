@@ -107,7 +107,7 @@ load "/caminho/do/arquivo.rb"
 
 ##########################
 
-ails generate migration RemovePartNumberFromProducts part_number:string
+rails generate migration RemovePartNumberFromProducts part_number:string
 
 generates
 class RemovePartNumberFromProducts < ActiveRecord::Migration[5.0]

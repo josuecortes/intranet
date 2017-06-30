@@ -1,0 +1,43 @@
+<% content_for :titulo do %>
+  Escolas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Escolas
+  <% if can? :create, Escola %>
+    <%= link_to link_icone('novo'), new_escola_path, :class=> 'btn btn-success', :title=>"Nova Escola" %>
+  <% end %>
+      
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Codigo</th>
+      <th>Tipo</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @escolas.each do |escola| %>
+      <tr>
+        <td><%= escola.nome %></td>
+        <td><%= escola.codigo %></td>
+        <td><%= escola.tipo %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    escola_path(escola), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <% if can? :update, escola %>
+            <%= link_to link_icone('editar'),
+                    edit_escola_path(escola), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% end %>
+          <% if can? :delete, escola %>
+            <%= link_to link_icone('apagar'), escola_path(escola), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

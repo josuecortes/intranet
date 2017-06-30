@@ -1,0 +1,42 @@
+<%= simple_form_for(@escola) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.input :nome %>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.input :codigo, :label=>"Codigo - INEP" %>
+      </div>
+      <% @lista_municipios = ['AMAPA', 'CALCOENE', 'CUTIAS', 'FERREIRA GOMES', 'ITAUBAL', 'LARANJAL DO JARI', 'MACAPA', 'MAZAGAO', 'OIAPOQUE', 'PEDRA BRANCA DO AMAPARI', 'PORTO GRANDE', 'PRACUUBA', 'SANTANA', 'SERRA DO NAVIO', 'TARTARUGALZINHO', 'VITORIA DO JARI'] %>
+      <div class="col-md-3">
+        <%= f.input :municipio, collection: @lista_municipios, as: :select, :include_blank => false %>
+      </div>
+      <% @lista_tipos = ['ESTADUAL', 'MUNICIPAL', 'PARTICULAR'] %>
+      <div class="col-md-3">
+        <%= f.input :tipo, collection: @lista_tipos, as: :select, :include_blank => false %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :contato %>    
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :email %>    
+      </div>
+      
+    </div>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', escolas_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

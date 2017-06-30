@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  <strong>Status:</strong>
+  <strong>Estado:</strong>
   <%= detalhes2(@equipamento.status_equipamento, :status) %>
 </p>
 
@@ -48,15 +48,24 @@
   <%= @equipamento.situacao %>
 </p>
 
-<% if @equipamento.situacao == "EMPRESTIMO" %>
-  <p>
-    <strong>Emprestado para o Departamento:</strong>
-    <%= detalhes2(@equipamento.departamento_emprestimo, :sigla) %>
-  </p>
-  <p>
-    <strong>Responsavel:</strong>
-    <%= @equipamento.responsavel %>
-  </p>
+<% if @equipamento.situacao == "CESSAO" %>
+  
+  <% if @equipamento.departamento_emprestimo_id != nil %>
+    <p>
+      <strong>Emprestado do Departamento:</strong>
+      <%= detalhes2(@equipamento.departamento_emprestimo, :sigla) %>
+    </p>
+  <% elsif @equipamento.escola_id != nil %>
+    <p>
+      <strong>Emprestado da Escola:</strong>
+      <%= detalhes2(@equipamento.escola, :nome) %>
+    </p>
+  <% else %>
+    <p>
+      <strong>Emprestado do Orgao:</strong>
+      <%= detalhes2(@equipamento.orgao, :nome) %>
+    </p>
+  <% end %>
 <% end %>
 
 <% if @equipamento.situacao == "PATRIMONIO" %>
@@ -66,10 +75,21 @@
   </p>
 <% end %>
 
-<p>
-  <strong>Quantidade:</strong>
-  <%= @equipamento.quantidade %>
-</p>
+<% if @equipamento.situacao == "PARTICULAR" %>
+  <p>
+    <strong>Proprietario:</strong>
+    <%= @equipamento.proprietario %>
+  </p>
+<% end %>
+
+<% if @equipamento.situacao == "DOACAO" %>
+  <p>
+    <strong>Doado por:</strong>
+    <%= @equipamento.doador %>
+  </p>
+<% end %>
+
+
 
 <%= link_to link_icone('voltar'), equipamentos_path, :class=>'btn btn-default', :title=>"Voltar" %>
 <% if current_user.nao_admin_nao_tecnico %>

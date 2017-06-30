@@ -30,7 +30,7 @@ class EquipamentosController < ApplicationController
     @equipamento = Equipamento.new(equipamento_params)
 
     respond_to do |format|
-      if @equipamento.save
+      if @equipamento.save!
         format.html { redirect_to @equipamento, notice: @@msgs }
         format.json { render :show, status: :created, location: @equipamento }
       else
@@ -76,6 +76,18 @@ class EquipamentosController < ApplicationController
     render :json => departamentos.map { |departamento| {:id => departamento.id,:label => departamento.sigla, :value => departamento.sigla} }
   end
 
+  def autocomplete_escola_nome
+    term = params[:term]
+    escolas = Escola.where('nome ilike ?',"%#{term}%").order(:nome).all
+    render :json => escolas.map { |escola| {:id => escola.id,:label => escola.nome, :value => escola.nome} }
+  end
+
+  def autocomplete_orgao_nome
+    term = params[:term]
+    orgaos = Orgao.where('nome ilike ?',"%#{term}%").order(:nome).all
+    render :json => orgaos.map { |orgao| {:id => orgao.id,:label => orgao.nome, :value => orgao.nome} }
+  end
+
   def autocomplete_departamento_emprestimo_nome
     term = params[:term]
     departamentos_emprestimos = Departamento.where('sigla ilike ?',"%#{term}%").order(:sigla).all
@@ -96,6 +108,13 @@ class EquipamentosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def equipamento_params
-      params.require(:equipamento).permit(:nome, :patrimonio, :quantidade, :detalhes_equipamento_id, :status_equipamento_id, :departamento_id, :situacao, :data_patrimonio, :responsavel, :departamento_emprestimo_id)
+      params.require(:equipamento).permit(:nome, :patrimonio, :quantidade, :detalhes_equipamento_id, 
+                                          :status_equipamento_id, :departamento_id, :situacao, 
+                                          :data_patrimonio, :responsavel, :departamento_emprestimo_id,
+                                          :especificacoes, :descricao, :serie, :mac, :data_aquisicao,
+                                          :forma_aquisicao, :doador, :proprietario, :escola_id,
+                                          :orgao_id, :nota, :detalhes_equipamento_nome,
+                                          :departamento_nome, :departamento_emprestimo_nome, :escola_nome, 
+                                          :orgao_nome)
     end
 end

@@ -81,29 +81,61 @@ $(document).ready(function() {
 
   $('.equipamento_situacao').each(function(){
     var valor = $(this).val();
-    if(valor == "NORMAL"){
-      $('.equipamento_situacao_emprestimo').hide();
+    if(valor == "COMPRA"){
+      $('.equipamento_situacao_cessao').hide();
+      $('.equipamento_situacao_doacao').hide();
+      $('.equipamento_situacao_particular').hide();
       $('.equipamento_situacao_patrimonio').hide();
-    } else if(valor == "EMPRESTIMO"){
-      $('.equipamento_situacao_emprestimo').show();
+    } else if(valor == "CESSAO"){
+      $('.equipamento_situacao_cessao').show();
+      $('.equipamento_situacao_doacao').hide();
+      $('.equipamento_situacao_particular').hide();
       $('.equipamento_situacao_patrimonio').hide();
     } else if(valor == "PATRIMONIO"){
-      $('.equipamento_situacao_emprestimo').hide();
+      $('.equipamento_situacao_cessao').hide();
+      $('.equipamento_situacao_doacao').hide();
+      $('.equipamento_situacao_particular').hide();
       $('.equipamento_situacao_patrimonio').show();
+    } else if(valor == "PARTICULAR") {
+      $('.equipamento_situacao_cessao').hide();
+      $('.equipamento_situacao_doacao').hide();
+      $('.equipamento_situacao_particular').show();
+      $('.equipamento_situacao_patrimonio').hide();
+    } else if(valor == "DOACAO") {
+      $('.equipamento_situacao_cessao').hide();
+      $('.equipamento_situacao_doacao').show();
+      $('.equipamento_situacao_particular').hide();
+      $('.equipamento_situacao_patrimonio').hide();
     }
   });
 
   $('.equipamento_situacao').change(function(){
     var valor = $(this).val();
-    if(valor == "NORMAL"){
-      $('.equipamento_situacao_emprestimo').hide();
+    if(valor == "COMPRA"){
+      $('.equipamento_situacao_cessao').hide();
+      $('.equipamento_situacao_doacao').hide();
+      $('.equipamento_situacao_particular').hide();
       $('.equipamento_situacao_patrimonio').hide();
-    } else if(valor == "EMPRESTIMO"){
-      $('.equipamento_situacao_emprestimo').show();
+    } else if(valor == "CESSAO"){
+      $('.equipamento_situacao_cessao').show();
+      $('.equipamento_situacao_doacao').hide();
+      $('.equipamento_situacao_particular').hide();
       $('.equipamento_situacao_patrimonio').hide();
     } else if(valor == "PATRIMONIO"){
-      $('.equipamento_situacao_emprestimo').hide();
+      $('.equipamento_situacao_cessao').hide();
+      $('.equipamento_situacao_doacao').hide();
+      $('.equipamento_situacao_particular').hide();
       $('.equipamento_situacao_patrimonio').show();
+    } else if(valor == "PARTICULAR") {
+      $('.equipamento_situacao_cessao').hide();
+      $('.equipamento_situacao_doacao').hide();
+      $('.equipamento_situacao_particular').show();
+      $('.equipamento_situacao_patrimonio').hide();
+    } else if(valor == "DOACAO") {
+      $('.equipamento_situacao_cessao').hide();
+      $('.equipamento_situacao_doacao').show();
+      $('.equipamento_situacao_particular').hide();
+      $('.equipamento_situacao_patrimonio').hide();
     }
   });
 

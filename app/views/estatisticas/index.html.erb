@@ -234,6 +234,10 @@ window.onload = function () {
 		title:{
 			text: "Grafico por Problema"
 		},
+		legend: {
+      horizontalAlign: "right",
+      verticalAlign: "center"
+    },
 		data: [
 		{
 			type: "pie",
@@ -241,22 +245,39 @@ window.onload = function () {
 			toolTipContent: "{y} - #percent %",
 			yValueFormatString: "#0. Vezes",
 			legendText: "{indexLabel}",
+
+			<% valor = 1 %>
+
 			dataPoints: [
 
 				<% @problemas.each do |p| %>
 					<% if p.chamados.no_periodo(@ini, @fim).count > 0 %>
 							<% x = p.chamados.no_periodo(@ini, @fim).count %>
-							{  y: <%= x.to_int %>, indexLabel: "<%= p.descricao %>" },
+							{  y: <%= x.to_int %>, indexLabel: "<%= p.descricao %>(<%= x %>)",
+							   color: "#<%= valor %>F4F4F" },
 							
 					<% end %>
+					<% valor = valor + 2 %>
 				<% end %>
 
 			]
 		}
 		]
 	});
+
+
+
+
+
+
+
+
+
+
+
+
 	chart.render();
 }
 	</script>
 	
-<div id="chartContainer" style="height: 600px; width: 100%;"></div>
+<div id="chartContainer" style="height: 400px; width: 100%;"></div>

@@ -1,0 +1,18 @@
+<% content_for :titulo do %>
+  Orgãos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Orgão
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @orgao.nome %>
+</p>
+
+<%= link_to link_icone('voltar'), orgaos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if current_user.nao_admin_nao_tecnico %>
+  <%= link_to link_icone('editar'), edit_orgao_path(@orgao), :class=>"btn btn-primary", :title=>"Editar" %> 
+  <%= link_to link_icone('nova'), new_orgao_path, :class=> 'btn btn-success', :title=>"Novo orgao" %>
+<% end %>

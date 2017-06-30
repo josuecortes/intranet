@@ -1,0 +1,44 @@
+<% content_for :titulo do %>
+  Escolas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes da Escola
+<% end %>
+
+
+<p>
+  <strong>Nome:</strong>
+  <%= @escola.nome %>
+</p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @escola.codigo %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @escola.email %>
+</p>
+
+<p>
+  <strong>Muncipio:</strong>
+  <%= @escola.municipio %>
+</p>
+
+<p>
+  <strong>Contato:</strong>
+  <%= @escola.contato %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @escola.tipo %>
+</p>
+
+<%= link_to link_icone('voltar'), escolas_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if current_user.nao_admin_nao_tecnico %>
+  <%= link_to link_icone('editar'), edit_escola_path(@escola), :class=>"btn btn-primary", :title=>"Editar" %> 
+  <%= link_to link_icone('nova'), new_escola_path, :class=> 'btn btn-success', :title=>"Novo escola" %>
+<% end %>

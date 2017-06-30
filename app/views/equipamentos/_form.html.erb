@@ -4,55 +4,94 @@
   <div class="form-inputs">
 
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <%= f.input :detalhes_equipamento_nome, :label=>'Selecione o Equipamento', :url => autocomplete_detalhes_equipamento_nome_equipamentos_path, :as => :autocomplete, :id_element => "#equipamento_id" ,:input_html=>{:value=>(@equipamento.detalhes_equipamento.modelo if @equipamento.detalhes_equipamento)}%>
-      </div>
-      <div class="col-md-4">
+
         <%= f.input :detalhes_equipamento_id, :as => :hidden, :input_html => { :id => "equipamento_id"} %>
-        <%= f.input :status_equipamento_id, :label=>"Status", :collection=>StatusEquipamento.order('status ASC').collect {|s| [s.status, s.id]}, as: :select, :input_html => {:class=>"col-xs-2", :required=>true}  %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :departamento_nome, :label=>'Selecione o Departamento', :url => autocomplete_departamento_nome_equipamentos_path, :as => :autocomplete, :id_element => "#departamento_id" ,:input_html=>{:value=>(@equipamento.departamento.nome if @equipamento.departamento)}%>
+        <%= f.input :departamento_id, :as => :hidden, :input_html => { :id => "departamento_id"} %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :status_equipamento_id, :label=>"Estado", :collection=>StatusEquipamento.order('status ASC').collect {|s| [s.status, s.id]}, as: :select, :input_html => {:class=>"col-xs-2", :required=>true}  %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
+        <%= f.input :data_aquisicao, :as=>:string,:label=>"Data de Aquisição", required: false, :input_html=>{:class=>'data', :value=>(@equipamento.data_aquisicao.strftime("%d/%m/%Y") if @equipamento.data_aquisicao != nil)} %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :nota %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :serie %>
+      </div>
+      <div class="col-md-3">
         <%= f.input :patrimonio %>
-      </div>
-      <div class="col-md-4">
-
-        <%= f.input :nome %>
-
-      </div>
-      <div class="col-md-4">
-        <%= f.input :departamento_nome, :label=>'Selecione o Departamento', :url => autocomplete_departamento_nome_equipamentos_path, :as => :autocomplete, :id_element => "#departamento_id" ,:input_html=>{:value=>(@equipamento.departamento.nome if @equipamento.departamento)}%>
-        <%= f.input :departamento_id, :as => :hidden, :input_html => { :id => "departamento_id"} %>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
+        <%= f.input :especificacoes %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :descricao %>
+      </div>
+    </div>
 
-        <% @lista_situacao = ['NORMAL', 'EMPRESTIMO', 'PATRIMONIO'] %>
+    <div class="row">
+      
+      <div class="col-md-3">
+        <%= f.input :nome %>
+      </div>
+
+      <div class="col-md-3">
+        <%= f.input :mac %>
+      </div>
+
+      <div class="col-md-6">
+
+        <% @lista_situacao = ['COMPRA', 'DOACAO', 'CESSAO', 'PARTICULAR', 'PATRIMONIO'] %>
 
         <%= f.input :situacao, :label=>"Situacao", collection: @lista_situacao, as: :select, :include_blank => false, :input_html=>{:class=>"equipamento_situacao"}%>
 
-        <div class="equipamento_situacao_emprestimo">
+        <div class="equipamento_situacao_doacao">
+          <%= f.input :doador, :label=>"Nome do Doador" %>  
+        </div>
 
-          <%= f.input :departamento_emprestimo_nome, :label=>'Selecione o Departamento Emprestado', :url => autocomplete_departamento_emprestimo_nome_equipamentos_path, :as => :autocomplete, :id_element => "#departamento_emprestimo_id" ,:input_html=>{:value=>(@equipamento.departamento_emprestimo_nome.nome if @equipamento.departamento_emprestimo_nome)}%>
+        <div class="equipamento_situacao_particular">
+          <%= f.input :proprietario, :label=>"Nome do Proprietario" %>  
+        </div>
+
+        <div class="equipamento_situacao_cessao">
+
+          <%= f.input :departamento_emprestimo_nome, :label=>'Selecione o Departamento que Emprestou', :url => autocomplete_departamento_emprestimo_nome_equipamentos_path, :as => :autocomplete, :id_element => "#departamento_emprestimo_id" ,:input_html=>{:value=>(@equipamento.departamento_emprestimo.nome if @equipamento.departamento_emprestimo)}%>
 
           <%= f.input :departamento_emprestimo_id, :as => :hidden, :input_html => { :id => "departamento_emprestimo_id"} %>
 
-          <%= f.input :responsavel, :label=>"Nome Responsavel" %>
+          <%= f.input :escola_nome, :label=>'Selecione a Escola que Emprestou', :url => autocomplete_escola_nome_equipamentos_path, :as => :autocomplete, :id_element => "#escola_id" ,:input_html=>{:value=>(@equipamento.escola.nome if @equipamento.escola)}%>
+
+          <%= f.input :escola_id, :as => :hidden, :input_html => { :id => "escola_id"} %>
+
+          <%= f.input :orgao_nome, :label=>'Selecione o Orgao que Emprestou', :url => autocomplete_orgao_nome_equipamentos_path, :as => :autocomplete, :id_element => "#orgao_id" ,:input_html=>{:value=>(@equipamento.orgao.nome if @equipamento.orgao)}%>
+
+          <%= f.input :orgao_id, :as => :hidden, :input_html => { :id => "orgao_id"} %>
+
+          
 
         </div>
 
         <div class="equipamento_situacao_patrimonio">
             <%= f.input :data_patrimonio, :label=>"Quando que foi para o partrimonio", :input_html=>{:class=>'inci_data_ini'} %>
+
+
         </div>
 
       </div>
-      <div class="col-md-6">
-        <%= f.input :quantidade, collection: 1..30, :include_blank => false %>
-      </div>
+      
     </div>
 
   </div>

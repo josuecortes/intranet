@@ -12,6 +12,7 @@
   <thead>
     <tr>
       <th>Status</th>
+      <th></th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
     <% @status_equipamentos.each do |status_equipamento| %>
       <tr>
         <td><%= status_equipamento.status %></td>
+        <td></td>   
         <td>
           <%= link_to link_icone('detalhes'),
                     status_equipamento_path(status_equipamento), :class => 'btn btn-default', :title=>"Detalhes" %>

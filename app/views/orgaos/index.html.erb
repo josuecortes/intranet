@@ -1,0 +1,44 @@
+<% content_for :titulo do %>
+  Orgãos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Lista de Orgãos
+  <% if can? :create, Orgao %>
+    <%= link_to link_icone('novo'), new_orgao_path, :class=> 'btn btn-success', :title=>"Novo Orgao" %>
+  <% end %>
+      
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orgaos.each do |orgao| %>
+      <tr>
+        <td><%= orgao.nome %></td>
+        <td></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    orgao_path(orgao), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <% if can? :update, orgao %>
+            <%= link_to link_icone('editar'),
+                    edit_orgao_path(orgao), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% end %>
+          <% if can? :delete, orgao %>
+            <%= link_to link_icone('apagar'), orgao_path(orgao), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

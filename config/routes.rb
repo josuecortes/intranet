@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :escolas
+
+  resources :orgaos
+
   resources :ordems do
 
     get :fechar_ordem
@@ -105,6 +109,9 @@ Rails.application.routes.draw do
     get :autocomplete_departamento_nome, :on => :collection
     get :autocomplete_departamento_emprestimo_nome, :on => :collection
     get :autocomplete_detalhes_equipamento_nome, :on => :collection
+
+    get :autocomplete_escola_nome, :on => :collection
+    get :autocomplete_orgao_nome, :on => :collection
 
   end
 
