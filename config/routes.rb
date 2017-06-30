@@ -98,6 +98,10 @@ Rails.application.routes.draw do
 
   get 'estatisticas/index'
 
+  get 'estatisticas/admin'
+
+  get 'estatisticas/equipamentos'
+
   resources :detalhes_equipamentos
 
   resources :status_equipamentos

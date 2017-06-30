@@ -1,0 +1,66 @@
+<% content_for :titulo do %>
+  Estatísticas
+<% end %>
+
+<% content_for :sub_titulo do %>
+	Quantidade de Equipamentos
+
+<% end %>
+
+<hr/>
+
+<%= form_tag estatisticas_equipamentos_path, :method => :get do %>
+
+  
+  <strong>Departamento:</strong>
+  <%= select_tag "departamento", options_from_collection_for_select(@departamentos, "id", "sigla"), include_blank: true %>
+
+  <br/>
+
+  <strong>Estado:</strong>
+  <%= select_tag "estado", options_from_collection_for_select(@estados, "id", "status"), include_blank: true %>
+
+  <br/>
+
+  <strong>Tipo:</strong>
+  <%= select_tag "tipo", options_from_collection_for_select(@tipos, "id", "tipo"), include_blank: true %>
+
+  <br/>
+
+  <strong>Detalhe:</strong>
+  <%= select_tag "detalhe", options_from_collection_for_select(@detalhes_equipamentos, "id", "modelo"), include_blank: true %>
+
+  <br/>
+
+ 
+  <%= submit_tag("Pesquisar") %>
+
+<% end %>
+
+<hr/>
+
+<table id="tabela" class="display2" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Modelo</th>
+      <th>Detalhe</th>
+      <th>Estado</th>
+      <th>Departamento</th>
+      <th>Situacao</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @equipamentos.each do |equipamento| %>
+      <tr>
+        <td><%= detalhes2(equipamento.detalhes_equipamento.tipo_equipamento, :tipo) %></td>
+        <td><%= detalhes2(equipamento.detalhes_equipamento, :modelo) %></td>
+        <td><%= detalhes(equipamento.nome) %></td>
+        <td><%= detalhes2(equipamento.status_equipamento, :status) %></td>
+        <td><%= detalhes2(equipamento.departamento, :sigla) %></td>
+        <td><%= detalhes(equipamento.situacao) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

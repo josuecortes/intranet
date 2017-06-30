@@ -38,6 +38,10 @@ class Ability
 
       can :show, :estatisticas
 
+      can :show, :estatisticas_admins
+
+      can :show, :estatisticas_equipamentos
+
       can :manage, Chamado#, Chamado.where(:user_id != user.id)
       #cannot :fechar_chamado, Chamado, Chamado.where(:user_id != user.id)
       cannot :delete, Chamado, :user_id != user.id

@@ -212,4 +212,9 @@ class Equipamento < ActiveRecord::Base
     end
   end
 
+  scope :do_departamento, ->(departamento) { where("departamento_id = ?", departamento) }
+  scope :no_estado, ->(estado) { where("status_equipamento_id = ?", estado) }
+  scope :do_tipo, ->(tipo) { where("tipo_equipamento_id = ?", tipo) }
+  scope :do_detalhe, ->(detalhe) { where("detalhes_equipamento_id = ?",detalhe) }
+
 end
