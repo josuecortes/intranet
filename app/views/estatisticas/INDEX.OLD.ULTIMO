@@ -40,6 +40,10 @@
 			<th>TOTAL</th>
 			<th>PERCENTUAL</th>
 			<th>AVALIADOS</th>
+			<th>RUIM</th>
+			<th>NORMAL</th>
+			<th>BOM</th>
+			<th>OTIMO</th>
 			<th>RENDIMENTO DO TECNICO</th>
 
 		</tr>
@@ -84,23 +88,32 @@
 					<% end %>
 
 					<% if ctf > 0 %>
-						<% ctf %>
-						<% total = ((ctr * 1)+(ctn * 2)+(ctb*3)+(cto*4)) %>
-						<% rendimento = (total.to_f/ctf.to_f).to_f %>
-						<% percentual = ((100 * total.to_f)/(ctf.to_f * 4)).to_f %>
-						
+						<td><%= (ctr * 100)/ctf %>%</td>
+						<td><%= (ctn * 100)/ctf %>%</td>
+						<td><%= (ctb * 100)/ctf %>%</td>
+						<td><%= (cto * 100)/ctf %>%</td>
 						<td>
+							<% ctf %>
+							<% total = ((ctr * 1)+(ctn * 2)+(ctb*3)+(cto*4)) %>
+							<% rendimento = (total.to_f/ctf.to_f).to_f %>
+							<% percentual = ((100 * total.to_f)/(ctf.to_f * 4)).to_f %>
 							<% if rendimento < 1.5 %>
-								<%= "RUIM" %> <%= percentual.round(1) %>% DE SATISFAÇÃO
+								<%= "RUIM" %>
 							<% elsif rendimento >= 1.5 and rendimento < 2.5 %>
-								<%= "NORMAL" %> <%= percentual.round(1) %>% DE SATISFAÇÃO
+								<%= "NORMAL" %>
 							<% elsif rendimento >= 2.5 and rendimento < 3.5 %>
-								<%= "MUITO BOM" %> <%= percentual.round(1) %>% DE SATISFAÇÃO
-							<% else %> 
-								<%= "OTIMO" %> <%= percentual.round(1) %>% DE SATISFAÇÃO
-							<% end %> 
+								<%= "MUITO BOM" %>
+							<% else %>
+								<%= "OTIMO" %>
+							<% end %>
+							| <%= percentual.round(1) %>% DE SATISFAÇÃO
+							
 						</td>
 					<% else %>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td></td>
 					<% end %>
 
@@ -116,7 +129,7 @@
 <h4><strong> RELATÓRIO DE ABERTURA POR USUÁRIO </strong></h4>
 <br/>
 
-<table id="tabela" class="displayusuario" cellspacing="0" width="100%">
+<table id="tabela" class="display2" cellspacing="0" width="100%">
 	<thead>
 		<tr>
 			<th>REQUISITANTE</th>
@@ -124,7 +137,10 @@
 			<th>TOTAL</th>
 			<th>PERCENTUAL</th>
 			<th>AVALIOU</th>
-			<th>NIVEL DE SATISFAÇÃO DO USUÁRIO</th>
+			<th>RUIM</th>
+			<th>NORMAL</th>
+			<th>BOM</th>
+			<th>OTIMO</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -168,23 +184,14 @@
 					<% end %>
 
 					<% if ctf > 0 %>
-						<% ctf %>
-						<% total = ((ctr * 1)+(ctn * 2)+(ctb*3)+(cto*4)) %>
-						<% rendimento = (total.to_f/ctf.to_f).to_f %>
-						<% percentual = ((100 * total.to_f)/(ctf.to_f * 4)).to_f %>
-						
-						<td>	
-							<% if rendimento < 1.5 %>
-								<%= "RUIM" %> <%= percentual.round(1) %>% DE SATISFAÇÃO
-							<% elsif rendimento >= 1.5 and rendimento < 2.5 %>
-								<%= "NORMAL" %> <%= percentual.round(1) %>% DE SATISFAÇÃO
-							<% elsif rendimento >= 2.5 and rendimento < 3.5 %>
-								<%= "MUITO BOM" %> <%= percentual.round(1) %>% DE SATISFAÇÃO
-							<% else %>
-								<%= "OTIMO" %> <%= percentual.round(1) %>% DE SATISFAÇÃO
-							<% end %>
-						</td>
+						<td><%= (ctr * 100)/ctf %>%</td>
+						<td><%= (ctn * 100)/ctf %>%</td>
+						<td><%= (ctb * 100)/ctf %>%</td>
+						<td><%= (cto * 100)/ctf %>%</td>
 					<% else %>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td></td>
 					<% end %>
 
@@ -201,7 +208,7 @@
 <br/>
 
 
-<table id="tabela" class="displaydepartamento" cellspacing="0" width="100%">
+<table id="tabela" class="display2" cellspacing="0" width="100%">
 	<thead>
 		<tr>
 			<th>DEPARTAMENTO</th>
@@ -229,7 +236,7 @@
 <h4><strong> RELATÓRIO DE ABERTURA POR PROBLEMA </strong></h4>
 <br/>
 
-<table id="tabela" class="displayproblema" cellspacing="0" width="100%">
+<table id="tabela" class="display2" cellspacing="0" width="100%">
 	<thead>
 		<tr>
 			<th>TIPO</th>
@@ -330,7 +337,7 @@ $("#exportButton").click(function(){
 	</script>
 
 
-<div id="chartContainer" style="height: 600px; width: 90%;"></div>
+<div id="chartContainer" style="height: 400px; width: 100%;"></div>
 <!--<button id="exportButton" type="button">Exportar para PDF</button>-->
 
 

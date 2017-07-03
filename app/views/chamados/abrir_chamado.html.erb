@@ -34,9 +34,9 @@
     <% if @chamado.status.blank? %>
       <%= f.input :status, as: :hidden, :input_html=>{:value=>"FECHADO"} %>
       <%= f.input :data_status_aberto, as: :hidden, :input_html=>{:value=>DateTime.now} %>
-      <%= f.input :data_status_em_atendimento, as: :hidden, :input_html=>{:value=>DateTime.now} %>
-      <%= f.input :data_status_concluido, as: :hidden, :input_html=>{:value=>DateTime.now} %>
-      <%= f.input :data_status_fechado, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+      <%= f.input :data_status_em_atendimento, as: :hidden, :input_html=>{:value=>DateTime.now + 1.minutes} %>
+      <%= f.input :data_status_concluido, as: :hidden, :input_html=>{:value=>DateTime.now + 5.minutes} %>
+      <%= f.input :data_status_fechado, as: :hidden, :input_html=>{:value=>DateTime.now + 6.minutes} %>
 
       <%= f.input :parecer_final_tecnico, as: :hidden, :input_html=>{:value=>"Solicitacao atendida!"} %>
       <%= f.input :avaliacao_usuario, as: :hidden, :input_html=>{:value=>"Solicitacao atendida!"} %>

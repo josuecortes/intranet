@@ -242,7 +242,261 @@ $('table.display2').dataTable({
 });
 
 
+$('table.displaytecnico').dataTable({
+  dom: 'Bfrtip',
+      buttons: [
+
+          {
+              extend: 'copy',
+              title: 'Relatório de Atendimento por Técnico - SISCOM|SEED'
+          },
+
+          {
+              extend: 'csv',
+              title: 'Relatório de Atendimento por Técnico - SISCOM|SEED'
+          },
+
+          {
+              extend: 'excel',
+              title: 'Relatório de Atendimento por Técnico - SISCOM|SEED'
+          },
+
+          {
+              extend: 'pdf',
+              title: 'Relatório de Atendimento por Técnico - SISCOM|SEED'
+          },
+
+          {
+              extend: 'print',
+              title: 'Relatório de Atendimento por Técnico - SISCOM|SEED'
+          }
+
+          
+      ],
+
+  rowReorder: {
+    selector: 'td:nth-child(2)'
+  },
+  responsive: true,
+  "language": {
+    "sProcessing":    "Processando...",
+    "sLengthMenu":    "Mostrar _MENU_ Registros",
+    "sZeroRecords":   "Nenhum registro encontrado",
+    "sEmptyTable":    "Nenhum dado disponivel nesta tabela",
+    "sInfo":          "Mostrando registros de _START_ ate _END_ de um total de _TOTAL_ registros",
+    "sInfoEmpty":     "Mostrando registros de 0 a 0 de um total de 0 registros",
+    "sInfoFiltered":  "(filtrado de um total de _MAX_ registros)",
+    "sInfoPostFix":   "",
+    "sSearch":        "Buscar:",
+    "sUrl":           "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Carregando...",
+    "oPaginate": {
+      "sFirst":    "Primeiro",
+      "sLast":    "Último",
+      "sNext":    "Proximo",
+      "sPrevious": "Anterior"
+    },
+    "oAria": {
+      "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+  }
+});
+
+
+$('table.displayusuario').dataTable({
+  dom: 'Bfrtip',
+      buttons: [
+
+          {
+              extend: 'copy',
+              title: 'Relatório de Abertura por Usuário - SISCOM|SEED'
+          },
+
+          {
+              extend: 'csv',
+              title: 'Relatório de Abertura por Usuário - SISCOM|SEED'
+          },
+
+          {
+              extend: 'excel',
+              title: 'Relatório de Abertura por Usuário - SISCOM|SEED'
+          },
+
+          {
+              extend: 'pdf',
+              title: 'Relatório de Abertura por Usuário - SISCOM|SEED'
+          },
+
+          {
+              extend: 'print',
+              title: 'Relatório de Abertura por Usuário - SISCOM|SEED'
+          }
+
+          
+      ],
+
+  rowReorder: {
+    selector: 'td:nth-child(2)'
+  },
+  responsive: true,
+  "language": {
+    "sProcessing":    "Processando...",
+    "sLengthMenu":    "Mostrar _MENU_ Registros",
+    "sZeroRecords":   "Nenhum registro encontrado",
+    "sEmptyTable":    "Nenhum dado disponivel nesta tabela",
+    "sInfo":          "Mostrando registros de _START_ ate _END_ de um total de _TOTAL_ registros",
+    "sInfoEmpty":     "Mostrando registros de 0 a 0 de um total de 0 registros",
+    "sInfoFiltered":  "(filtrado de um total de _MAX_ registros)",
+    "sInfoPostFix":   "",
+    "sSearch":        "Buscar:",
+    "sUrl":           "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Carregando...",
+    "oPaginate": {
+      "sFirst":    "Primeiro",
+      "sLast":    "Último",
+      "sNext":    "Proximo",
+      "sPrevious": "Anterior"
+    },
+    "oAria": {
+      "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+  }
+});
+
+
+$('table.displaydepartamento').dataTable({
+  dom: 'Bfrtip',
+      buttons: [
+
+          {
+              extend: 'copy',
+              title: 'Relatório de Abertura por Departamento - SISCOM|SEED'
+          },
+
+          {
+              extend: 'csv',
+              title: 'Relatório de Abertura por Departamento - SISCOM|SEED'
+          },
+
+          {
+              extend: 'excel',
+              title: 'Relatório de Abertura por Departamento - SISCOM|SEED'
+          },
+
+          {
+              extend: 'pdf',
+              title: 'Relatório de Abertura por Departamento - SISCOM|SEED'
+          },
+
+          {
+              extend: 'print',
+              title: 'Relatório de Abertura por Departamento - SISCOM|SEED'
+          }
+
+          
+      ],
+
+  rowReorder: {
+    selector: 'td:nth-child(2)'
+  },
+  responsive: true,
+  "language": {
+    "sProcessing":    "Processando...",
+    "sLengthMenu":    "Mostrar _MENU_ Registros",
+    "sZeroRecords":   "Nenhum registro encontrado",
+    "sEmptyTable":    "Nenhum dado disponivel nesta tabela",
+    "sInfo":          "Mostrando registros de _START_ ate _END_ de um total de _TOTAL_ registros",
+    "sInfoEmpty":     "Mostrando registros de 0 a 0 de um total de 0 registros",
+    "sInfoFiltered":  "(filtrado de um total de _MAX_ registros)",
+    "sInfoPostFix":   "",
+    "sSearch":        "Buscar:",
+    "sUrl":           "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Carregando...",
+    "oPaginate": {
+      "sFirst":    "Primeiro",
+      "sLast":    "Último",
+      "sNext":    "Proximo",
+      "sPrevious": "Anterior"
+    },
+    "oAria": {
+      "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+  }
+});
+
+
+$('table.displayproblema').dataTable({
+  dom: 'Bfrtip',
+      buttons: [
+
+          {
+              extend: 'copy',
+              title: 'Relatório de Abertura por Problema/Solicitação - SISCOM|SEED'
+          },
+
+          {
+              extend: 'csv',
+              title: 'Relatório de Abertura por Problema/Solicitação - SISCOM|SEED'
+          },
+
+          {
+              extend: 'excel',
+              title: 'Relatório de Abertura por Problema/Solicitação - SISCOM|SEED'
+          },
+
+          {
+              extend: 'pdf',
+              title: 'Relatório de Abertura por Problema/Solicitação - SISCOM|SEED'
+          },
+
+          {
+              extend: 'print',
+              title: 'Relatório de Abertura por Problema/Solicitação - SISCOM|SEED'
+          }
+
+          
+      ],
+
+  rowReorder: {
+    selector: 'td:nth-child(2)'
+  },
+  responsive: true,
+  "language": {
+    "sProcessing":    "Processando...",
+    "sLengthMenu":    "Mostrar _MENU_ Registros",
+    "sZeroRecords":   "Nenhum registro encontrado",
+    "sEmptyTable":    "Nenhum dado disponivel nesta tabela",
+    "sInfo":          "Mostrando registros de _START_ ate _END_ de um total de _TOTAL_ registros",
+    "sInfoEmpty":     "Mostrando registros de 0 a 0 de um total de 0 registros",
+    "sInfoFiltered":  "(filtrado de um total de _MAX_ registros)",
+    "sInfoPostFix":   "",
+    "sSearch":        "Buscar:",
+    "sUrl":           "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Carregando...",
+    "oPaginate": {
+      "sFirst":    "Primeiro",
+      "sLast":    "Último",
+      "sNext":    "Proximo",
+      "sPrevious": "Anterior"
+    },
+    "oAria": {
+      "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+  }
+});
+
 
 $(document).ready(function () {
       $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
   });
+
+
+

@@ -14,7 +14,8 @@
       <th>Tipo</th>
       <th>Modelo</th>
       <th>Nome</th>
-      <th>Status</th>
+      <th>Mac</th>
+      <th>Estado</th>
       <th>Departamento</th>
       <th>Ações</th>
     </tr>
@@ -26,6 +27,7 @@
         <td><%= detalhes2(equipamento.detalhes_equipamento.tipo_equipamento, :tipo) %></td>
         <td><%= detalhes2(equipamento.detalhes_equipamento, :modelo) %></td>
         <td><%= detalhes(equipamento.nome) %></td>
+        <td><%= detalhes(equipamento.mac) %></td>
         <td><%= detalhes2(equipamento.status_equipamento, :status) %></td>
         <td><%= detalhes2(equipamento.departamento, :sigla) %></td>
         <td>

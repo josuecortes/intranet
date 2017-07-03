@@ -83,10 +83,11 @@ class Chamado < ActiveRecord::Base
 
 	end
 
-	scope :este_mes, ->{ where("data_status_aberto >= ? and data_status_aberto <= ?", Date.today.beginning_of_month, Date.today.end_of_month) }
+	scope :este_mes, ->{ where("data_status_aberto >= ? and data_status_aberto <= ?", Time.now.beginning_of_month, Time.now.end_of_month) }
 
   scope :no_periodo, ->(ini,fim) { where("data_status_aberto >= ? and data_status_aberto <= ?", ini, fim) }
 
+  scope :nao_fechado, -> {where(:data_status_fechado => nil)}
   # Chamado.where("data_status_aberto >= ? and data_status_aberto <= ? and tecnico_id = ?", "01/11/2016", "30/11/2016", "3")
   # cs.each do |c|
   # 	puts "Abertura = #{c.data_status_aberto} - Atendimento = #{c.data_status_em_atendimento} - #{c.tecnico.name} - #{c.user.name} - #{c.user.departamento.sigla} - #{c.status}"

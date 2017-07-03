@@ -30,7 +30,7 @@ class EquipamentosController < ApplicationController
     @equipamento = Equipamento.new(equipamento_params)
 
     respond_to do |format|
-      if @equipamento.save!
+      if @equipamento.save
         format.html { redirect_to @equipamento, notice: @@msgs }
         format.json { render :show, status: :created, location: @equipamento }
       else

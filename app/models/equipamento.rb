@@ -7,7 +7,8 @@ class Equipamento < ActiveRecord::Base
   belongs_to :escola
   belongs_to :orgao
 
-  delegate :tipo_equipamento, to: :detalhes_equipamento
+  #delegate :tipo_equipamento, to: :detalhes_equipamento
+  belongs_to :tipo_equipamento
 
 	attr_accessor :departamento_nome, :departamento_emprestimo_nome, :detalhes_equipamento_nome, :orgao_nome, :escola_nome
 
@@ -19,12 +20,14 @@ class Equipamento < ActiveRecord::Base
   validates_presence_of :proprietario, :if => :checar_situacao_particular
 
   validates_presence_of :departamento_emprestimo_id, :if => :checar_cessao_departamento_emprestimo_id
+  validates_presence_of :escola_id, :if => :checar_cessao_escola_id
+  validates_presence_of :orgao_id, :if => :checar_cessao_orgao_id
 
 	# validates_presence_of :responsavel, :if => :checar_situacao_emprestimo
 
 	# validates_presence_of :departamento_emprestimo_id, :if => :checar_situacao_emprestimo
 
- #  validates_presence_of :detalhes_equipamento_nome, :if => :checar_detalhes_equipamento_id
+  validates_presence_of :detalhes_equipamento_nome, :if => :checar_detalhes_equipamento_id
 	
  #  validates_presence_of :departamento_nome, :if => :checar_departamento_id
 
@@ -119,7 +122,7 @@ class Equipamento < ActiveRecord::Base
 
   def checar_cessao_departamento_emprestimo_id
     if self.situacao == "CESSAO"
-      if self.escola_id == nil and self.orgao_id == nil
+      if self.departamento_emprestimo_id == nil and self.escola_id == nil and self.orgao_id == nil
         return true
       else
         return false
@@ -214,9 +217,18 @@ class Equipamento < ActiveRecord::Base
     end
   end
 
-  scope :do_departamento, ->(departamento) { where("departamento_id = ?", departamento) }
+  scope :do_departamento, ->(departamento) { where("departamento_id = ? or departamento_emprestimo_id = ?", departamento, departamento) }
   scope :no_estado, ->(estado) { where("status_equipamento_id = ?", estado) }
   scope :do_tipo, ->(tipo) { where("tipo_equipamento_id = ?", tipo) }
   scope :do_detalhe, ->(detalhe) { where("detalhes_equipamento_id = ?",detalhe) }
+
+  after_save :setar_tipo_equipamento
+  
+  def setar_tipo_equipamento
+    if self.tipo_equipamento_id != self.detalhes_equipamento.tipo_equipamento_id
+      self.tipo_equipamento_id = self.detalhes_equipamento.tipo_equipamento_id
+      self.save
+    end
+  end
 
 end

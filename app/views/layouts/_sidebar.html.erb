@@ -97,18 +97,6 @@
           </a>
         </li>
 
-        <li>
-          <a href="/orgaos">
-            <i class="fa fa-tree"></i> <span>Orgãos</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="/escolas">
-            <i class="fa fa-university"></i> <span>Escolas</span>
-          </a>
-        </li>
-
         <% if current_user.nao_admin_nao_tecnico %>
 
           <li>
@@ -140,16 +128,8 @@
             <ul class="treeview-menu">
               <li><a href="/equipamentos"><i class="fa fa-circle-o"></i> Equipamentos</a></li>
               <li><a href="/tipo_equipamentos"><i class="fa fa-circle-o"></i> Tipo Equipamentos</a></li>
-              <li><a href="/detalhes_equipamentos"><i class="fa fa-circle-o"></i> Detalhes Equipamento</a></li>
-              <li><a href="/status_equipamentos"><i class="fa fa-circle-o"></i> Status Equipamento</a></li>
-
-              <% if current_user.e_tecnico %>
-                <li>
-                  <a href="/estatisticas/equipamentos">
-                    <i class="fa fa-microchip"></i> <span>Quant Equipamentos</span>
-                  </a>
-                </li>
-              <% end %>
+              <li><a href="/detalhes_equipamentos"><i class="fa fa-circle-o"></i> Modelos de Equipamentos</a></li>
+              <li><a href="/status_equipamentos"><i class="fa fa-circle-o"></i> Estados de Equipamentos</a></li>
             </ul>
           </li>
 
@@ -159,17 +139,51 @@
             </a>
           </li>
 
+          <li>
+          <a href="/orgaos">
+            <i class="fa fa-tree"></i> <span>Orgãos</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/escolas">
+            <i class="fa fa-university"></i> <span>Escolas</span>
+          </a>
+        </li>
+
         <% end %>
 
         <% if can? :show, :estatisticas %>
-
-          <li>
-            <a href="/estatisticas/index">
+          <li class="treeview">
+            <a href="#">
               <i class="fa fa-bar-chart"></i> <span>Estatisticas</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-down pull-right"></i>
+              </span>
             </a>
-          </li>
+            <ul class="treeview-menu">
+              <li>
+                <a href="/estatisticas/index">
+                  <i class="fa fa-bar-chart"></i> <span>Estatisticas</span>
+                </a>
+              </li>
+              <% if current_user.e_tecnico %>
+                <li>
+                  <a href="/estatisticas/admin">
+                    <i class="fa fa-eye"></i> <span>Estatisticas Admin</span>
+                  </a>
+                </li>
 
-        <% end %>
+                <li>
+                  <a href="/estatisticas/equipamentos">
+                    <i class="fa fa-microchip"></i> <span>Quant Equipamentos</span>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>  
+
 
         <li>
           <a href="/murals">

@@ -35,13 +35,13 @@ class EstatisticasController < ApplicationController
       @afim = params[:afim]
     end
 
-    @ini = "#{@mini}/#{@aini}".to_date.beginning_of_month
-    @fim = "#{@mfim}/#{@afim}".to_date.end_of_month
+    @ini = "#{@mini}/#{@aini}".to_time.beginning_of_month
+    @fim = "#{@mfim}/#{@afim}".to_time.end_of_month
 
 
     if @ini > @fim
-      @ini = Date.today.beginning_of_month
-      @fim = Date.today.end_of_month
+      @ini = Time.now.beginning_of_month
+      @fim = Time.now.today.end_of_month
       flash[:info] = "A data final era maior que a data inicial."
     end
 
@@ -113,13 +113,13 @@ class EstatisticasController < ApplicationController
       @afim = params[:afim]
     end
 
-    @ini = "#{@mini}/#{@aini}".to_date.beginning_of_month
-    @fim = "#{@mfim}/#{@afim}".to_date.end_of_month
+    @ini = "#{@mini}/#{@aini}".to_time.beginning_of_month
+    @fim = "#{@mfim}/#{@afim}".to_time.end_of_month
 
 
     if @ini > @fim
-      @ini = Date.today.beginning_of_month
-      @fim = Date.today.end_of_month
+      @ini = Time.now.beginning_of_month
+      @fim = Time.now.end_of_month
       flash[:info] = "A data final era maior que a data inicial."
     end
 

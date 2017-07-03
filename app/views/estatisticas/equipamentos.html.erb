@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :sub_titulo do %>
-	Quantidade de Equipamentos
+	Quantitativo de Equipamentos
 
 <% end %>
 
@@ -39,12 +39,33 @@
 
 <hr/>
 
+<h4>Total de Equipamentos: <strong><%= @equipamentos.count %></strong></h4>
+
+<% if !@departamento.blank? %>
+	<h4>Equipamentos presentes no departamento: <strong><%= Departamento.find(@departamento).sigla %></strong></h4>
+<% end %>
+
+<% if !@estado.blank? %>
+	<h4>Estado dos Equipamentos: <strong><%= StatusEquipamento.find(@estado).status %></strong></h4>
+<% end %>
+
+<% if !@tipo.blank? %>
+	<h4>Tipo de Equipamento: <strong><%= TipoEquipamento.find(@tipo).tipo %></strong></h4>
+<% end %>
+
+<% if !@detalhe.blank? %>
+	<h4>Modelo dos Equipamentos: <strong><%= DetalhesEquipamento.find(@detalhe).modelo %></strong></h4>
+<% end %>
+
+<br/>
+<h4><strong> QUANTITATIVO DE EQUIPAMENTOS - GERAL </strong></h4>
+<br/>
+
 <table id="tabela" class="display2" cellspacing="0" width="100%">
   <thead>
     <tr>
       <th>Tipo</th>
       <th>Modelo</th>
-      <th>Detalhe</th>
       <th>Estado</th>
       <th>Departamento</th>
       <th>Situacao</th>
@@ -56,11 +77,83 @@
       <tr>
         <td><%= detalhes2(equipamento.detalhes_equipamento.tipo_equipamento, :tipo) %></td>
         <td><%= detalhes2(equipamento.detalhes_equipamento, :modelo) %></td>
-        <td><%= detalhes(equipamento.nome) %></td>
         <td><%= detalhes2(equipamento.status_equipamento, :status) %></td>
         <td><%= detalhes2(equipamento.departamento, :sigla) %></td>
-        <td><%= detalhes(equipamento.situacao) %></td>
+        <td>
+        	<% if equipamento.situacao == "CESSAO" %>
+        		<% if equipamento.departamento_emprestimo_id != nil %>
+        			<%= equipamento.situacao %> - <%= equipamento.departamento_emprestimo.sigla %>
+        		<% elsif equipamento.escola_id != nil %>
+        			<%= equipamento.situacao %> - <%= equipamento.escola.nome %>
+        		<% elsif equipamento.orgao_id != nil %>
+        			<%= equipamento.situacao %> - <%= equipamento.orgao.nome %>
+        		<% else %>
+        			<%= detalhes(equipamento.situacao) %>
+        		<% end %>
+        	<% else %>
+        		<%= detalhes(equipamento.situacao) %>
+        	<% end %>	
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<hr/>
+<br/>
+<h4><strong> QUANTITATIVO POR TIPO DE EQUIPAMENTO </strong></h4>
+<br/>
+
+<table id="tabela" class="display2" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+   	<% TipoEquipamento.all.each do |t| %>
+  		<% if @equipamentos.where(:tipo_equipamento => t).count > 0 %>
+
+	  	  <tr>
+	        <td><%= detalhes(t.tipo) %></td>
+	        <td><%= @equipamentos.where(:tipo_equipamento => t).count %></td>
+	      </tr>
+
+	    <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<hr/>
+<br/>
+<h4><strong> QUANTITATIVO POR MODELO DE EQUIPAMENTO </strong></h4>
+<br/>
+
+<table id="tabela" class="display2" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Modelo</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+   	<% DetalhesEquipamento.all.each do |d| %>
+  		<% if @equipamentos.where(:detalhes_equipamento => d).count > 0 %>
+
+	  	  <tr>
+	        <td><%= detalhes2(d.tipo_equipamento, :tipo) %></td>
+	        <td><%= detalhes(d.modelo) %></td>
+	        <td><%= @equipamentos.where(:detalhes_equipamento => d).count %></td>
+	      </tr>
+
+	    <% end %>
+    <% end %>
+  </tbody>
+</table>
+

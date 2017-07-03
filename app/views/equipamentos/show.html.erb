@@ -22,13 +22,33 @@
 </p>
 
 <p>
+  <strong>Departamento:</strong>
+  <%= detalhes2(@equipamento.departamento, :sigla) %>
+</p>
+
+<p>
   <strong>Estado:</strong>
   <%= detalhes2(@equipamento.status_equipamento, :status) %>
 </p>
 
 <p>
+  <strong>Data Aquisição:</strong>
+  <%= detalhes(@equipamento.data_aquisicao) %>
+</p>
+
+<p>
+  <strong>Nota:</strong>
+  <%= detalhes(@equipamento.nota) %>
+</p>
+
+<p>
+  <strong>Serie:</strong>
+  <%= detalhes(@equipamento.serie) %>
+</p>
+
+<p>
   <strong>Patrimonio:</strong>
-  <%= @equipamento.patrimonio %>
+  <%= detalhes(@equipamento.patrimonio) %>
 </p>
 
 <p>
@@ -37,8 +57,18 @@
 </p>
 
 <p>
-  <strong>Departamento:</strong>
-  <%= detalhes2(@equipamento.departamento, :sigla) %>
+  <strong>Mac:</strong>
+  <%= detalhes(@equipamento.mac) %>
+</p>
+
+<p>
+  <strong>Especificações:</strong>
+  <%= detalhes(@equipamento.especificacoes) %>
+</p>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= detalhes(@equipamento.descricao) %>
 </p>
 
 <hr/>

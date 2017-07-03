@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630143355) do
+ActiveRecord::Schema.define(version: 20170630214152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,8 @@ ActiveRecord::Schema.define(version: 20170630143355) do
     t.string   "proprietario"
     t.integer  "escola_id"
     t.integer  "orgao_id"
+    t.integer  "tipo_equipamento"
+    t.integer  "tipo_equipamento_id"
   end
 
   create_table "escolas", force: :cascade do |t|
