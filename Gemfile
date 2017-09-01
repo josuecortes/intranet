@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 
+gem 'bundler', '1.15.4'
+
 #gem 'rails-assets-notifyjs', source: 'https://rails-assets.org'
 
 # Use postgresql as the database for Active Record

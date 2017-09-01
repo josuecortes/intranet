@@ -272,6 +272,7 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap-timepicker-rails
   brazilian-rails
+  bundler (= 1.15.4)
   byebug
   cancancan
   carrierwave
@@ -304,4 +305,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.15.3
+   1.15.4
