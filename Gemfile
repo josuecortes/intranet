@@ -88,4 +88,3 @@ gem 'bootstrap-timepicker-rails'
 gem 'brazilian-rails'
 
 gem 'geocoder'
-
