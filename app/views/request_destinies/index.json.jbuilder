@@ -1,0 +1,1 @@
+json.array! @request_destinies, partial: 'request_destinies/request_destiny', as: :request_destiny

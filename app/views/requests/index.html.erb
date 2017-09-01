@@ -1,0 +1,67 @@
+<% content_for :titulo do %>
+  Requisições
+<% end %>
+
+<% content_for :sub_titulo do %>
+  
+  Lista de Requisições de Transporte
+  <%= link_to link_icone('nova'), new_request_path, :class=> 'btn btn-success', :title=>"Nova Requisição" %>
+ 
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Tipo</th>
+      <th>Data partida</th>
+      <th>Hora partida</th>
+      <th>Data volta</th>
+      <th>Hora volta</th>
+      <th>Status</th>
+      <th>User</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requests.each do |request| %>
+      <tr>
+        <td><%= "#{request.created_at.year}/#{request.id}" %></td>
+        <td>
+          <% if request.urgente == true %>
+            URGENTE - <%= request.tipo %>
+          <% else %>
+            NORMAL - <%= request.tipo %>
+          <% end %> 
+        </td>
+        <td><%= request.data_partida.to_s_br %></td>
+        <td><%= request.hora_partida %></td>
+        <td><%= detalhes(request.data_volta.to_s_br) %></td>
+        <td><%= request.hora_volta.blank? ? "Nada Cadastrado" : request.hora_volta %></td>
+        <td><%= request.status %></td>
+        <td><%= request.user.name %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    request_path(request), :class => 'btn btn-small btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_request_path(request), :class => 'btn btn-small btn-primary', :title=>"Editar" %>
+          <%= link_to link_icone2('passageiros'," Passageiro(#{request.request_passengers.count})"), request_request_passengers_path(request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
+
+          <%= link_to link_icone2('destinos'," Destino(#{request.request_destinies.count})"), request_request_destinies_path(request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+
+          <% if can? :delete, request %>
+            <%= link_to link_icone('apagar'), request_path(request), :class=>"btn btn-small btn-danger", method: :delete, data: { confirm: 'Apagar a requisição?' }, :title=>"Apagar" %> 
+          <% end %>
+
+          <%= link_to link_icone2('requisitar',' Finalizar'),
+                    request_requisitar_path(request), :class => 'btn btn-small btn-default', :title=>"Requisitar" %>
+
+        </td>  
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

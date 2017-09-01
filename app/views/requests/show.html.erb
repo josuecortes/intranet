@@ -1,0 +1,90 @@
+<% content_for :titulo do %>
+  Requisições
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes da Requisição
+<% end %>
+
+<p>
+  <strong>Tipo:</strong>
+  <% if @request.urgente == true %>
+    URGENTE - <%= @request.tipo %>
+
+    <p>
+      <strong>Motivo:</strong>
+      <%= @request.motivo %>
+    </p>  
+
+  <% else %>
+    NORMAL - <%= @request.tipo %>
+  <% end %> 
+</p>
+
+<p>
+  <strong>Apenas entrega de Documento:</strong>
+  <%= simnao(@request.documento) %>
+</p>
+
+<p>
+  <strong>Vai levar Carga:</strong>
+  <%= simnao(@request.carga) %>
+</p>
+
+<% if @request.tipo == "VIAGEM" %>
+  <p>
+    <strong>Portaria:</strong>
+    <%= @request.portaria %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Data partida:</strong>
+  <%= @request.data_partida.to_s_br %>
+</p>
+
+<p>
+  <strong>Hora partida:</strong>
+  <% #@request.hora_partida.strftime("posted on %b, %m %Y - %H:%M") %>
+  <%= @request.hora_partida %>
+</p>
+
+<% if @request.tipo == "VIAGEM" %>
+
+  <p>
+    <strong>Data volta:</strong>
+    <%= @request.data_volta.to_s_br %>
+  </p>
+
+  <p>
+    <strong>Hora volta:</strong>
+    <%= @request.hora_volta %>
+  </p>
+
+<% end %>
+
+<p>
+  <strong>Status:</strong>
+  <%= @request.status %>
+</p>
+
+<p>
+  <strong>Solicitante:</strong>
+  <%= detalhes2(@request.user, :name) %> - <%= detalhes2(@request.user.departamento, :sigla) %> 
+  <br/><strong>Em: </strong><%= @request.created_at.strftime("%d/%m/%Y %H:%M") %>
+  <br/><strong>Última modificação: </strong><%= @request.updated_at.strftime("%d/%m/%Y %H:%M") %>
+</p>
+  
+<%= link_to link_icone('voltar'), requests_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_request_path(@request), :class=>"btn btn-primary", :title=>"Editar" %> 
+<%= link_to link_icone('nova'), new_request_path, :class=> 'btn btn-success', :title=>"Nova Requisição" %>
+
+<%= link_to link_icone2('passageiros'," Passageiro(#{@request.request_passengers.count})"), request_request_passengers_path(@request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
+<%= link_to link_icone2('destinos'," Destino(#{@request.request_destinies.count})"), request_request_passengers_path(@request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+
+<% if can? :delete, request %>
+  <%= link_to link_icone('apagar'), request_path(@request), :class=>"btn btn-small btn-danger", method: :delete, data: { confirm: 'Apagar a requisição?' }, :title=>"Apagar" %> 
+<% end %>
+
+<%= link_to link_icone2('requisitar','Requisitar'),
+                    request_requisitar_url(@request), :class => 'btn btn-small btn-default', :title=>" Finalizar" %>

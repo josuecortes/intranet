@@ -31,9 +31,11 @@ class DetalhesEquipamentosController < ApplicationController
 
     respond_to do |format|
       if @detalhes_equipamento.save
+        flash[:success] = @@msgs
         format.html { redirect_to @detalhes_equipamento, notice: @@msgs }
         format.json { render :show, status: :created, location: @detalhes_equipamento }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @detalhes_equipamento.errors, status: :unprocessable_entity }
       end
@@ -45,9 +47,11 @@ class DetalhesEquipamentosController < ApplicationController
   def update
     respond_to do |format|
       if @detalhes_equipamento.update(detalhes_equipamento_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @detalhes_equipamento, notice: @@msgs }
         format.json { render :show, status: :ok, location: @detalhes_equipamento }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @detalhes_equipamento.errors, status: :unprocessable_entity }
       end
@@ -58,11 +62,13 @@ class DetalhesEquipamentosController < ApplicationController
   # DELETE /detalhes_equipamentos/1.json
   def destroy
     if @detalhes_equipamento.destroy
+      flash[:success] = @@msgs
       respond_to do |format|
         format.html { redirect_to detalhes_equipamentos_url, notice: @@msgs }
         format.json { head :no_content }
       end
     else
+      flash[:danger] = @@msge
       respond_to do |format|
         format.html { redirect_to detalhes_equipamentos_url, notice: @@msge }
         format.json { head :no_content }

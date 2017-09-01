@@ -1,0 +1,1 @@
+json.partial! "request_destinies/request_destiny", request_destiny: @request_destiny

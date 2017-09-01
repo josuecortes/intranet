@@ -25,8 +25,19 @@ module Helpdesk
 
     config.active_record.raise_in_transactional_callbacks = true
     
+    #config.time_zone = 'Brasilia'
+    #config.i18n.default_locale = :'pt-BR'
+
+    config.encoding = "utf-8"
+    
     config.time_zone = 'Brasilia'
-    config.i18n.default_locale = :'pt-BR'
+    config.i18n.available_locales = [:"pt-BR"]
+    config.i18n.default_locale = :"pt-BR"
+    config.before_configuration do
+      I18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
+      I18n.locale = 'pt-BR'
+      I18n.reload!
+    end
 
     
 end

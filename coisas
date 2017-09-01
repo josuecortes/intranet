@@ -115,3 +115,43 @@ class RemovePartNumberFromProducts < ActiveRecord::Migration[5.0]
     remove_column :products, :part_number, :string
   end
 end
+
+
+
+
+
+***********************************************************************************************************************************
+
+TIPO DE REQUISIÇÃO { [DESLOCAMENTO URBANO] [VIAGEM] }
+
+DESLOCAMENTO URBANO -> MCP STN 
+
+
+REQUISIÇÃO
+
+  USER_ID { RESPONSAVEL }
+  DEPARTAMENTO_ID { {USER_ID} DEPARTAMENTO }
+  TIPO {  }
+  { DESTINO } {
+    MUNICIPIO   
+    BAIRRO    
+    LOGRADOURO
+    NUMERO
+  }
+  
+PORTARIA DE VIAGEM
+
+STATUS DO REQUEST  { [EM ABERTO] [AGUARDANDO LIBERAÇÃO PELA CAD] [AGUARDANDO LIBERAÇÃO PELA USEGET] [APROVADA] [EM ANDAMENTO] [FINALIZADA] [CANCELADA] 
+
+
+rails g migration AddVariosCamposControleToRequest data_aguardando_cad:time user_aguardando_cad_id:integer data_aguardando_useget:time user_aguardando_useget_id:integer data_aprovada:time user_aprovada_id:integer data_em_andamento:time user_data_em_andamento_id:integer data_finalizada:time user_finalizada_id:integer data_cancelada:time user_cancelada_id:integer motivo_cancelamento:text
+
+
+
+TIPOS DE PASSAGEIROS { [ESTADUAL] [FEDERAL] [COMISSIONADO] [CONTRATO] [ESTAGIO] }
+
+
+
+TIPOS DE USUARIOS DO TRANSPORTE
+
+  [REQUISITANTE_TRANSPORTE] [CAD_TRANSPORTE] [USEGET_TRANSPORTE]

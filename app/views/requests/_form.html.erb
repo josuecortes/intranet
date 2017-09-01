@@ -1,0 +1,58 @@
+<%= simple_form_for(@request) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="row">
+  
+    <div class="col-md-2">
+      <%= f.input :documento, :label=>"Apenas entrega de documento?", collection: @lista_booleans, as: :select, :include_blank => false %>
+    </div>
+    <div class="col-md-2">
+      <%= f.input :carga, :label=>"Vai levar carga?", collection: @lista_booleans, as: :select, :include_blank => false %>
+    </div>
+    <div class="col-md-2">
+      <%= f.input :urgente, :label=>"Requisição Urgente?", collection: @lista_booleans, as: :select, :include_blank => false, :input_html=>{:class=>"check_urgencia"} %>
+    </div>
+    <div class="col-md-6 urgencia">
+      <%= f.input :motivo, :label=>"Motivo da Urgência" %>
+    </div>
+  
+  </div>
+
+  <div class="row">
+  
+    <div class="col-md-6">
+      <%= f.input :tipo, collection: @lista_tipo_requests, as: :select, :include_blank => false, :input_html=>{:class=>"tipo_request"}%>
+    </div>
+    <div class="col-md-6 viagem">
+      <%= f.input :portaria %>
+    </div>
+  
+  </div>
+  
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= f.input :data_partida, :label=>"Data Saida DD/MM/AAAA", :input_html=>{:class=>'datepicker',:readonly=>false,:value=>@request.data_partida.to_s_br},:as=>:string,:placeholder=>"Clique aqui para selecionar a data" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :hora_partida, :label=>"Horario Saida HH:MM", as: :string, :input_html=>{:class=>'shorttime'} %>
+    </div>
+
+    <div class="col-md-3 viagem">
+      <%= f.input :data_volta, :label=>"Data Retorno DD/MM/AAAA", :input_html=>{:class=>'datepicker',:readonly=>false,:value=>@request.data_volta.to_s_br},:as=>:string,:placeholder=>"Clique aqui para selecionar a data" %>
+    </div>
+    <div class="col-md-3 viagem">
+      <%= f.input :hora_volta, :label=>"Horario Retorno HH:MM", as: :string, :input_html=>{:class=>'shorttime'} %>
+    </div>
+
+  </div>
+
+ 
+  <%= f.input :status, :as=>:hidden, :input_html=>{:value=>"EM ABERTO"}%>
+  <%= f.input :user_id, :as=>:hidden, :input_html=>{:value=>current_user.id}%>
+ 
+  <div class="form-actions" align="center">
+    <%= f.button :submit, "Salvar", :class => 'btn btn-primary' %>
+    <%= link_to 'Voltar', requests_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

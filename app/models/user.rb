@@ -27,6 +27,17 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :etapas
   has_and_belongs_to_many :projetos
 
+  ############# TRANSPORTE #########################
+
+
+  has_many :requests
+  has_many :requests_cads, class_name: "Request", foreign_key: "user_aguardando_cad_id", dependent: :restrict_with_error
+  has_many :requests_usegets, class_name: "Request", foreign_key: "user_aguardando_useget_id", dependent: :restrict_with_error
+  has_many :requests_aprovadas, class_name: "Request", foreign_key: "user_aprovada_id", dependent: :restrict_with_error
+  has_many :requests_em_andamentos, class_name: "Request", foreign_key: "user_em_andamento_id", dependent: :restrict_with_error
+  has_many :requests_finalizadas, class_name: "Request", foreign_key: "user_finalizada_id", dependent: :restrict_with_error
+  has_many :requests_canceladas, class_name: "Request", foreign_key: "user_cancelada_id", dependent: :restrict_with_error
+
   #has_attached_file :avatar,
   #styles: {
   #  original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" },
@@ -38,8 +49,6 @@ class User < ActiveRecord::Base
   #validates_attachment_content_type :avatar, content_type: /\Aimage/
   #validates_attachment_file_name :avatar, matches: [/png\z/, /jpe?g\z/]
   #do_not_validate_attachment_file_type :avatar
-
-
 
   validates_presence_of :name, :cpf
 	validates_uniqueness_of :name, :cpf

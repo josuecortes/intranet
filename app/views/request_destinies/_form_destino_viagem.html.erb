@@ -1,0 +1,19 @@
+<%= simple_form_for([@request, @request_destiny]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :destiny_id, :label=>"Selecione o Destino", collection: @lista_destinos.collect {|d| [d.nome, d.id]}, as: :select, :include_blank => true %>
+
+      <%= f.input :endereco, :label=>"Descrição do Endereço" %>	
+
+      <%= f.input :request_id, :as => :hidden, :input_html => {value: @request.id} %>
+
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to 'Voltar', requests_path, :class=>'btn btn-default' %>
+    <%= f.button :submit, "Adicionar", :class=>'btn btn-primary' %>
+  </div>
+<% end %>

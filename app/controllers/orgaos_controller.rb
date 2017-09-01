@@ -30,9 +30,11 @@ class OrgaosController < ApplicationController
 
     respond_to do |format|
       if @orgao.save
+        flash[:success] = @@msgs
         format.html { redirect_to @orgao, notice: @@msgs }
         format.json { render :show, status: :created, location: @orgao }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @orgao.errors, status: :unprocessable_entity }
       end
@@ -44,9 +46,11 @@ class OrgaosController < ApplicationController
   def update
     respond_to do |format|
       if @orgao.update(orgao_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @orgao, notice: @@msgs }
         format.json { render :show, status: :ok, location: @orgao }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @orgao.errors, status: :unprocessable_entity }
       end
@@ -57,11 +61,13 @@ class OrgaosController < ApplicationController
   # DELETE /orgaos/1.json
   def destroy
     if @orgao.destroy
+      flash[:success] = @@msgs
       respond_to do |format|
         format.html { redirect_to orgaos_url, notice: @@msgs }
         format.json { head :no_content }
       end
     else
+      flash[:danger] = @@msge
       respond_to do |format|
         format.html { redirect_to orgaos_url, notice: @@msge }
         format.json { head :no_content }

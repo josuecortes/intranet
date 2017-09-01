@@ -1,0 +1,62 @@
+<% content_for :titulo do %>
+  Requisições
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Adicionar Destino a Requisição <%= "#{@request.created_at.year}/#{@request.id}" %>
+<% end %>
+
+<hr/>
+
+<% if @request.tipo == "DESLOCAMENTO URBANO" %>
+  <%= render partial: "request_destinies/form_destino_urbano" %>
+<% else %>
+  <%= render partial: "request_destinies/form_destino_viagem" %>
+<% end %>
+
+<hr/>
+
+<h4>Destinos na Requisição (<%= @request.destinies.count %>)</h4>
+
+<hr/>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Municipio</th>
+      <th>Endereço</th>
+      <th>Distancia</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% @base_seed = Destiny.where(:nome=>"BASE SEED").first %>
+
+  <tbody>
+    <% @request_destinies.all.each do |rd| %>
+      <tr>
+        <td><%= rd.destiny.nome %></td>
+        <td><%= rd.destiny.municipio %></td>
+        <td>
+          <% if rd.request.tipo == "VIAGEM" %>
+            <%= " #{rd.endereco}" %>
+          <% else %>      
+            <%= "#{rd.destiny.logradouro}, #{rd.destiny.numero}, #{rd.destiny.bairro}" %>
+          <% end %>
+        </td>
+        <td>
+          <% distancia = @base_seed.distance_from(rd.destiny.to_coordinates) %>
+          <%= "A distancia aproximada entre #{@base_seed.nome} "%> 
+          <%= " #{rd.destiny.nome} " %>
+          <%= number_to_human(distancia, precision: 5) %>
+        </td>
+        <td>
+          <%= link_to link_icone("remover"), request_request_destiny_path(@request, rd), method: :delete, data: { confirm: 'Remover Destino da Requisição?' }, :class=>'btn btn-danger'%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

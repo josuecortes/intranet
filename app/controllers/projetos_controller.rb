@@ -28,10 +28,12 @@ class ProjetosController < ApplicationController
     @projeto = Projeto.new(projeto_params)
 
     respond_to do |format|
-      if @projeto.save!
+      if @projeto.save
+        flash[:success] = @@msgs
         format.html { redirect_to @projeto, notice: @@msgs }
         format.json { render :show, status: :created, location: @projeto }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @projeto.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class ProjetosController < ApplicationController
   def update
     respond_to do |format|
       if @projeto.update(projeto_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @projeto, notice: @@msgs }
         format.json { render :show, status: :ok, location: @projeto }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @projeto.errors, status: :unprocessable_entity }
       end
@@ -55,7 +59,11 @@ class ProjetosController < ApplicationController
   # DELETE /projetos/1
   # DELETE /projetos/1.json
   def destroy
-    @projeto.destroy
+    if @projeto.destroy
+      flash[:success] = @@msgs
+    else
+      flash[:danger] = @@msge
+    end
     respond_to do |format|
       format.html { redirect_to projetos_url, notice: @@msgs }
       format.json { head :no_content }
@@ -77,7 +85,7 @@ class ProjetosController < ApplicationController
     @user = User.find(params[:user_id])
 
     if @user.adicionar_participante_no_projeto(@projeto)
-      flash[:notice] = @@msgs
+      flash[:success] = @@msgs
       redirect_to projeto_participantes_url(@projeto)
     else
       flash[:danger] = @@msge
@@ -90,7 +98,7 @@ class ProjetosController < ApplicationController
     @user = User.find(params[:user_id])
 
     if @user.remover_participante_do_projeto(@projeto)
-      flash[:notice] = @@msgs
+      flash[:success] = @@msgs
       redirect_to projeto_participantes_url(@projeto)
     else
       flash[:danger] = @@msge

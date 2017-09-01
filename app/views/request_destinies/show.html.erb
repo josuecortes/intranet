@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Request:</strong>
+  <%= @request_destiny.request_id %>
+</p>
+
+<p>
+  <strong>Destiny:</strong>
+  <%= @request_destiny.destiny_id %>
+</p>
+
+<%= link_to 'Edit', edit_request_destiny_path(@request_destiny) %> |
+<%= link_to 'Back', request_destinies_path %>

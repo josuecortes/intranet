@@ -32,9 +32,11 @@ class ArquivosController < ApplicationController
 
     respond_to do |format|
       if @arquivo.save
+        flash[:success] = @@msgs
         format.html { redirect_to informativo_arquivos_url(@informativo), notice: @@msgs }
         format.json { render :show, status: :created, location: @arquivo }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @arquivo.errors, status: :unprocessable_entity }
       end
@@ -46,9 +48,11 @@ class ArquivosController < ApplicationController
   def update
     respond_to do |format|
       if @arquivo.update(arquivo_params)
+        flash[:success] = @@msgs
         format.html { redirect_to informativo_arquivos_url(@informativo), notice: @@msgs }
         format.json { render :show, status: :ok, location: @arquivo }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @arquivo.errors, status: :unprocessable_entity }
       end
@@ -60,11 +64,13 @@ class ArquivosController < ApplicationController
   def destroy
     if @arquivo.destroy
       respond_to do |format|
+        flash[:success] = @@msgs
         format.html { redirect_to informativo_arquivos_url(@informativo), notice: @@msgs }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
+        flash[:danger] = @@msge
         format.html { redirect_to informativo_arquivos_url(@informativo), notice: @@msge }
         format.json { head :no_content }
       end

@@ -1,0 +1,22 @@
+<%= simple_form_for([@request, @request_destiny]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :destiny_nome, :label=>'Selecione o Destino', :url => autocomplete_destiny_nome_request_request_destinies_path, :as => :autocomplete, :id_element => "#destiny_id" ,:input_html=>{:value=>(@request_destiny.destiny.nome if @request_destiny.destiny_id)}%>
+
+      <%= f.input :destiny_id, :as => :hidden, :input_html => { :id => "destiny_id"} %>
+
+      <%= f.input :request_id, :as => :hidden, :input_html => {value: @request.id} %>
+
+    </div>
+  </div>
+
+  <div class="form-actions row">
+    <div class="col-md-6">
+      <%= link_to 'Voltar', requests_path, :class=>'btn btn-default' %>
+      <%= f.button :submit, "Adicionar", :class=>'btn btn-primary' %>
+      <%= link_to "Novo Destino", new_destiny_url, :class=>'btn btn-success pull-right', :target => :_blank %>
+    </div>
+  </div>
+<% end %>

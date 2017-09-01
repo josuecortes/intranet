@@ -1,8 +1,13 @@
 source 'https://rubygems.org'
 
-
+############################################################################# ruby 2.3.1 p112
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
+
+#gem 'bundler', '>= 1.8.4'
+
+#gem 'rails-assets-notifyjs', source: 'https://rails-assets.org'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -41,6 +46,8 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'pry-rails'
 end
 
 gem 'paperclip'
@@ -70,3 +77,14 @@ gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-
 
 gem 'rmagick'
 gem 'carrierwave'
+
+gem 'nested_form'
+
+#gem 'bootstrap-datetimepicker-rails'
+gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails', :git => 'https://github.com/Nerian/bootstrap-datepicker-rails.git'
+
+gem 'bootstrap-timepicker-rails'
+
+gem 'brazilian-rails'
+
+gem 'geocoder'

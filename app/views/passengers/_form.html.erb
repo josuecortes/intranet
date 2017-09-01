@@ -1,0 +1,15 @@
+<%= simple_form_for(@passenger) do |f| %>
+  
+
+  <div class="form-inputs">
+    <%= f.input :nome %>
+    <%= f.input :tipo, collection: @lista_tipo_passageiros, as: :select, :include_blank => true %>
+    <%= f.input :matricula %>
+    <%= f.input :cpf, :label=>"CPF", :input_html=>{:class=>'cpf'} %>
+    <%= f.input :respaldo %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

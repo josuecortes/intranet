@@ -30,9 +30,11 @@ class MuralsController < ApplicationController
 
     respond_to do |format|
       if @mural.save
+        flash[:success] = @@msgs
         format.html { redirect_to @mural, notice: @@msgs }
         format.json { render :show, status: :created, location: @mural }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @mural.errors, status: :unprocessable_entity }
       end
@@ -44,9 +46,11 @@ class MuralsController < ApplicationController
   def update
     respond_to do |format|
       if @mural.update(mural_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @mural, notice: @@msgs }
         format.json { render :show, status: :ok, location: @mural }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @mural.errors, status: :unprocessable_entity }
       end
@@ -56,7 +60,11 @@ class MuralsController < ApplicationController
   # DELETE /murals/1
   # DELETE /murals/1.json
   def destroy
-    @mural.destroy
+    if @mural.destroy
+      flash[:success] = @@msgs
+    else
+      flash[:danger] = @@msge
+    end
     respond_to do |format|
       format.html { redirect_to murals_url, notice: @@msgs }
       format.json { head :no_content }

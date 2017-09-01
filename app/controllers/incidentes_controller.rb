@@ -37,9 +37,11 @@ class IncidentesController < ApplicationController
 
     respond_to do |format|
       if @incidente.save
+        flash[:success] = @@msgs
         format.html { redirect_to @incidente, notice: @@msgs }
         format.json { render :show, status: :created, location: @incidente }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @incidente.errors, status: :unprocessable_entity }
       end
@@ -51,9 +53,11 @@ class IncidentesController < ApplicationController
   def update
     respond_to do |format|
       if @incidente.update(incidente_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @incidente, notice: @@msgs }
         format.json { render :show, status: :ok, location: @incidente }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @incidente.errors, status: :unprocessable_entity }
       end
@@ -64,11 +68,13 @@ class IncidentesController < ApplicationController
   # DELETE /incidentes/1.json
   def destroy
     if @incidente.destroy
+      flash[:success] = @@msgs
       respond_to do |format|
         format.html { redirect_to incidentes_url, notice: @@msgs }
         format.json { head :no_content }
       end
     else
+      flash[:danger] = @@msge
       respond_to do |format|
         format.html { redirect_to incidentes_url, notice: @@msge }
         format.json { head :no_content }

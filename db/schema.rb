@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630214152) do
+ActiveRecord::Schema.define(version: 20170831194134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,23 @@ ActiveRecord::Schema.define(version: 20170630214152) do
 
   add_index "departamentos_projetos", ["departamento_id", "projeto_id"], name: "index_departamentos_projetos_on_departamento_id_and_projeto_id", using: :btree
   add_index "departamentos_projetos", ["projeto_id", "departamento_id"], name: "index_departamentos_projetos_on_projeto_id_and_departamento_id", using: :btree
+
+  create_table "destinies", force: :cascade do |t|
+    t.string   "municipo"
+    t.string   "bairro"
+    t.string   "logradouro"
+    t.string   "numero"
+    t.string   "portaria"
+    t.text     "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "nome"
+    t.string   "municipio"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "tipo"
+    t.string   "cep"
+  end
 
   create_table "detalhes_equipamentos", force: :cascade do |t|
     t.string   "modelo"
@@ -234,6 +251,16 @@ ActiveRecord::Schema.define(version: 20170630214152) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "passengers", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "tipo"
+    t.string   "matricula"
+    t.string   "cpf"
+    t.text     "respaldo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "problemas", force: :cascade do |t|
     t.text     "descricao"
     t.text     "solucao"
@@ -266,6 +293,53 @@ ActiveRecord::Schema.define(version: 20170630214152) do
 
   add_index "projetos_users", ["projeto_id", "user_id"], name: "index_projetos_users_on_projeto_id_and_user_id", using: :btree
   add_index "projetos_users", ["user_id", "projeto_id"], name: "index_projetos_users_on_user_id_and_projeto_id", using: :btree
+
+  create_table "request_destinies", force: :cascade do |t|
+    t.integer  "request_id"
+    t.integer  "destiny_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "endereco"
+  end
+
+  create_table "request_passengers", force: :cascade do |t|
+    t.integer  "request_id"
+    t.integer  "passenger_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string   "tipo"
+    t.date     "data_partida"
+    t.date     "data_volta"
+    t.string   "status"
+    t.integer  "user_id"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.string   "portaria"
+    t.boolean  "carga",                     default: false
+    t.boolean  "documento",                 default: false
+    t.boolean  "urgente",                   default: false
+    t.text     "motivo"
+    t.datetime "data_hora_partida"
+    t.datetime "data_hora_volta"
+    t.string   "hora_partida"
+    t.string   "hora_volta"
+    t.time     "data_aguardando_cad"
+    t.integer  "user_aguardando_cad_id"
+    t.time     "data_aguardando_useget"
+    t.integer  "user_aguardando_useget_id"
+    t.time     "data_aprovada"
+    t.integer  "user_aprovada_id"
+    t.time     "data_em_andamento"
+    t.integer  "user_data_em_andamento_id"
+    t.time     "data_finalizada"
+    t.integer  "user_finalizada_id"
+    t.time     "data_cancelada"
+    t.integer  "user_cancelada_id"
+    t.text     "motivo_cancelamento"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "nome"

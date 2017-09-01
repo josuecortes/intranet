@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Request:</strong>
+  <%= @request_passenger.request_id %>
+</p>
+
+<p>
+  <strong>Passenger:</strong>
+  <%= @request_passenger.passenger_id %>
+</p>
+
+<%= link_to 'Edit', edit_request_passenger_path(@request_passenger) %> |
+<%= link_to 'Back', request_passengers_path %>

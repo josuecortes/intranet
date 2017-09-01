@@ -1,4 +1,35 @@
 Rails.application.routes.draw do
+  
+  resources :passengers
+
+  resources :destinies
+
+  resources :requests do
+
+    resources :request_passengers do
+
+      get :autocomplete_passenger_nome, :on => :collection
+
+    end
+
+    resources :request_destinies do
+
+      get :autocomplete_destiny_nome, :on => :collection
+
+    end
+
+    get :requisitar
+
+
+    #get :autocomplete_passenger_nome, :on => :collection
+
+    #get :passengers
+    #post :passenger_add
+
+    #get :passenger_new
+    #post :passenger_save
+    
+  end
 
   resources :escolas
 

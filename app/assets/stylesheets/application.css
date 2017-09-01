@@ -22,5 +22,6 @@
  *= require AdminLTE.min
  *= require buttons.dataTables.min
  *= require jquery.dataTables.min
- *= require_self
+ *= require bootstrap-timepicker
+  *= require_self
  */

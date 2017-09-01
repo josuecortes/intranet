@@ -33,9 +33,11 @@ class ProblemasController < ApplicationController
 
     respond_to do |format|
       if @problema.save
+        flash[:success] = @@msgs
         format.html { redirect_to @problema, notice: @@msgs }
         format.json { render :show, status: :created, location: @problema }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @problema.errors, status: :unprocessable_entity }
       end
@@ -47,9 +49,11 @@ class ProblemasController < ApplicationController
   def update
     respond_to do |format|
       if @problema.update(problema_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @problema, notice: @@msgs }
         format.json { render :show, status: :ok, location: @problema }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @problema.errors, status: :unprocessable_entity }
       end
@@ -60,11 +64,13 @@ class ProblemasController < ApplicationController
   # DELETE /problemas/1.json
   def destroy
     if @problema.destroy
+      flash[:success] = @@msgs
       respond_to do |format|
         format.html { redirect_to problemas_url, notice: @@msgs }
         format.json { head :no_content }
       end
     else
+      flash[:danger] = @@msge
       respond_to do |format|
         format.html { redirect_to problemas_url, notice: @@msge }
         format.json { head :no_content }

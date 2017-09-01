@@ -27,7 +27,10 @@
         <!-- form start -->
         
         <div class="box-body">
-          <%= render 'layouts/messages' %>
+          <% render 'layouts/messages' %>
+          <%= flash_message %>
+          
+          
           <%= yield %>
         </div>
         <!-- /.box-body -->

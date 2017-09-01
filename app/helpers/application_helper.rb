@@ -1,4 +1,17 @@
 module ApplicationHelper
+
+	def flash_message
+    messages = ""
+    [:success, :info, :warning, :danger].each {|type|
+      if flash[type]
+        messages += "<div class=\"alert alert-#{type} alert-dismissible\"><button type='button' class='close' data-dismiss='alert' aria-label='Fechar'><span aria-hidden='true'>&times;</span></button>#{flash[type]}</div>"
+      end
+    }
+
+    raw(messages)
+  end
+
+
 	def titulo(titulo)
     html = ""
     html += "<h3>#{titulo}</h3>"
@@ -88,6 +101,9 @@ module ApplicationHelper
 	      html="<span class='fa fa-tasks'></span>"
 
 	    when 'participantes'
+	      html="<span class='fa fa-users'></span>"
+
+	    when 'passageiros'
 	      html="<span class='fa fa-users'></span>"
 
 	    when 'arquivos'
@@ -183,7 +199,27 @@ module ApplicationHelper
 	    when 'receber'
 	      html="<span class='glyphicon glyphicon-icon-arrow-down'></span> "
 	      html+= texto2
+      
+      when 'passageiros'
+	      html="<span class='fa fa-plus'></span> "
+	      html+= texto2		
 
+	    when 'destinos'
+	      html="<span class='fa fa-plus'></span> "
+	      html+= texto2	
+	     
+	    when 'passageiros2'
+	      html="<span class='fa fa-plus'></span> <span class='fa fa-users'></span> "
+	      html+= texto2		
+
+	    when 'destinos2'
+	      html="<span class='fa fa-plus'></span> <span class='fa fa-map'></span> "
+	      html+= texto2	
+
+	    when 'requisitar'
+	      html="<span class='fa fa-arrow-right'></span> "
+	      html+= texto2	
+	    
 	  end
 
 	  return raw(html)

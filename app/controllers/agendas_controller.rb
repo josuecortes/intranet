@@ -29,9 +29,11 @@ class AgendasController < ApplicationController
 
     respond_to do |format|
       if @agenda.save
-        format.html { redirect_to @agenda, notice: @@msgs }
+        flash[:success] = @@msgs
+        format.html { redirect_to @agenda, success: @@msgs }
         format.json { render :show, status: :created, location: @agenda }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @agenda.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class AgendasController < ApplicationController
   def update
     respond_to do |format|
       if @agenda.update(agenda_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @agenda, notice: @@msgs }
         format.json { render :show, status: :ok, location: @agenda }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @agenda.errors, status: :unprocessable_entity }
       end
@@ -57,7 +61,8 @@ class AgendasController < ApplicationController
   def destroy
     @agenda.destroy
     respond_to do |format|
-      format.html { redirect_to agendas_url, notice: @@msgs }
+      flash[:success] = @@msgs
+      format.html { redirect_to agendas_url, success: @@msgs }
       format.json { head :no_content }
     end
   end

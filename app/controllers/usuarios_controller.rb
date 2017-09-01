@@ -46,11 +46,11 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.save
-        flash[:notice] = @@msgs
+        flash[:success] = @@msgs
         format.html { redirect_to usuarios_url }
         format.json { render json: @usuario, status: :created, location: @usuario }
       else
-        flash[:alert] = @@msge
+        flash[:danger] = @@msge
         format.html { render action: "new" }
         format.json { render json: @usuario.errors, status: :unprocessable_entity }
         
@@ -65,11 +65,11 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.update_attributes(user_params)
-        flash[:notice] = @@msgs
+        flash[:success] = @@msgs
         format.html { redirect_to usuario_url }
         format.json { head :no_content }
       else
-        flash[:alert] = @@msge
+        flash[:danger] = @@msge
         format.html { render action: "edit" }
         format.json { render json: @usuario.errors, status: :unprocessable_entity }
       end
@@ -86,9 +86,9 @@ class UsuariosController < ApplicationController
       @usuario.ativo = true
     end
     if @usuario.save!
-      flash[:notice] = @@msgs
+      flash[:success] = @@msgs
     else
-      flash[:alert] = @@msge
+      flash[:danger] = @@msge
     end
 
     redirect_to usuarios_url

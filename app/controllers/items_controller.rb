@@ -31,9 +31,11 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+        flash[:success] = @@msgs
         format.html { redirect_to @item, notice: @@msgs }
         format.json { render :show, status: :created, location: @item }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
@@ -45,9 +47,11 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @item, notice: @@msgs }
         format.json { render :show, status: :ok, location: @item }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
@@ -57,7 +61,11 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item.destroy
+    if @item.destroy
+      flash[:success] = @@msgs
+    else
+      flash[:danger] = @@msge
+    end
     respond_to do |format|
       format.html { redirect_to items_url, notice: @@msgs }
       format.json { head :no_content }

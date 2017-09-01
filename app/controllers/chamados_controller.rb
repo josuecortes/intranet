@@ -60,9 +60,11 @@ class ChamadosController < ApplicationController
     
     respond_to do |format|
       if @chamado.save
+        flash[:success] = @@msgs
         format.html { redirect_to @chamado, notice: @@msgs }
         format.json { render :show, status: :created, location: @chamado }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @chamado.errors, status: :unprocessable_entity }
       end
@@ -75,6 +77,7 @@ class ChamadosController < ApplicationController
   def update
     respond_to do |format|
       if @chamado.update(chamado_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @chamado, notice: @@msgs }
         format.json { render :show, status: :ok, location: @chamado }
       else
@@ -109,11 +112,13 @@ class ChamadosController < ApplicationController
   def destroy
     if @chamado.destroy
       respond_to do |format|
+        flash[:success] = @@msgs
         format.html { redirect_to chamados_url, notice: @@msgs }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
+        flash[:danger] = @@msge
         format.html { redirect_to detalhes_equipamentos_url, notice: @@msge }
         format.json { head :no_content }
       end
@@ -134,7 +139,7 @@ class ChamadosController < ApplicationController
 
   def pegar_chamado
     if current_user == @usuario_atual and @usuario_atual.e_tecnico
-      redirect_to chamados_url, notice: 'Algo estranho aconteceu'
+      redirect_to chamados_url, info: 'Algo estranho aconteceu'
     else
       @chamado = Chamado.find(params[:chamado_id])
       if @chamado.status == 'ABERTO'
@@ -143,12 +148,12 @@ class ChamadosController < ApplicationController
         @chamado.status = 'EM ATENDIMENTO'
         @chamado.data_status_em_atendimento = DateTime.now
         if @chamado.save
-          redirect_to em_atendimento_chamados_url, notice: 'Agora voce e o responsavel pelo chamado'
+          redirect_to em_atendimento_chamados_url, info: 'Agora voce e o responsavel pelo chamado'
         else
-          redirect_to chamados_url, notice: 'Nao conseguimos torna-lo responsavel pelo chamado'
+          redirect_to chamados_url, info: 'Nao conseguimos torna-lo responsavel pelo chamado'
         end
       else
-        redirect_to chamados_url, notice: 'Este Chamado nao esta com o status ABERTO'
+        redirect_to chamados_url, info: 'Este Chamado nao esta com o status ABERTO'
       end
     end
   end

@@ -33,9 +33,11 @@ class IntranetController < ApplicationController
 
     respond_to do |format|
       if @mu.save
+        flash[:success] = @@msgs
         format.html { redirect_to intranet_index_path, notice: @@msgs }
         format.json { render :index, status: :created, location: @mu }
       else
+        flash[:danger] = @@msge
         format.html { redirect_to intranet_index_path, notice: @@msge }
         format.json { render json: @mu.errors, status: :unprocessable_entity }
       end

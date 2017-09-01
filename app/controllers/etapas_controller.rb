@@ -31,10 +31,12 @@ class EtapasController < ApplicationController
     @etapa = @projeto.etapas.build(etapa_params)
 
     respond_to do |format|
-      if @etapa.save!
+      if @etapa.save
+        flash[:success] = @@msgs
         format.html { redirect_to projeto_etapa_path(@projeto, @etapa), notice: 'Etapa was successfully created.' }
         format.json { render :show, status: :created, location: @etapa }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @etapa.errors, status: :unprocessable_entity }
       end
@@ -46,9 +48,11 @@ class EtapasController < ApplicationController
   def update
     respond_to do |format|
       if @etapa.update(etapa_params)
+        flash[:success] = @@msgs
         format.html { redirect_to projeto_etapa_path(@projeto,@etapa), notice: 'Etapa was successfully updated.' }
         format.json { render :show, status: :ok, location: @etapa }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @etapa.errors, status: :unprocessable_entity }
       end
@@ -58,7 +62,11 @@ class EtapasController < ApplicationController
   # DELETE /etapas/1
   # DELETE /etapas/1.json
   def destroy
-    @etapa.destroy
+    if @etapa.destroy
+      flash[:success] = @@msgs
+    else
+      flash[:danger] = @@msge
+    end
     respond_to do |format|
       format.html { redirect_to etapas_url, notice: 'Etapa was successfully destroyed.' }
       format.json { head :no_content }

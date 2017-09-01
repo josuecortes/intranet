@@ -34,12 +34,22 @@
 //= require buttons.html5.min
 //= require buttons.print.min
 //= require jspdf
-
-
+//= require jquery_nested_form
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR
+//= require bootstrap-timepicker
+// require notifyjs
 
 $(document).ready(function() {
+
+  $(".datepicker").datepicker({format: 'dd/mm/yyyy',language: 'pt-BR', weekStart: 1, startDate: '1949-01-01' ,autoclose: true});
+
+  $('.timepicker').timepicker();
+
+
   $('.data').mask('00/00/0000');
   $('.time').mask('00:00:00');
+  $('.shorttime').mask('00:00');
   $('.date_time').mask('00/00/0000 00:00:00');
   $('.cep').mask('00000-000');
   $('.phone').mask('	0000-0000');
@@ -137,6 +147,44 @@ $(document).ready(function() {
       $('.equipamento_situacao_doacao').show();
       $('.equipamento_situacao_particular').hide();
       $('.equipamento_situacao_patrimonio').hide();
+    }
+  });
+
+
+  $('.tipo_request').each(function(){
+    var valor = $(this).val();
+    if(valor == "VIAGEM"){
+        $('.viagem').show();
+    } else {
+      $('.viagem').hide();  
+    }
+  });
+
+  $('.tipo_request').change(function(){
+    var valor = $(this).val();
+    if(valor == "VIAGEM"){
+        $('.viagem').show();
+    } else {
+      $('.viagem').hide();  
+    }
+  });
+
+
+  $('.check_urgencia').each(function(){
+    var valor = $(this).val();
+    if(valor == "true"){
+        $('.urgencia').show();
+    } else {
+      $('.urgencia').hide();  
+    }
+  });
+
+  $('.check_urgencia').change(function(){
+    var valor = $(this).val();
+    if(valor == "true"){
+        $('.urgencia').show();
+    } else {
+      $('.urgencia').hide();  
     }
   });
 

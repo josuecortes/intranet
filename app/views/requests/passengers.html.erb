@@ -1,0 +1,47 @@
+<% content_for :titulo do %>
+  Requisições
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Adicionar Passageiro
+<% end %>
+
+<%= simple_form_for @request_passenger, :url=>request_passenger_add_url(@request), :method => :post do |f| %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :passenger_nome, :label=>'Selecione o Passageiro', :url => autocomplete_passenger_nome_requests_path, :as => :autocomplete, :id_element => "#passenger_id" ,:input_html=>{:value=>(@request_passenger.passenger.nome if @request_passenger.passenger_id)}%>
+
+      <%= f.input :passenger_id, :as => :hidden, :input_html => { :id => "passenger_id"} %>
+    </div>
+  </div>
+
+  <%= f.input :request_id, :as => :hidden, :input_html => {value: @request.id} %>
+  
+  <%= f.button :submit, 'Adicionar', :class => 'btn btn-primary' %>	
+  <%= link_to 'Novo', request_passenger_new_path(@request), :target => "_blank", :class=>'btn btn-success' %>
+  
+<% end %>
+
+<br/>
+<hr/>
+<br/>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cpf</th>
+      <th>Matricula</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @request.passengers.each do |p| %>
+      <tr>
+        <td><%= p.nome %></td>
+        <td><%= p.cpf %></td>
+        <td><%= p.matricula %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

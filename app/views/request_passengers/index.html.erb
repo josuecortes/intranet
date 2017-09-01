@@ -1,0 +1,63 @@
+<% content_for :titulo do %>
+  Requisições
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Adicionar Passageiro a Requisição <%= "#{@request.created_at.year}/#{@request.id}" %>
+<% end %>
+
+<hr/>
+
+<%= simple_form_for([@request, @request_passenger]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :passenger_nome, :label=>'Selecione o Passageiro', :url => autocomplete_passenger_nome_request_request_passengers_path, :as => :autocomplete, :id_element => "#passenger_id" ,:input_html=>{:value=>(@request_passenger.passenger.nome if @request_passenger.passenger_id)}%>
+
+      <%= f.input :passenger_id, :as => :hidden, :input_html => { :id => "passenger_id"} %>
+
+      <%= f.input :request_id, :as => :hidden, :input_html => {value: @request.id} %>
+
+    </div>
+  </div>
+
+  <div class="form-actions row">
+    <div class="col-md-6">
+      <%= link_to 'Voltar', requests_path, :class=>'btn btn-default' %>
+      <%= f.button :submit, "Adicionar", :class=>'btn btn-primary' %>
+      <%= link_to "Novo Passageiro", new_passenger_url, :class=>'btn btn-success pull-right', :target => :_blank %>
+    </div>
+  </div>
+<% end %>
+
+<hr/>
+
+<h4>Passageiros na Requisição (<%= @request.passengers.count %>)</h4>
+
+<hr/>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cpf</th>
+      <th>Matricula</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @request_passengers.all.each do |rp| %>
+      <tr>
+        <td><%= rp.passenger.nome %></td>
+        <td><%= rp.passenger.cpf %></td>
+        <td><%= detalhes2(rp.passenger,:matricula) %></td>
+        <td>
+          <%= link_to link_icone("remover"), request_request_passenger_path(@request, rp), method: :delete, data: { confirm: 'Remover Passageiro da Requisição?' }, :class=>'btn btn-danger'%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

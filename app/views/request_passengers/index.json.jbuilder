@@ -1,0 +1,1 @@
+json.array! @request_passengers, partial: 'request_passengers/request_passenger', as: :request_passenger

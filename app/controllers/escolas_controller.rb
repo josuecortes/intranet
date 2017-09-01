@@ -30,9 +30,11 @@ class EscolasController < ApplicationController
 
     respond_to do |format|
       if @escola.save
+        flash[:success] = @@msgs
         format.html { redirect_to @escola, notice: @@msgs }
         format.json { render :show, status: :created, location: @escola }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @escola.errors, status: :unprocessable_entity }
       end
@@ -44,9 +46,11 @@ class EscolasController < ApplicationController
   def update
     respond_to do |format|
       if @escola.update(escola_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @escola, notice: @@msgs }
         format.json { render :show, status: :ok, location: @escola }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @escola.errors, status: :unprocessable_entity }
       end
@@ -57,11 +61,13 @@ class EscolasController < ApplicationController
   # DELETE /escolas/1.json
   def destroy
     if @escola.destroy
+      flash[:success] = @@msgs
       respond_to do |format|
         format.html { redirect_to escolas_url, notice: @msgs }
         format.json { head :no_content }
       end
     else
+      flash[:danger] = @@msge
       respond_to do |format|
         format.html { redirect_to escolas_url, notice: @@msge }
         format.json { head :no_content }

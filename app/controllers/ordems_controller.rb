@@ -34,9 +34,11 @@ class OrdemsController < ApplicationController
 
     respond_to do |format|
       if @ordem.save
+        flash[:success] = @@msgs
         format.html { redirect_to ordem_path(@ordem), notice: @@msgs }
         format.json { render :show, status: :created, location: @ordem }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @ordem.errors, status: :unprocessable_entity }
       end
@@ -48,9 +50,11 @@ class OrdemsController < ApplicationController
   def update
     respond_to do |format|
       if @ordem.update(ordem_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @ordem, notice: @@msgs }
         format.json { render :show, status: :ok, location: @ordem }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @ordem.errors, status: :unprocessable_entity }
       end
@@ -63,11 +67,13 @@ class OrdemsController < ApplicationController
 
     if @ordem.status == "ABERTO" 
       if @ordem.destroy
+        flash[:info] = 'Ordem Apagada.'
         respond_to do |format|
           format.html { redirect_to ordems_url, notice: 'Ordem Apagada.' }
           format.json { head :no_content }
         end
       else
+        flash[:info] = 'Erro ao apagar a Ordem.'
         respond_to do |format|
           format.html { redirect_to ordems_url, notice: 'Erro ao apagar a Ordem.' }
           format.json { head :no_content }
@@ -75,6 +81,7 @@ class OrdemsController < ApplicationController
       end
     else
       respond_to do |format|
+        lash[:info] = 'Erro ao apagar a Ordem.'
         format.html { redirect_to ordems_url, notice: 'Essa Ordem não pode ser apagada.' }
         format.json { head :no_content }
       end

@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @destiny.nome %>
+</p>
+
+<p>
+  <strong>Municipio:</strong>
+  <%= @destiny.municipio %>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @destiny.bairro %>
+</p>
+
+<p>
+  <strong>Logradouro:</strong>
+  <%= @destiny.logradouro %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @destiny.numero %>
+</p>
+
+<p>
+  <strong>Geo:</strong>
+  <%= @destiny.latitude %> | <%= @destiny.longitude %>
+</p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @destiny.descricao %>
+</p>
+
+<%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@destiny.latitude},#{@destiny.longitude}&markers=#{@destiny.latitude},#{@destiny.longitude}&zoom=7&size=640x400&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+              class: 'img-fluid img-rounded', alt: "#{@destiny.nome} on the map"%>
+
+<%= link_to 'Edit', edit_destiny_path(@destiny) %> |
+<%= link_to 'Back', destinies_path %>

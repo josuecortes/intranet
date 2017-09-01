@@ -1,0 +1,2 @@
+module DestiniesHelper
+end

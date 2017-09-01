@@ -8,6 +8,10 @@ class Ability
   EDITOR = Role.where(:nome=>"EDITOR").first
   PORTARIA = Role.where(:nome=>"PORTARIA").first
 
+  REQUISITANTE_TRANSPORTE = Role.where(:nome=>"REQUISITANTE TRANSPORTE").first
+  CAD_TRANSPORTE = Role.where(:nome=>"CAD TRANSPORTE").first
+  USEGET_TRANSPORTE = Role.where(:nome=>"USEGET TRANSPORTE").first
+
   def initialize(user)
 
     if user.roles.include?ADMINISTRADOR
@@ -99,6 +103,8 @@ class Ability
       can :manage, Visitante
       can :manage, Visitum
     end
+
+    
 
   end
 end

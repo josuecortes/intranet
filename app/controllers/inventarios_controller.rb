@@ -30,9 +30,11 @@ class InventariosController < ApplicationController
 
     respond_to do |format|
       if @inventario.save
+        flash[:success] = @@msgs
         format.html { redirect_to @inventario, notice: 'Inventario was successfully created.' }
         format.json { render :show, status: :created, location: @inventario }
       else
+        flash[:danger] = @@msge
         format.html { render :new }
         format.json { render json: @inventario.errors, status: :unprocessable_entity }
       end
@@ -44,9 +46,11 @@ class InventariosController < ApplicationController
   def update
     respond_to do |format|
       if @inventario.update(inventario_params)
+        flash[:success] = @@msgs
         format.html { redirect_to @inventario, notice: 'Inventario was successfully updated.' }
         format.json { render :show, status: :ok, location: @inventario }
       else
+        flash[:danger] = @@msge
         format.html { render :edit }
         format.json { render json: @inventario.errors, status: :unprocessable_entity }
       end
@@ -56,7 +60,11 @@ class InventariosController < ApplicationController
   # DELETE /inventarios/1
   # DELETE /inventarios/1.json
   def destroy
-    @inventario.destroy
+    if @inventario.destroy
+      flash[:success] = @@msgs
+    else
+      flash[:danger] = @@msge
+    end
     respond_to do |format|
       format.html { redirect_to inventarios_url, notice: 'Inventario was successfully destroyed.' }
       format.json { head :no_content }
