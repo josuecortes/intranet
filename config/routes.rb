@@ -20,14 +20,17 @@ Rails.application.routes.draw do
 
     get :requisitar
 
+    get :cancelar
 
-    #get :autocomplete_passenger_nome, :on => :collection
+    put :salvar_cancelamento
 
-    #get :passengers
-    #post :passenger_add
+    collection do
 
-    #get :passenger_new
-    #post :passenger_save
+      #get :cancelar, :on => :collection
+
+      #put :salvar_cancelamento, :on => :collection
+
+    end
     
   end
 

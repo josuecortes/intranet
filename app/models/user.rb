@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   has_many :requests_finalizadas, class_name: "Request", foreign_key: "user_finalizada_id", dependent: :restrict_with_error
   has_many :requests_canceladas, class_name: "Request", foreign_key: "user_cancelada_id", dependent: :restrict_with_error
 
+  
+
   #has_attached_file :avatar,
   #styles: {
   #  original: "800>600>", medium: "300x300>", thumb: "100x100#", info: "80x80#", chat: "128x128#" },
@@ -118,6 +120,36 @@ class User < ActiveRecord::Base
 
   def e_portaria
     r1 = Role.where(:nome=>"PORTARIA").first
+
+    if (self.roles.include?r1)
+      return true
+    else
+      return false
+    end
+  end
+
+  def cad_transporte?
+    r1 = Role.where(:nome=>"CAD TRANSPORTE").first
+
+    if (self.roles.include?r1)
+      return true
+    else
+      return false
+    end
+  end
+
+  def useget_transporte?
+    r1 = Role.where(:nome=>"USEGET TRANSPORTE").first
+
+    if (self.roles.include?r1)
+      return true
+    else
+      return false
+    end
+  end
+
+  def requisitante_transporte?
+    r1 = Role.where(:nome=>"REQUISITANTE TRANSPORTE").first
 
     if (self.roles.include?r1)
       return true

@@ -40,15 +40,36 @@
 //= require bootstrap-timepicker
 // require notifyjs
 
+
+
 $(document).ready(function() {
 
   $(".datepicker").datepicker({format: 'dd/mm/yyyy',language: 'pt-BR', weekStart: 1, startDate: '1949-01-01' ,autoclose: true});
 
-  $('.timepicker').timepicker();
-
-
+  
   $('.data').mask('00/00/0000');
-  $('.time').mask('00:00:00');
+
+  $('.time2').mask("00:00:00");
+
+  var maskBehavior = function (val) {
+        val = val.split(":");
+        return (parseInt(val[0]) > 19)? "HZ:M0" : "H0:M0";
+    }
+
+    spOptions = {
+        onKeyPress: function(val, e, field, options) {
+            field.mask(maskBehavior.apply({}, arguments), options);
+        },
+        translation: {
+            'H': { pattern: /[0-2]/, optional: false },
+            'Z': { pattern: /[0-3]/, optional: false },
+            'M': { pattern: /[0-5]/, optional: false}
+        }
+    };
+
+    $('.time').mask(maskBehavior, spOptions);  
+ 
+  
   $('.shorttime').mask('00:00');
   $('.date_time').mask('00/00/0000 00:00:00');
   $('.cep').mask('00000-000');

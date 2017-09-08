@@ -99,6 +99,38 @@ class Ability
       can :manage, Mural, :user_id => user.id
     end
 
+    if user.roles.include?CAD_TRANSPORTE
+      can :manage, Visitante
+      can :manage, Visitum
+    end
+
+    if user.roles.include?USEGET_TRANSPORTE
+      can :manage, Visitante
+      can :manage, Visitum
+    end
+
+    if user.roles.include?REQUISITANTE_TRANSPORTE
+
+      can :manage, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :create, Request
+      can :requisitar, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :read, Request, { :user_id => user.id  }
+      #can :cancelar, Request.where("user_id = ? and data_hora_partida < ?", user.id, Time.now - 2.hours)
+
+      #can :cancelar, Request, { :user_id => user.id, :status => "EM ABERTO" }
+
+      can :cancelar, Request do |r|
+        r.user_id == user.id and 
+        Time.now < r.data_hora_partida - 2.hours and
+        r.status != 'EM ABERTO' and
+        r.status != 'FINALIZADA' and
+        r.status != 'CANCELADA'         
+      end
+       
+      #cannot :request_destinies, Request.where("user_id = ? and status != ?", user.id,"EM ABERTO")
+
+    end
+
     if user.roles.include?PORTARIA
       can :manage, Visitante
       can :manage, Visitum

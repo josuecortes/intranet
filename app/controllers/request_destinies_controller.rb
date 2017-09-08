@@ -3,12 +3,15 @@ class RequestDestiniesController < ApplicationController
   before_filter :colecoes
   # GET /request_destinies
   # GET /request_destinies.json
-  def index
-    @request_destinies = RequestDestiny.all
-  end
-
+ 
   def index
     @request = Request.find(params[:request_id])
+    if current_user.requisitante_transporte?
+      if @request.status != "EM ABERTO"
+        flash[:info] = "Você não pode adicionar destinos a requisição atual."
+        redirect_to requests_url
+      end
+    end
     @request_destinies = @request.request_destinies
     @request_destiny = @request.request_destinies.new
   end
@@ -31,6 +34,12 @@ class RequestDestiniesController < ApplicationController
   # POST /request_destinies.json
   def create
     @request = Request.find(params[:request_id])
+    if current_user.requisitante_transporte?
+      if @request.status != "EM ABERTO"
+        flash[:info] = "Você não pode adicionar destinos a requisição atual."
+        redirect_to requests_url
+      end
+    end
     @request_destinies = @request.request_destinies
     @request_destiny = RequestDestiny.new(request_destiny_params)
 
@@ -84,6 +93,12 @@ class RequestDestiniesController < ApplicationController
   # DELETE /request_destinies/1
   # DELETE /request_destinies/1.json
   def destroy
+    if current_user.requisitante_transporte?
+      if @request.status != "EM ABERTO"
+        flash[:info] = "Você não pode adicionar destinos a requisição atual."
+        redirect_to requests_url
+      end
+    end
     if @request_destiny.destroy
       flash[:success] = 'Destino removido com sucesso.'
       respond_to do |format|

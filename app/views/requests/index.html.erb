@@ -19,7 +19,7 @@
       <th>Data volta</th>
       <th>Hora volta</th>
       <th>Status</th>
-      <th>User</th>
+      <th>Usuarios</th>
       <th></th>
     </tr>
   </thead>
@@ -42,20 +42,46 @@
         <td><%= request.status %></td>
         <td><%= request.user.name %></td>
         <td>
+
           <%= link_to link_icone('detalhes'),
                     request_path(request), :class => 'btn btn-small btn-default', :title=>"Detalhes" %>
-          <%= link_to link_icone('editar'),
-                    edit_request_path(request), :class => 'btn btn-small btn-primary', :title=>"Editar" %>
-          <%= link_to link_icone2('passageiros'," Passageiro(#{request.request_passengers.count})"), request_request_passengers_path(request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
 
-          <%= link_to link_icone2('destinos'," Destino(#{request.request_destinies.count})"), request_request_destinies_path(request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+          <% if can? :update, request %>
+            <%= link_to link_icone('editar'),
+                edit_request_path(request), :class => 'btn btn-small btn-primary', :title=>"Editar" %>
+          <% end %>          
 
           <% if can? :delete, request %>
             <%= link_to link_icone('apagar'), request_path(request), :class=>"btn btn-small btn-danger", method: :delete, data: { confirm: 'Apagar a requisição?' }, :title=>"Apagar" %> 
           <% end %>
 
-          <%= link_to link_icone2('requisitar',' Finalizar'),
-                    request_requisitar_path(request), :class => 'btn btn-small btn-default', :title=>"Requisitar" %>
+          <% if can? :cancelar, request %>
+            <%= link_to 'Cancelar', request_cancelar_path(request), :class=>"btn btn-small btn-danger", :title=>"Cancelar" %> 
+          <% end %>
+            
+          <% if can? :requisitar, request %>                
+            <%= link_to link_icone2('requisitar',' Finalizar'),
+                request_requisitar_path(request), :class => 'btn btn-small btn-default', :title=>"Requisitar" %>
+          <% end %>
+
+         <% if current_user.requisitante_transporte? %>
+          
+            <% if request.status == "EM ABERTO" %>
+
+              <%= link_to link_icone2('passageiros'," Passageiro(#{request.request_passengers.count})"), request_request_passengers_path(request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
+
+              <%= link_to link_icone2('destinos'," Destino(#{request.request_destinies.count})"), request_request_destinies_path(request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+            <% end %>
+
+          <% end %>
+
+          <% if current_user.useget_transporte? %>
+
+          <% end %>
+
+          <% if current_user.cad_transporte? %>
+
+          <% end %>
 
         </td>  
       </tr>

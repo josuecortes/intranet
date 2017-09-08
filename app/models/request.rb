@@ -1,20 +1,24 @@
 class Request < ActiveRecord::Base
 
+	#self.table_name = "requests"
+
 	attr_accessor :passenger_nome
 	attr_accessor :destiny_nome
+
+	attr_accessor :hp, :mp, :hv, :mv
 
 	has_many :request_passengers, dependent: :destroy
 	has_many :passengers, through: :request_passengers
 	
-	accepts_nested_attributes_for :request_passengers, allow_destroy: true
-	accepts_nested_attributes_for :passengers, allow_destroy: true
+	#accepts_nested_attributes_for :request_passengers, allow_destroy: true
+	#accepts_nested_attributes_for :passengers, allow_destroy: true
 
 
 	
 	has_many :request_destinies, dependent: :destroy
 	has_many :destinies, through: :request_destinies
-	accepts_nested_attributes_for :request_destinies, allow_destroy: true
-	accepts_nested_attributes_for :destinies, allow_destroy: true
+	#accepts_nested_attributes_for :request_destinies, allow_destroy: true
+	#accepts_nested_attributes_for :destinies, allow_destroy: true
 
 	belongs_to :user
 
@@ -84,5 +88,6 @@ class Request < ActiveRecord::Base
 		self.motivo = ActiveSupport::Inflector.transliterate(self.motivo).upcase if !self.motivo.blank?
 
 	end
-	
+
+		
 end

@@ -1,11 +1,12 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
   before_action :colecoes
+  load_and_authorize_resource :class=>"Request", except: :create
 
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.all
+    @requests = Request.accessible_by(current_ability)
   end
 
   # GET /requests/1
@@ -80,13 +81,13 @@ class RequestsController < ApplicationController
   end
 
   def passengers
-    @request = Request.find(params[:request_id])
+    @request = Request.accessible_by(current_ability).find(params[:request_id])
     #@passengers = @request.passengers
     @request_passenger = @request.request_passengers.new
   end
 
   def passenger_add
-    @request = Request.find(params[:request_id])
+    @request = Request.accessible_by(current_ability).find(params[:request_id])
     @request_passenger = @request.request_passengers.new(params[:request_passenger_params])
 
     #@request_passenger = @request.request_passengers.new(request_passengers_params)
@@ -113,7 +114,14 @@ class RequestsController < ApplicationController
   end
 
   def requisitar
-    @request = Request.find(params[:request_id])
+    @request = Request.accessible_by(current_ability).find(params[:request_id])
+
+    if current_user.requisitante_transporte?
+      if @request.status != "EM ABERTO"
+        flash[:info] = "Ops.... algo estranho aconteceu."
+        redirect_to requests_url
+      end
+    end
     
     @flag = true
 
@@ -151,7 +159,7 @@ class RequestsController < ApplicationController
 
     end
 
-    if (@request.data_hora_partida <= (Time.now + 6.days))
+    if (@request.data_hora_partida >= (Time.now + 6.days))
       @request.status = "AGUARDANDO LIBERACAO PELA USEGET"
       @request.data_aguardando_useget = Time.now
     end
@@ -206,10 +214,31 @@ class RequestsController < ApplicationController
 
   end
 
+  def cancelar
+    @request = Request.accessible_by(current_ability).find(params[:request_id])
+  end
+
+  def salvar_cancelamento
+    @request = Request.accessible_by(current_ability).find(params[:request_id])
+
+    respond_to do |format|
+      if @request.update(request_params)
+        flash[:success] = @@msgs
+        format.html { redirect_to @request, notice: 'Request was successfully updated.' }
+        format.json { render :show, status: :ok, location: @request }
+      else
+        flash[:danger] = @@msge
+        format.html { render :cancelar }
+        format.json { render json: @request.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
-      @request = Request.find(params[:id])
+      @request = Request.accessible_by(current_ability).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -223,6 +252,7 @@ class RequestsController < ApplicationController
                                       :data_finalizada, :user_data_finalizada_id,
                                       :data_cancelada, :user_data_cancelada_id,
                                       :motivo_cancelamento,
+                                      :hp, :mp, :hv, :mv,
                                       request_passengers_attributes: [:id, :passenger_id, :request_id, :passenger_nome])
       
     end

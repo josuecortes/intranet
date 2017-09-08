@@ -1,0 +1,28 @@
+<% content_for :titulo do %>
+  Requisições
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Cancelar Requisição
+<% end %>
+
+<%= simple_form_for(@request, :url=>request_salvar_cancelamento_path, method: :put) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+   
+    <%= f.input :motivo_cancelamento, :label=>"Motivo do Cancelamento" %>
+
+    <%= f.input :user_cancelada_id, as: :hidden, :input_html=>{:value=>current_user.id} %>
+
+    <%= f.input :status, as: :hidden, :input_html=>{:value=>"CANCELADA"} %>
+
+    <%= f.input :data_cancelada, as: :hidden, :input_html=>{:value=>Time.now} %>
+   
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', requests_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

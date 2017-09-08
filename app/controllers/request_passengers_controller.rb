@@ -5,8 +5,16 @@ class RequestPassengersController < ApplicationController
   # GET /request_passengers.json
   def index
     @request = Request.find(params[:request_id])
+    if current_user.requisitante_transporte?
+      if @request.status != "EM ABERTO"
+        flash[:info] = "Você não pode adicionar passageiros a requisição atual."
+        redirect_to requests_url
+      end
+    end
+
     @request_passengers = @request.request_passengers
     @request_passenger = @request.request_passengers.new
+    
   end
 
   # GET /request_passengers/1
@@ -27,6 +35,12 @@ class RequestPassengersController < ApplicationController
   # POST /request_passengers.json
   def create
     @request = Request.find(params[:request_id])
+    if current_user.requisitante_transporte?
+      if @request.status != "EM ABERTO"
+        flash[:info] = "Você não pode adicionar passageiros a requisição atual."
+        redirect_to requests_url
+      end
+    end
     @request_passengers = @request.request_passengers
     @request_passenger = RequestPassenger.new(request_passenger_params)
 
@@ -68,7 +82,12 @@ class RequestPassengersController < ApplicationController
   # DELETE /request_passengers/1
   # DELETE /request_passengers/1.json
   def destroy
-    
+    if current_user.requisitante_transporte?
+      if @request.status != "EM ABERTO"
+        flash[:info] = "Você não pode adicionar passageiros a requisição atual."
+        redirect_to requests_url
+      end
+    end
     if @request_passenger.destroy
       respond_to do |format|
         flash[:success] = 'Passageiro removido com sucesso.'

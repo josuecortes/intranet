@@ -23,5 +23,5 @@
  *= require buttons.dataTables.min
  *= require jquery.dataTables.min
  *= require bootstrap-timepicker
-  *= require_self
+ *= require_self
  */
