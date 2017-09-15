@@ -2,17 +2,38 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :nome %>
-    <%= f.input :cep %>
-    <%= f.input :municipio, collection: @lista_municipios, as: :select, :include_blank => true %>
-    <%= f.input :bairro %>
-    <%= f.input :logradouro %>
-    <%= f.input :numero %>
-    <%= f.input :descricao %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :nome %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :municipio, collection: @lista_municipios, as: :select, :include_blank => true %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :cep %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.input :bairro %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :logradouro %>
+      </div>
+      <div class="col-md-2">
+        <%= f.input :numero %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :descricao %>
+      </div>
+    </div>
+    
     <%= f.input :tipo, :as => :hidden, :input_html => {value: "DESLOCAMENTO URBANO"} %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions" align="center">
+    <%= f.button :submit, 'Salvar', :class => 'btn btn-primary' %>
+    <%= link_to 'Voltar', destinies_path, :class=>'btn btn-default' %>
   </div>
 <% end %>

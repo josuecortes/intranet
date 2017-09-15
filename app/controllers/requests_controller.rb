@@ -7,6 +7,9 @@ class RequestsController < ApplicationController
   # GET /requests.json
   def index
     @requests = Request.accessible_by(current_ability)
+
+    
+
   end
 
   # GET /requests/1
@@ -134,9 +137,12 @@ class RequestsController < ApplicationController
       @flag = false
     end
     
-    if (@request.data_hora_partida >= Time.now) and (@request.data_hora_partida <= (Time.now + 1.hour))
-      @danger = @danger + "Você não pode requisitar pra menos de 1 hora <br>"
-      @flag = false
+
+    if current_user.requisitante_transporte?
+      if (@request.data_hora_partida >= Time.now) and (@request.data_hora_partida <= (Time.now + 1.hour))
+        @danger = @danger + "Você não pode requisitar pra menos de 1 hora <br>"
+        @flag = false
+      end
     end
 
     if @request.tipo == "VIAGEM"
@@ -155,13 +161,15 @@ class RequestsController < ApplicationController
         @info = @info + "Esta requisição é URGENTE e está fora do prazo de 6 dias, será submetida a avaliação pela CAD... <br>"
         @request.status = "AGUARDANDO LIBERACAO PELA CAD"
         @request.data_aguardando_cad = Time.now
+        @request.user_aguardando_cad_id = current_user.id
       end
 
     end
 
     if (@request.data_hora_partida >= (Time.now + 6.days))
       @request.status = "AGUARDANDO LIBERACAO PELA USEGET"
-      @request.data_aguardando_useget = Time.now
+      @request.data_aguardando_useget = DateTime.now
+      @request.user_aguardando_useget_id = current_user.id
     end
 
     if @request.passengers.count == 0
@@ -235,6 +243,38 @@ class RequestsController < ApplicationController
 
   end
 
+  def cad_aprovar
+    @request = Request.accessible_by(current_ability).find(params[:request_id])
+
+    @request.status = "AGUARDANDO LIBERACAO PELA USEGET"
+    @request.data_aguardando_useget = DateTime.now
+    @request.user_aguardando_useget_id = current_user.id
+
+    if @request.save
+      flash[:success] = "Requisição Enviada a USEGET"
+    else
+      flash[:danger] = "Algo estranho ocorreu! Tente novamente."
+    end
+
+    redirect_to requests_url
+  end
+
+  def useget_aprovar
+    @request = Request.accessible_by(current_ability).find(params[:request_id])
+
+    @request.status = "APROVADA"
+    @request.data_aprovada = DateTime.now
+    @request.user_aprovada_id = current_user.id
+
+    if @request.save
+      flash[:success] = "Requisição Aprovada pela USEGET"
+    else
+      flash[:danger] = "Algo estranho ocorreu! Tente novamente."
+    end
+
+    redirect_to requests_url
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
@@ -247,12 +287,11 @@ class RequestsController < ApplicationController
                                       :hora_volta, :status, :user_id,
                                       :data_aguardando_cad, :user_aguardando_cad_id,
                                       :data_aguardando_useget, :user_aguardando_useget_id,
-                                      :data_aprovada, :user_data_aprovada_id,
-                                      :data_em_andamento, :user_data_em_andamento_id,
-                                      :data_finalizada, :user_data_finalizada_id,
-                                      :data_cancelada, :user_data_cancelada_id,
+                                      :data_aprovada, :user_aprovada_id,
+                                      :data_em_andamento, :user_em_andamento_id,
+                                      :data_finalizada, :user_finalizada_id,
+                                      :data_cancelada, :user_cancelada_id,
                                       :motivo_cancelamento,
-                                      :hp, :mp, :hv, :mv,
                                       request_passengers_attributes: [:id, :passenger_id, :request_id, :passenger_nome])
       
     end

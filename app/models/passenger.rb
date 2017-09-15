@@ -1,5 +1,5 @@
 class Passenger < ActiveRecord::Base
-	has_many :request_passengers
+	has_many :request_passengers, dependent: :restrict_with_error
 	has_many :requests, through: :request_passengers
 
 	validates_presence_of :nome, :cpf, :tipo

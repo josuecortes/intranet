@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831194134) do
+ActiveRecord::Schema.define(version: 20170911192739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,17 +326,17 @@ ActiveRecord::Schema.define(version: 20170831194134) do
     t.datetime "data_hora_volta"
     t.string   "hora_partida"
     t.string   "hora_volta"
-    t.time     "data_aguardando_cad"
+    t.datetime "data_aguardando_cad"
     t.integer  "user_aguardando_cad_id"
-    t.time     "data_aguardando_useget"
+    t.datetime "data_aguardando_useget"
     t.integer  "user_aguardando_useget_id"
-    t.time     "data_aprovada"
+    t.datetime "data_aprovada"
     t.integer  "user_aprovada_id"
-    t.time     "data_em_andamento"
-    t.integer  "user_data_em_andamento_id"
-    t.time     "data_finalizada"
+    t.datetime "data_em_andamento"
+    t.integer  "user_em_andamento_id"
+    t.datetime "data_finalizada"
     t.integer  "user_finalizada_id"
-    t.time     "data_cancelada"
+    t.datetime "data_cancelada"
     t.integer  "user_cancelada_id"
     t.text     "motivo_cancelamento"
   end

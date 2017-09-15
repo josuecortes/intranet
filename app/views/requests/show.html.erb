@@ -56,16 +56,57 @@
     <%= @request.data_volta.to_s_br %>
   </p>
 
-  <p>
-    <strong>Hora volta:</strong>
-    <%= @request.hora_volta %>
-  </p>
-
 <% end %>
 
 <p>
-  <strong>Status:</strong>
-  <%= @request.status %>
+  <strong>Hora volta:</strong>
+  <%= @request.hora_volta %>
+</p>
+
+<p>
+  <strong>STATUS ATUAL:</strong>
+  <%= status_transporte(@request.status) %>
+</p>
+
+<% if @request.status == "CANCELADA" %>
+  <p>
+    <strong>MOTIVO</strong>
+    <%= @request.motivo_cancelamento %>
+  </p>
+<% end %>
+
+<p>
+  <strong>HISTORICO:</strong><br/>
+  <% if !@request.data_aguardando_cad.blank? %> 
+    &nbsp;&nbsp;<strong>ENVIADO A CAD:</strong> <%= @request.data_aguardando_cad.to_s_br %> <strong>USUARIO:</strong>: <%= @request.user_aguardando_cad.name %> 
+    <br/>
+  <% end %>
+
+  <% if !@request.data_aguardando_useget.blank? %> 
+    &nbsp;&nbsp;<strong>ENVIADO A USEGET:</strong> <%= @request.data_aguardando_useget.to_s_br %> <strong>USUARIO:</strong>: <%= @request.user_aguardando_useget.name %> 
+    <br/>
+  <% end %>
+
+  <% if !@request.data_aprovada.blank? %> 
+    &nbsp;&nbsp;<strong>APROVADA EM:</strong> <%= @request.data_aprovada.to_s_br %> <strong>USUARIO:</strong>: <%= @request.user_aprovada.name %> 
+    <br/>
+  <% end %>
+
+  <% if !@request.data_em_andamento.blank? %> 
+    &nbsp;&nbsp;<strong>EM TRANSITO:</strong> <%= @request.data_em_andamento.to_s_br %> <strong>USUARIO:</strong>: <%= @request.user_em_andamento.name %> 
+    <br/>
+  <% end %>
+
+  <% if !@request.data_finalizada.blank? %> 
+    &nbsp;&nbsp;<strong>FINALIZADA:</strong> <%= @request.data_finalizada.to_s_br %> <strong>USUARIO:</strong>: <%= @request.user_finalizada.name %>
+    <br/> 
+  <% end %>
+
+  <% if !@request.data_cancelada.blank? %> 
+    &nbsp;&nbsp;<strong>CANCELADA:</strong> <%= @request.data_cancelada.to_s_br %> <strong>USUARIO:</strong> <%= @request.user_cancelada.name %> 
+    <br/>
+  <% end %>
+
 </p>
 
 <p>
@@ -75,12 +116,48 @@
   <br/><strong>Última modificação: </strong><%= @request.updated_at.strftime("%d/%m/%Y %H:%M") %>
 </p>
 
+<hr/>
+
+<h4>Passageiros (<%= @request.passengers.count %>)</h4>
+<table class="table table-responsive">      
+  <thead>
+    <th>Nome</th>
+    <th>CPF</th>
+  </thead>
+  <tbody>
+    <% @request.passengers.each do |u| %>
+      <tr>
+        <td><%= u.nome %> </td> <td>&nbsp;<%= u.cpf %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr/>
+
+<h4>Destinos (<%= @request.destinies.count %>)</h4>
+<table class="table table-responsive">      
+  <thead>
+    <th>Nome</th>
+    <th>Endereço</th>
+  </thead>
+  <tbody>
+    <% @request.destinies.each do |d| %>
+      <tr>
+        <td><%= d.nome %> </td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+
 <%= link_to link_icone('voltar'), requests_path, :class=>'btn btn-default', :title=>"Voltar" %> 
 
-<% if can? :update, request %>    
+<% if can? :update, @request %>    
   <%= link_to link_icone('editar'), edit_request_path(@request), :class=>"btn btn-primary", :title=>"Editar" %> 
 <% end %>
-<% if can? :delete, request %>
+<% if can? :delete, @request %>
   <%= link_to link_icone('apagar'), request_path(@request), :class=>"btn btn-small btn-danger", method: :delete, data: { confirm: 'Apagar a requisição?' }, :title=>"Apagar" %> 
 <% end %>
 <% if can? :cancelar, @request %>
@@ -91,11 +168,32 @@
                   request_requisitar_url(@request), :class => 'btn btn-small btn-default', :title=>" Finalizar" %>
 <% end %>
 
+<% if can? :useget_aprovar, request %>                
+            <%= link_to ('Liberar Requisição'),
+                request_useget_aprovar_path(@request), :class => 'btn btn-small btn-success', :title=>"Liberar Requisição" %>
+          <% end %>
+
+<% if can? :cad_aprovar, request %>                
+            <%= link_to ('Liberar Requisição'),
+                request_cad_aprovar_path(@request), :class => 'btn btn-small btn-success', :title=>"Liberar Requisição" %>
+          <% end %>
+
 <% if current_user.cad_transporte? %>
+
+  <% if @request.status == "EM ABERTO" %>
+    
+    <%= link_to link_icone2('passageiros'," Passageiro(#{@request.request_passengers.count})"), request_request_passengers_path(@request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
+    <%= link_to link_icone2('destinos'," Destino(#{@request.request_destinies.count})"), request_request_destinies_path(@request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+  <% end %>
 
 <% end %>
 
 <% if current_user.useget_transporte? %>
+  <% if @request.status == "EM ABERTO" %>
+
+    <%= link_to link_icone2('passageiros'," Passageiro(#{@request.request_passengers.count})"), request_request_passengers_path(@request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
+    <%= link_to link_icone2('destinos'," Destino(#{@request.request_destinies.count})"), request_request_destinies_path(@request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+  <% end %>
 
 <% end %>
 
@@ -104,7 +202,7 @@
   <% if @request.status == "EM ABERTO" %>
     
     <%= link_to link_icone2('passageiros'," Passageiro(#{@request.request_passengers.count})"), request_request_passengers_path(@request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
-    <%= link_to link_icone2('destinos'," Destino(#{@request.request_destinies.count})"), request_request_passengers_path(@request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+    <%= link_to link_icone2('destinos'," Destino(#{@request.request_destinies.count})"), request_request_destinies_path(@request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
   <% end %>
 
 <% end %>

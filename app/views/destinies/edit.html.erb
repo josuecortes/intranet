@@ -1,6 +1,9 @@
-<h1>Editing Destiny</h1>
+<% content_for :titulo do %>
+  Destinos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Editar Destino
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @destiny %> |
-<%= link_to 'Back', destinies_path %>

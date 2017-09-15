@@ -8,12 +8,26 @@
 
 <hr/>
 
-<% if @request.tipo == "DESLOCAMENTO URBANO" %>
-  <%= render partial: "request_destinies/form_destino_urbano" %>
+<% if current_user.requisitante_transporte? %>
+  
+  <% if @request.destinies.count < 1 %>
+    <% if @request.tipo == "DESLOCAMENTO URBANO" %>
+      <%= render partial: "request_destinies/form_destino_urbano" %>
+    <% else %>
+      <%= render partial: "request_destinies/form_destino_viagem" %>
+    <% end %>
+  <% else %>
+    <%= link_to 'Voltar', requests_path, :class=>'btn btn-default' %>
+  <% end %>
 <% else %>
-  <%= render partial: "request_destinies/form_destino_viagem" %>
-<% end %>
+  
+  <% if @request.tipo == "DESLOCAMENTO URBANO" %>
+    <%= render partial: "request_destinies/form_destino_urbano" %>
+  <% else %>
+    <%= render partial: "request_destinies/form_destino_viagem" %>
+  <% end %>
 
+<% end %>
 <hr/>
 
 <h4>Destinos na Requisição (<%= @request.destinies.count %>)</h4>
@@ -31,7 +45,7 @@
     </tr>
   </thead>
 
-  <% @base_seed = Destiny.where(:nome=>"BASE SEED").first %>
+  <% @base_seed = Destiny.where(:nome=>"SEED").first %>
 
   <tbody>
     <% @request_destinies.all.each do |rd| %>

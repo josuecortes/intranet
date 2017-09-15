@@ -30,9 +30,7 @@ class ApplicationController < ActionController::Base
     end
 
   end
-
-
-    
+  
 
   @@msge = "A operação não pôde ser concluída..."
   @@msgs = "Operação concluída com sucesso!"

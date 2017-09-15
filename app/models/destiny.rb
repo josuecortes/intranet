@@ -16,8 +16,8 @@ class Destiny < ActiveRecord::Base
 	after_validation :full_street_address
 	
 	def full_street_address
-		if self.tipo == "DESLOCAMENTO URBANO"
-			"#{self.logradouro}, #{self.numero}, #{self.municipio}, AP"
+		if self.tipo == "DESLOCAMENTO URBANO" or self.tipo == "ESPECIAL"
+			"#{self.numero}, #{self.logradouro}, #{self.municipio}, AP"
 		else
 			"MUNICIPIO #{self.municipio}, AP"
 		end

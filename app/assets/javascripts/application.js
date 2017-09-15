@@ -38,7 +38,6 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR
 //= require bootstrap-timepicker
-// require notifyjs
 
 
 

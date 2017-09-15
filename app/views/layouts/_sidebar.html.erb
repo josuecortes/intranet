@@ -184,12 +184,46 @@
           </li>
         <% end %>  
 
+        <!-- TRANSPORTE -->
+        <% if current_user.requisitante_transporte? or current_user.cad_transporte? or current_user.useget_transporte? %>
+          
+          <li class="header">TRANSPORTE</li>
 
+            <% if current_user.useget_transporte? %>
+              <li class="treeview ">
+                <a href="#">
+                  <i class="fa fa-desktop"></i> <span>Administracao</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-down pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="/destinies"><i class="fa fa-map"></i> Destinos</a></li>
+                  <li><a href="/passengers"><i class="fa fa-users"></i> Passageiros</a></li>
+                  
+                </ul>
+              </li>
+            <% end %>
+
+          <li>
+            <a href="/requests">
+              <i class="fa fa-car"></i> <span>Requisições</span>
+            </a>
+          </li>
+
+        <% end %>
+
+        <!-- END TRANSPORTE -->
+
+        <li class="header">COMUNICAÇÃO</li>
+
+        <!--
         <li>
           <a href="/murals">
             <i class="fa fa-list"></i> <span>Mural</span>
           </a>
         </li>
+        -->
 
         <% if current_user.e_editor or !current_user.nao_admin %>
 
@@ -222,6 +256,7 @@
           </li>
 
         <% end %>
+
 
       </ul>
 

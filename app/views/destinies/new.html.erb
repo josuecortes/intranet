@@ -1,5 +1,10 @@
-<h1>New Destiny</h1>
+<% content_for :titulo do %>
+  Destinos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Novo Destino
+<% end %>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', destinies_path %>

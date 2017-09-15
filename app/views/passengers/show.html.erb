@@ -1,7 +1,13 @@
-<p id="notice"><%= notice %></p>
+<% content_for :titulo do %>
+  Passageiros
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Passageiro
+<% end %>
 
 <p>
-  <strong>Nome:</strong>
+  <strong>Nome Completo:</strong>
   <%= @passenger.nome %>
 </p>
 
@@ -12,11 +18,11 @@
 
 <p>
   <strong>Matricula:</strong>
-  <%= @passenger.matricula %>
+  <%= detalhes(@passenger.matricula) %>
 </p>
 
 <p>
-  <strong>Cpf:</strong>
+  <strong>CPF:</strong>
   <%= @passenger.cpf %>
 </p>
 
@@ -25,5 +31,11 @@
   <%= @passenger.respaldo %>
 </p>
 
-<%= link_to 'Edit', edit_passenger_path(@passenger) %> |
-<%= link_to 'Back', passengers_path %>
+<%= link_to link_icone('voltar'), passengers_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if can? :update, @passenger %>
+  <%= link_to link_icone('editar'), edit_passenger_path(@passenger), :class => 'btn btn-primary', :title=>"Editar" %>
+<% end %>          
+<% if can? :delete, @passenger %>
+  <%= link_to link_icone('apagar'), passenger_path(@passenger), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+<% end %>
+<%= link_to link_icone('novo'), new_passenger_path, :class=> 'btn btn-success', :title=>"Novo Passageiro" %>

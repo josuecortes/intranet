@@ -41,7 +41,7 @@
     <div class="col-md-3 viagem">
       <%= f.input :data_volta, :label=>"Data Retorno DD/MM/AAAA", :input_html=>{:class=>'datepicker',:readonly=>false,:value=>@request.data_volta.to_s_br},:as=>:string,:placeholder=>"Clique aqui para selecionar a data" %>
     </div>
-    <div class="col-md-3 viagem">
+    <div class="col-md-3">
       <%= f.input :hora_volta, :label=>"Horario Retorno HH:MM", as: :string, :input_html=>{:class=>"time"} %>
     </div>
 

@@ -362,4 +362,34 @@ module ApplicationHelper
 
 	end
 
+	def status_transporte(objeto)
+		html = ""
+		case objeto
+			when 'EM ABERTO'
+				html="<span class='label label-default'>EM ABERTO</span>"
+			when 'AGUARDANDO LIBERACAO PELA CAD'
+				html="<span class='label label-primary'>AGUARDANDO LIBERAÇÃO PELA CAD</span>"
+			when 'AGUARDANDO LIBERACAO PELA USEGET'
+				html="<span class='label label-info'>AGUARDANDO LIBERAÇÃO PELA USEGET</span>"
+			when 'APROVADA'
+				html="<span class='label label-success'>APROVADA</span>"
+			when 'EM ANDAMENTO'
+				html="<span class='label label-warning'>EM ANDAMENTO</span>"
+			when 'CANCELADA'
+				html="<span class='label label-danger'>CANCELADA</span>"	
+			when 'FINALIZADA'
+				html="<span class='label label-default'>FINALIZADA</span>"	
+		end
+		
+		return raw(html)
+	
+	end
+
+
+
+
+
+	
+
+
 end

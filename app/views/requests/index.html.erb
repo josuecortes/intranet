@@ -13,13 +13,14 @@
   <thead>
     <tr>
       <th>Codigo</th>
+      <th>Requisição</th>
       <th>Tipo</th>
       <th>Data partida</th>
       <th>Hora partida</th>
       <th>Data volta</th>
       <th>Hora volta</th>
       <th>Status</th>
-      <th>Usuarios</th>
+      <th>Usuario</th>
       <th></th>
     </tr>
   </thead>
@@ -30,19 +31,20 @@
         <td><%= "#{request.created_at.year}/#{request.id}" %></td>
         <td>
           <% if request.urgente == true %>
-            URGENTE - <%= request.tipo %>
+            URGENTE
           <% else %>
-            NORMAL - <%= request.tipo %>
+            NORMAL
           <% end %> 
         </td>
+        <td><%= request.tipo %></td>
         <td><%= request.data_partida.to_s_br %></td>
         <td><%= request.hora_partida %></td>
         <td><%= detalhes(request.data_volta.to_s_br) %></td>
         <td><%= request.hora_volta.blank? ? "Nada Cadastrado" : request.hora_volta %></td>
-        <td><%= request.status %></td>
+        <td><%= status_transporte(request.status) %></td>
         <td><%= request.user.name %></td>
         <td>
-
+          
           <%= link_to link_icone('detalhes'),
                     request_path(request), :class => 'btn btn-small btn-default', :title=>"Detalhes" %>
 
@@ -64,6 +66,16 @@
                 request_requisitar_path(request), :class => 'btn btn-small btn-default', :title=>"Requisitar" %>
           <% end %>
 
+          <% if can? :cad_aprovar, request %>                
+            <%= link_to ('Liberar Requisição'),
+                request_cad_aprovar_path(request), :class => 'btn btn-small btn-success', :title=>"Liberar Requisição" %>
+          <% end %>
+
+          <% if can? :useget_aprovar, request %>                
+            <%= link_to ('Liberar Requisição'),
+                request_useget_aprovar_path(request), :class => 'btn btn-small btn-success', :title=>"Liberar Requisição" %>
+          <% end %>
+
          <% if current_user.requisitante_transporte? %>
           
             <% if request.status == "EM ABERTO" %>
@@ -76,10 +88,21 @@
           <% end %>
 
           <% if current_user.useget_transporte? %>
+            <% if request.status == "EM ABERTO" %>
 
+              <%= link_to link_icone2('passageiros'," Passageiro(#{request.request_passengers.count})"), request_request_passengers_path(request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
+
+              <%= link_to link_icone2('destinos'," Destino(#{request.request_destinies.count})"), request_request_destinies_path(request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+            <% end %>
           <% end %>
 
           <% if current_user.cad_transporte? %>
+            <% if request.status == "EM ABERTO" %>
+
+              <%= link_to link_icone2('passageiros'," Passageiro(#{request.request_passengers.count})"), request_request_passengers_path(request), :class=> 'btn btn-small btn-success', :title=>"Passageiros" %>
+
+              <%= link_to link_icone2('destinos'," Destino(#{request.request_destinies.count})"), request_request_destinies_path(request), :class=> 'btn btn-small btn-success', :title=>"Destinos" %>
+            <% end %>
 
           <% end %>
 

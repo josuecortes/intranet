@@ -1,5 +1,10 @@
-<p id="notice"><%= notice %></p>
+<% content_for :titulo do %>
+  Destinos
+<% end %>
 
+<% content_for :sub_titulo do %>
+  Detalhes do Destino
+<% end %>
 <p>
   <strong>Nome:</strong>
   <%= @destiny.nome %>
@@ -36,7 +41,14 @@
 </p>
 
 <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@destiny.latitude},#{@destiny.longitude}&markers=#{@destiny.latitude},#{@destiny.longitude}&zoom=7&size=640x400&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
-              class: 'img-fluid img-rounded', alt: "#{@destiny.nome} on the map"%>
+              class: 'img img-responsive img-fluid img-rounded', alt: "#{@destiny.nome} on the map"%>
+<br/>
 
-<%= link_to 'Edit', edit_destiny_path(@destiny) %> |
-<%= link_to 'Back', destinies_path %>
+<%= link_to link_icone('voltar'), destinies_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if can? :update, @destiny %>
+  <%= link_to link_icone('editar'), edit_destiny_path(@destiny), :class => 'btn btn-primary', :title=>"Editar" %>
+<% end %>          
+<% if can? :delete, @destiny %>
+  <%= link_to link_icone('apagar'), destiny_path(@destiny), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+<% end %>
+<%= link_to link_icone('novo'), new_destiny_path, :class=> 'btn btn-success', :title=>"Novo Passageiro" %>

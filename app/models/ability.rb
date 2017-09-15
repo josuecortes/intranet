@@ -99,19 +99,90 @@ class Ability
       can :manage, Mural, :user_id => user.id
     end
 
+    if user.roles.include?PORTARIA
+      can :manage, Visitante
+      can :manage, Visitum
+    end
+
+    ############################  TRANSPORTE #########################################################
+
+
+    ############################  CAD ########################################    
     if user.roles.include?CAD_TRANSPORTE
-      can :manage, Visitante
-      can :manage, Visitum
+
+      can :read, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :update, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :delete, Request, { :user_id => user.id, :status => "EM ABERTO" }
+
+      can :read, Request, { :status => "AGUARDANDO LIBERACAO PELA CAD" }
+      can :read, Request, { :status => "AGUARDANDO LIBERACAO PELA USEGET" }
+      can :read, Request, { :status => "APROVADA" }
+      can :read, Request, { :status => "EM ANDAMENTO" }
+      can :read, Request, { :status => "FINALIZADA" }
+      can :read, Request, { :status => "CANCELADA" }
+
+      can :create, Request
+      can :requisitar, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :cancelar, Request do |r|
+        Time.now < r.data_hora_partida and
+        r.status != 'EM ABERTO' and
+        r.status != 'FINALIZADA' and
+        r.status != 'CANCELADA'         
+      end
+      can :cad_aprovar, Request do |r|
+        Time.now < r.data_hora_partida and
+        r.status == 'AGUARDANDO LIBERACAO PELA CAD'
+      end
+
+      #can :read, Request, :status <> "EM ABERTO"
+      can :manage, Passenger
+      can :manage, Destiny, {:tipo => "DESLOCAMENTO URBANO"}
+      can :read, Destiny, {:tipo => "ESPECIAL", :tipo => "VIAGEM"}
+
     end
 
+
+    ############################  USEGET ########################################
     if user.roles.include?USEGET_TRANSPORTE
-      can :manage, Visitante
-      can :manage, Visitum
+      
+      can :read, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :update, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :delete, Request, { :user_id => user.id, :status => "EM ABERTO" }
+
+      can :read, Request, { :status => "AGUARDANDO LIBERACAO PELA CAD" }
+      can :read, Request, { :status => "AGUARDANDO LIBERACAO PELA USEGET" }
+      can :read, Request, { :status => "APROVADA" }
+      can :read, Request, { :status => "EM ANDAMENTO" }
+      can :read, Request, { :status => "FINALIZADA" }
+      can :read, Request, { :status => "CANCELADA" }
+
+      can :create, Request
+      can :requisitar, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :cancelar, Request do |r|
+        Time.now < r.data_hora_partida and
+        r.status != 'EM ABERTO' and
+        r.status != 'FINALIZADA' and
+        r.status != 'CANCELADA'         
+      end
+      can :useget_aprovar, Request do |r|
+        Time.now < r.data_hora_partida and
+        r.status == 'AGUARDANDO LIBERACAO PELA USEGET'
+      end
+
+      can :manage, Passenger
+      can :manage, Destiny, {:tipo => "DESLOCAMENTO URBANO"}
+      can :read, Destiny, {:tipo => "ESPECIAL", :tipo => "VIAGEM"}
+
+
     end
 
+
+    ############################  REQUISITANTE ########################################
     if user.roles.include?REQUISITANTE_TRANSPORTE
 
-      can :manage, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :read, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :update, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      can :delete, Request, { :user_id => user.id, :status => "EM ABERTO" }
       can :create, Request
       can :requisitar, Request, { :user_id => user.id, :status => "EM ABERTO" }
       can :read, Request, { :user_id => user.id  }
@@ -126,15 +197,15 @@ class Ability
         r.status != 'FINALIZADA' and
         r.status != 'CANCELADA'         
       end
+
+      can [:create, :read], Passenger
+      can [:create, :read], Destiny, {:tipo => "DESLOCAMENTO URBANO"}
        
       #cannot :request_destinies, Request.where("user_id = ? and status != ?", user.id,"EM ABERTO")
 
     end
 
-    if user.roles.include?PORTARIA
-      can :manage, Visitante
-      can :manage, Visitum
-    end
+    
 
     
 

@@ -1,10 +1,11 @@
 class DestiniesController < ApplicationController
   before_action :set_destiny, only: [:show, :edit, :update, :destroy]
   before_filter :colecoes
+  load_and_authorize_resource :class=>"Destiny", except: :create
   # GET /destinies
   # GET /destinies.json
   def index
-    @destinies = Destiny.all
+    @destinies = Destiny.accessible_by(current_ability)
   end
 
   # GET /destinies/1
@@ -73,7 +74,7 @@ class DestiniesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_destiny
-      @destiny = Destiny.find(params[:id])
+      @destiny = Destiny.accessible_by(current_ability).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -82,7 +83,11 @@ class DestiniesController < ApplicationController
     end
 
     def colecoes
-      @lista_municipios = [ 'AMAPA',
+      @lista_municipios = [ 'MACAPA',
+                            'SANTANA',
+                          ] 
+
+      @lista_municipios_old = [ 'AMAPA',
                             'CALCOENE',
                             'CUTIAS',
                             'FERREIRA GOMES',
@@ -98,7 +103,7 @@ class DestiniesController < ApplicationController
                             'SERRA DO NAVIO',
                             'TARTARUGALZINHO',
                             'VITORIA DO JARI'
-                          ] 
+                          ]                     
 
     end
 end

@@ -1,10 +1,11 @@
 class PassengersController < ApplicationController
   before_action :set_passenger, only: [:show, :edit, :update, :destroy]
   before_filter :colecoes
+  load_and_authorize_resource :class=>"Passenger", except: :create
   # GET /passengers
   # GET /passengers.json
   def index
-    @passengers = Passenger.all
+    @passengers = Passenger.accessible_by(current_ability)
   end
 
   # GET /passengers/1
@@ -73,7 +74,7 @@ class PassengersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_passenger
-      @passenger = Passenger.find(params[:id])
+      @passenger = Passenger.accessible_by(current_ability).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

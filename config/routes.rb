@@ -18,7 +18,11 @@ Rails.application.routes.draw do
 
     end
 
-    get :requisitar
+    get :requisitar # FAZER O PEDIDO DE FATO...
+
+    get :cad_aprovar # QUANDO CHEGA NA CAD ELA PODE APROVAR OU NAO
+
+    get :useget_aprovar # QUANDO A USEGET APROVA A REQUISIÇÃO
 
     get :cancelar
 

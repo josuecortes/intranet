@@ -59,3 +59,5 @@ Destiny.find_or_create_by(:nome=>"SANTANA", :municipio => "SANTANA", :tipo=>"VIA
 Destiny.find_or_create_by(:nome=>"SERRA DO NAVIO", :municipio => "SERRA DO NAVIO", :tipo=>"VIAGEM")
 Destiny.find_or_create_by(:nome=>"TARTARUGALZINHO", :municipio => "TARTARUGALZINHO", :tipo=>"VIAGEM")
 Destiny.find_or_create_by(:nome=>"VITORIA DO JARI", :municipio => "VITORIA DO JARI", :tipo=>"VIAGEM")
+
+Destiny.find_or_create_by(:nome=>"SEED", :municipio => "MACAPA", :tipo=>"ESPECIAL", :bairro=>"CENTRO", :logradouro=>"av fab", :numero=>"1537")
