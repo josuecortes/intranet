@@ -180,7 +180,7 @@ class Ability
     ############################  REQUISITANTE ########################################
     if user.roles.include?REQUISITANTE_TRANSPORTE
 
-      can :read, Request, { :user_id => user.id, :status => "EM ABERTO" }
+      #can :read, Request, { :user_id => user.id, :status => "EM ABERTO" }
       can :update, Request, { :user_id => user.id, :status => "EM ABERTO" }
       can :delete, Request, { :user_id => user.id, :status => "EM ABERTO" }
       can :create, Request
