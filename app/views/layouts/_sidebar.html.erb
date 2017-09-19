@@ -184,30 +184,37 @@
           </li>
         <% end %>  
 
+
+
         <!-- TRANSPORTE -->
         <% if current_user.requisitante_transporte? or current_user.cad_transporte? or current_user.useget_transporte? %>
           
           <li class="header">TRANSPORTE</li>
 
-            <% if current_user.useget_transporte? %>
-              <li class="treeview ">
-                <a href="#">
-                  <i class="fa fa-desktop"></i> <span>Administracao</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-down pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="/destinies"><i class="fa fa-map"></i> Destinos</a></li>
-                  <li><a href="/passengers"><i class="fa fa-users"></i> Passageiros</a></li>
-                  
-                </ul>
-              </li>
-            <% end %>
+          <% if current_user.useget_transporte? %>
+            <li class="treeview ">
+              <a href="#">
+                <i class="fa fa-desktop"></i> <span>Administracao</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-down pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                
+                <li><a href="/patio/index"><i class="fa fa-dot-circle-o"></i> Patio</a></li>
+                <li><a href="/postos"><i class="fa fa-database"></i> Postos</a></li>
+                <li><a href="/motorista"><i class="fa fa-users"></i> Motoristas</a></li>
+                <li><a href="/veiculos"><i class="fa fa-cars"></i> Veiculos</a></li>
+                
+              </ul>
+            </li>
+          <% end %>
 
           <li>
             <a href="/requests">
               <i class="fa fa-car"></i> <span>Requisições</span>
+              <li><a href="/destinies"><i class="fa fa-map"></i> Destinos</a></li>
+              <li><a href="/passengers"><i class="fa fa-users"></i> Passageiros</a></li>
             </a>
           </li>
 
@@ -215,7 +222,10 @@
 
         <!-- END TRANSPORTE -->
 
-        <li class="header">COMUNICAÇÃO</li>
+
+
+
+        
 
         <!--
         <li>
@@ -226,6 +236,8 @@
         -->
 
         <% if current_user.e_editor or !current_user.nao_admin %>
+
+          <li class="header">COMUNICAÇÃO</li>
 
           <li>
             <a href="/informativos">

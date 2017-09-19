@@ -1,5 +1,21 @@
 Rails.application.routes.draw do
   
+  get 'patio/index'
+
+  get 'patio/entrada'
+
+  get 'patio/saida'
+
+  resources :veiculos
+
+  resources :motorista
+
+  resources :postos do
+
+    get :criar_postos, :on => :collection
+
+  end
+
   resources :passengers
 
   resources :destinies
@@ -28,13 +44,13 @@ Rails.application.routes.draw do
 
     put :salvar_cancelamento
 
-    collection do
+    #collection do
 
       #get :cancelar, :on => :collection
 
       #put :salvar_cancelamento, :on => :collection
 
-    end
+    #end
     
   end
 

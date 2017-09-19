@@ -1,0 +1,53 @@
+<%= simple_form_for(@veiculo) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.input :tipo, :label=>"Tipo", collection: @lista_tipo_veiculos, as: :select, :include_blank => false %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :marca, :label=>"Marca" %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :modelo %>
+      </div>
+      <div class="col-md-1">
+        <%= f.input :ano, :input_html=>{:class=>'ano'} %>      
+      </div>
+      <div class="col-md-3">
+        <%= f.input :cor %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.input :placa, :input_html=>{:class=>'placa'} %>      
+      </div>
+      <div class="col-md-3">
+        <%= f.input :combustivel, :label=>"Tipo Combustivel", collection: @lista_tipo_combustivel, as: :select, :include_blank => false %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :validade_documento, :as=>:string,:label=>"Validade do Documento", required: true, :input_html=>{:class=>'data', :value=>(@veiculo.validade_documento.strftime("%d/%m/%Y") if @veiculo.validade_documento != nil)} %>
+      </div>
+      <div class="col-md-1">
+        <%= f.input :capacidade, collection: 1..48, as: :select, :include_blank => false %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :carga, :label=>"Carga?", collection: @lista_booleans, as: :select, :include_blank => false %>
+      </div>
+    </div>
+
+
+    <% if @veiculo.status.blank? %>
+      <%= f.input :status, :as=>:hidden, :input_html=>{:value=>"FORA"}%>
+    <% end %>  
+    
+  </div>
+
+  <div class="form-actions" align="center">
+    <%= f.button :submit, 'Salvar', :class => 'btn btn-primary' %>
+    <%= link_to 'Voltar', veiculos_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

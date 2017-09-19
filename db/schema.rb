@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911192739) do
+ActiveRecord::Schema.define(version: 20170919145731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +215,17 @@ ActiveRecord::Schema.define(version: 20170911192739) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "motorista", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "cnh"
+    t.string   "categoria"
+    t.date     "validade"
+    t.string   "contato"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "murals", force: :cascade do |t|
     t.text     "texto"
     t.integer  "user_id"
@@ -259,6 +270,16 @@ ActiveRecord::Schema.define(version: 20170911192739) do
     t.text     "respaldo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "postos", force: :cascade do |t|
+    t.string   "tipo"
+    t.integer  "kms_total"
+    t.integer  "kms_usado"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "codigo"
   end
 
   create_table "problemas", force: :cascade do |t|
@@ -397,6 +418,24 @@ ActiveRecord::Schema.define(version: 20170911192739) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "veiculos", force: :cascade do |t|
+    t.string   "tipo"
+    t.string   "marca"
+    t.string   "modelo"
+    t.string   "ano"
+    t.string   "cor"
+    t.string   "placa"
+    t.string   "combustivel"
+    t.date     "validade_documento"
+    t.integer  "capacidade"
+    t.boolean  "carga"
+    t.string   "status"
+    t.integer  "posto_id"
+    t.integer  "motorista_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
   create_table "visita", force: :cascade do |t|
     t.integer  "visitante_id"

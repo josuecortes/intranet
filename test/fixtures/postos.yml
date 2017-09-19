@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  codigo: MyString
+  tipo: MyString
+  kms_total: 1
+  kms_usado: 1
+  status: MyString
+
+two:
+  codigo: MyString
+  tipo: MyString
+  kms_total: 1
+  kms_usado: 1
+  status: MyString

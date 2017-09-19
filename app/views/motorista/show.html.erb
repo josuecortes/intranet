@@ -1,0 +1,46 @@
+<% content_for :titulo do %>
+  Motoristas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Motorista
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @motoristum.nome %>
+</p>
+
+<p>
+  <strong>Cnh:</strong>
+  <%= @motoristum.cnh %>
+</p>
+
+<p>
+  <strong>Categoria:</strong>
+  <%= @motoristum.categoria %>
+</p>
+
+<p>
+  <strong>Validade:</strong>
+  <%= @motoristum.validade.to_s_br %>
+</p>
+
+<p>
+  <strong>Contato:</strong>
+  <%= @motoristum.contato %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @motoristum.status %>
+</p>
+
+<%= link_to link_icone('voltar'), motorista_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if can? :update, @motoristum %>
+  <%= link_to link_icone('editar'), edit_motoristum_path(@motoristum), :class => 'btn btn-primary', :title=>"Editar" %>
+<% end %>          
+<% if can? :delete, @motoristum %>
+  <%= link_to link_icone('apagar'), motoristum_path(@motoristum), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+<% end %>
+<%= link_to link_icone('novo'), new_motoristum_path, :class=> 'btn btn-success', :title=>"Novo Motorista" %>

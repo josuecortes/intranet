@@ -1,0 +1,41 @@
+<%= simple_form_for(@motoristum) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :nome %>
+      </div>
+      <div class="col-md-2">
+        <%= f.input :cnh, :input_html=>{:class=>'cnh'} %>      
+      </div>
+      <div class="col-md-1">
+        <% @lista_categoria = ["A","B","C","D","E"] %>
+        <%= f.input :categoria, collection: @lista_categoria, as: :select, :include_blank => false %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :validade, :as=>:string,:label=>"Validade", required: true, :input_html=>{:class=>'data', :value=>(@motoristum.validade.strftime("%d/%m/%Y") if @motoristum.validade != nil)} %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :contato, :input_html=>{:class=>'phone_with_ddd'} %>      
+      </div>
+    </div>
+        
+    <%= 
+    #f.input :status 
+    %>
+    <% if @motoristum.status.blank? %>
+      <%= f.input :status, :as=>:hidden, :input_html=>{:value=>"LIVRE"}%>
+    <% end %>  
+
+  </div>
+
+  <div class="form-actions" align="center">
+    <%= f.button :submit, 'Salvar', :class => 'btn btn-primary' %>
+    <%= link_to 'Voltar', motorista_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

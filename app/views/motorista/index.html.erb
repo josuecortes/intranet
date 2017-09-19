@@ -1,0 +1,46 @@
+<% content_for :titulo do %>
+  Motoristas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  
+  Lista de Motoristas 
+  <%= link_to link_icone('novo'), new_motoristum_path, :class=> 'btn btn-success', :title=>"Novo Motorista" %>
+ 
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cnh</th>
+      <th>Categoria</th>
+      <th>Validade</th>
+      <th>Contato</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @motorista.each do |motoristum| %>
+      <tr>
+        <td><%= motoristum.nome %></td>
+        <td><%= motoristum.cnh %></td>
+        <td><%= motoristum.categoria %></td>
+        <td><%= motoristum.validade.to_s_br %></td>
+        <td><%= motoristum.contato %></td>
+        <td><%= motoristum.status %></td>
+        <td>  
+          <%= link_to link_icone('detalhes'), motoristum_path(motoristum), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <% if can? :update, Motoristum %>
+            <%= link_to link_icone('editar'), edit_motoristum_path(motoristum), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% end %>          
+          <% if can? :delete, Motoristum %>
+            <%= link_to link_icone('apagar'), motoristum_path(motoristum), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>  
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,81 @@
+<% content_for :titulo do %>
+  Veiculos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Veiculo
+<% end %>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @veiculo.tipo %>
+</p>
+
+<p>
+  <strong>Marca:</strong>
+  <%= @veiculo.marca %>
+</p>
+
+<p>
+  <strong>Modelo:</strong>
+  <%= @veiculo.modelo %>
+</p>
+
+<p>
+  <strong>Ano:</strong>
+  <%= @veiculo.ano %>
+</p>
+
+<p>
+  <strong>Cor:</strong>
+  <%= @veiculo.cor %>
+</p>
+
+<p>
+  <strong>Placa:</strong>
+  <%= @veiculo.placa %>
+</p>
+
+<p>
+  <strong>Combustivel:</strong>
+  <%= @veiculo.combustivel %>
+</p>
+
+<p>
+  <strong>Validade documento:</strong>
+  <%= @veiculo.validade_documento.to_s_br %>
+</p>
+
+<p>
+  <strong>Capacidade:</strong>
+  <%= @veiculo.capacidade %>
+</p>
+
+<p>
+  <strong>Carga:</strong>
+  <%= simnao(@veiculo.carga) %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @veiculo.status %>
+</p>
+
+<p>
+  <strong>Posto:</strong>
+  <%= @veiculo.posto_id %>
+</p>
+
+<p>
+  <strong>Motorista:</strong>
+  <%= @veiculo.motorista_id %>
+</p>
+
+<%= link_to link_icone('voltar'), veiculos_path, :class => 'btn btn-default', :title=>"Voltar" %>
+<% if can? :update, Veiculo %>
+  <%= link_to link_icone('editar'), edit_veiculo_path(@veiculo), :class => 'btn btn-primary', :title=>"Editar" %>
+<% end %>          
+<% if can? :delete, Veiculo %>
+  <%= link_to link_icone('apagar'), veiculo_path(@veiculo), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+<% end %>      
+<%= link_to link_icone('novo'), new_veiculo_path, :class=> 'btn btn-success', :title=>"Novo Veiculo" %>   

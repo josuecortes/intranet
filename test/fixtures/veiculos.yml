@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo: MyString
+  marca: MyString
+  modelo: MyString
+  ano: MyString
+  cor: MyString
+  placa: MyString
+  combustivel: MyString
+  validade_documento: 2017-09-18
+  capacidade: 1
+  carga: false
+  status: MyString
+  posto_id: 1
+  motorista_id: 1
+
+two:
+  tipo: MyString
+  marca: MyString
+  modelo: MyString
+  ano: MyString
+  cor: MyString
+  placa: MyString
+  combustivel: MyString
+  validade_documento: 2017-09-18
+  capacidade: 1
+  carga: false
+  status: MyString
+  posto_id: 1
+  motorista_id: 1

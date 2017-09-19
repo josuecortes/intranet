@@ -155,3 +155,34 @@ TIPOS DE PASSAGEIROS { [ESTADUAL] [FEDERAL] [COMISSIONADO] [CONTRATO] [ESTAGIO] 
 TIPOS DE USUARIOS DO TRANSPORTE
 
   [REQUISITANTE_TRANSPORTE] [CAD_TRANSPORTE] [USEGET_TRANSPORTE]
+
+
+
+
+rails g scaffold posto codigo:string tipo:string kms_total:integer kms_usado:integer status:string
+
+TIPO DE POSTO  { [KILOMETRAGEM] [] }
+
+STATUS DO POSTO { [LIVRE] [DISPONIVEL] [EM SERVICO] [EXPIRADO] }
+
+
+
+rails g scaffold motorista nome:string cnh:string categoria:string validade:date contato:string status:string
+
+STATUS DO MOTORISTA { [LIVRE] [EM VEICULO] }
+
+
+
+
+
+
+rails g scaffold veiculo tipo:string marca:string modelo:string ano:string cor:string placa:string combustivel:string validade_documento:date capacidade:integer carga:boolean status:string posto_id:integer motorista_id:integer
+
+TIPOS DE VEICULOS { [PICK-UP] [PASSEIO] [CAMINHAO] [MOTOCICLETA] [MINI VAN] [ONIBUS] }
+
+COMBUSTIVEIS { [GASOLINA] [ALCOOL] [DISEL] [GASOLINA/ALCOOL] }
+
+CAPACIDADE 1..48
+
+STATUS DO VEICULO { [FORA] [DISPONIVEL] [EM SERVICO] }
+

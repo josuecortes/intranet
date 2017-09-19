@@ -1,0 +1,42 @@
+<% content_for :titulo do %>
+  Postos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  
+  Lista de Postos
+  <%= link_to "CRIAR POSTOS", criar_postos_postos_path, :class=> 'btn btn-success', :title=>"Novos Postos" %>
+   
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Codigo</th>
+      <th>Tipo</th>
+      <th>Kms Total</th>
+      <th>Kms Usado</th>
+      <th>Status</th>
+      <th>Nº Serviços</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% cont = 0 %>
+
+  <tbody>
+    <% @postos.each do |posto| %>
+      <tr>
+        <td><%= cont %></td> 
+        <% cont = cont + 1 %>
+        <td><%= posto.codigo %></td>
+        <td><%= posto.tipo %></td>
+        <td><%= posto.kms_total %></td>
+        <td><%= posto.kms_usado %></td>
+        <td><%= posto.status %></td>
+        <td> aqui vai os serviços </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

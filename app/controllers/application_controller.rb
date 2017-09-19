@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource_or_scope)
     home_index_path
   end
-
+  
   protected
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to main_app.home_nao_autorizado_url

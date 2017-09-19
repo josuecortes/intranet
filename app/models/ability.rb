@@ -122,6 +122,7 @@ class Ability
       can :read, Request, { :status => "CANCELADA" }
 
       can :create, Request
+      
       can :requisitar, Request, { :user_id => user.id, :status => "EM ABERTO" }
       can :cancelar, Request do |r|
         Time.now < r.data_hora_partida and
@@ -138,6 +139,10 @@ class Ability
       can :manage, Passenger
       can :manage, Destiny, {:tipo => "DESLOCAMENTO URBANO"}
       can :read, Destiny, {:tipo => "ESPECIAL", :tipo => "VIAGEM"}
+
+      can [:create,:read,:update], Motoristum
+      can [:create,:read,:update], Veiculo
+      can [:create,:read,:update], Posto
 
     end
 
@@ -172,6 +177,10 @@ class Ability
       can :manage, Passenger
       can :manage, Destiny, {:tipo => "DESLOCAMENTO URBANO"}
       can :read, Destiny, {:tipo => "ESPECIAL", :tipo => "VIAGEM"}
+
+      can [:create,:read,:update], Motoristum
+      can [:create,:read,:update], Veiculo
+      can :read, Posto
 
 
     end

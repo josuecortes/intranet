@@ -1,0 +1,44 @@
+<% content_for :titulo do %>
+  Veiculos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  
+  Lista de Veiculos
+  <%= link_to link_icone('novo'), new_veiculo_path, :class=> 'btn btn-success', :title=>"Novo Veiculo" %>
+ 
+<% end %>
+
+<table id="tabela" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Modelo</th>
+      <th>Placa</th>
+      <th>Posto</th>
+      <th>Motorista</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @veiculos.each do |veiculo| %>
+      <tr>
+        <td><%= veiculo.modelo %></td>
+        <td><%= veiculo.placa %></td>
+        <td><%= veiculo.posto_id %></td>
+        <td><%= veiculo.motorista_id %></td>
+        <td><%= veiculo.status %></td>
+        <td>
+          <%= link_to link_icone('detalhes'), veiculo_path(veiculo), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <% if can? :update, Veiculo %>
+            <%= link_to link_icone('editar'), edit_veiculo_path(veiculo), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% end %>          
+          <% if can? :delete, Veiculo %>
+            <%= link_to link_icone('apagar'), veiculo_path(veiculo), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>          
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -67,8 +67,10 @@ $(document).ready(function() {
     };
 
     $('.time').mask(maskBehavior, spOptions);  
- 
-  
+
+  $('.placa').mask('AAA 0000');
+  $('.ano').mask('0000');
+  $('.cnh').mask('00000000000');
   $('.shorttime').mask('00:00');
   $('.date_time').mask('00/00/0000 00:00:00');
   $('.cep').mask('00000-000');

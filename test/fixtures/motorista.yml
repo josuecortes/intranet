@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  cnh: MyString
+  categoria: MyString
+  validade: 2017-09-18
+  contato: MyString
+  status: MyString
+
+two:
+  nome: MyString
+  cnh: MyString
+  categoria: MyString
+  validade: 2017-09-18
+  contato: MyString
+  status: MyString
